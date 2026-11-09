@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+._*
+
+# Office lock files
+~$*
+
+# Jekyll
+_site/
+.jekyll-cache/
+.sass-cache/
