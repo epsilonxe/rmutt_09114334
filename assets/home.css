@@ -283,9 +283,30 @@ var { font-style: italic; }
 .ws-2col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 /* ---------- info cards ---------- */
-.info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
-.info-card { padding: 28px; }
-.info-card h3 { margin: 26px 0 10px; }
+/* course info: segmented tabs (home.js); without JS the tablist stays hidden and panels stack */
+.tabs { padding: 22px 28px 28px; }
+.tablist { display: inline-flex; max-width: 100%; gap: 4px; padding: 4px; border-radius: 12px; background: var(--surface-2);
+  overflow-x: auto; scrollbar-width: none; }
+.tablist::-webkit-scrollbar { display: none; }
+.tablist[hidden] { display: none; }
+[role="tab"] { flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border: 0; border-radius: 9px;
+  background: transparent; color: var(--muted); font: 600 .92rem var(--head); cursor: pointer; white-space: nowrap;
+  transition: background .15s, color .15s, box-shadow .15s; }
+[role="tab"]:hover { color: var(--text); background: rgba(127,127,127,.10); }
+[role="tab"][aria-selected="true"] { background: var(--accent); color: var(--accent-ink); box-shadow: 0 2px 8px rgba(180,68,29,.30); }
+[role="tab"] .ic { width: 1.05em; height: 1.05em; }
+.tabpanel { padding-top: 6px; }
+.tabpanel + .tabpanel { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); }
+.panel-title { font-size: 1.15rem; margin: 0 0 6px; }
+.tabs.js-tabs .tabpanel { margin-top: 0; padding-top: 22px; border-top: 0; animation: panel-in .22s ease-out; }
+.tabs.js-tabs .panel-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tabpanel[hidden] { display: none; }
+.tabpanel:focus { outline: none; }
+.tabpanel:focus-visible { outline: 1px dashed var(--border-strong); outline-offset: 8px; border-radius: 6px; }
+@keyframes panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.panel-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; align-items: start; }
+.panel-grid > div > :first-child { margin-top: 0; }
+.sub { font-family: var(--head); font-weight: 600; font-size: 1rem; margin: 0 0 10px; }
 .table-scroll { overflow-x: auto; margin: 14px 0; border: 1px solid var(--border); border-radius: 10px; }
 .tbl { width: 100%; border-collapse: collapse; font-size: .92rem; }
 .tbl th, .tbl td { padding: 8px 14px; text-align: left; white-space: nowrap; border-bottom: 1px solid var(--border); }
@@ -324,7 +345,7 @@ var { font-style: italic; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1079px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 899px) { .info { grid-template-columns: minmax(0, 1fr); } .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 899px) { .panel-grid { grid-template-columns: minmax(0, 1fr); } .panel-grid > div + div { margin-top: 18px; } .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 699px) {
   .wrap { padding: 0 16px; }
   .grid, .ws-2col { grid-template-columns: minmax(0, 1fr); }
@@ -336,17 +357,21 @@ var { font-style: italic; }
   .facts { gap: 8px; }
   .facts div { padding: 10px 12px; }
   .section { padding-top: 48px; }
-  .card, .info-card { padding: 18px; }
+  .card, .tabs { padding: 18px; }
+  [role="tab"] { padding: 8px 12px; font-size: .86rem; }
   .ws-files { padding-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
-  .orb, .caret, .st-bar i::after, .page-pulse { animation: none !important; }
+  .orb, .caret, .st-bar i::after, .page-pulse, .tabpanel { animation: none !important; }
 }
 
 /* ---------- print ---------- */
 @media print {
   .topnav, .hero-stage, .orb, .hero::after, .cta, .theme-switch { display: none !important; }
+  .tablist { display: none !important; }
+  .tabpanel[hidden] { display: block !important; }
+  .tabs.js-tabs .panel-title { position: static; width: auto; height: auto; clip: auto; }
   .hero { background: none; color: #000; }
   .hero .facts div { border-color: #ccc; }
   .hero dd, .hero-desc, .hero-sub, .kicker, .facts dt { color: #000; }

@@ -20,6 +20,7 @@
   <symbol id="i-file" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M14 3H6v18h12V7zM14 3v4h4"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 13l2 2 4-4"/></g></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
 </svg>
 
@@ -234,69 +235,89 @@ Typesetting is an art.
   </div>
 </section>
 
-<!-- ============================================================ Schedule + Assessment -->
-<section class="section wrap info">
-  <div class="card info-card" id="schedule">
-    <p class="eyebrow">Schedule</p>
-    <h2>กำหนดการในชั้นเรียน</h2>
-    <p>เรียนทฤษฎีและปฏิบัติการที่ห้อง ST1905 คณะวิทยาศาสตร์และเทคโนโลยี หรือเรียนออนไลน์ผ่านระบบ MS-Teams หรือเป็นไปตามประกาศของมหาวิทยาลัย</p>
-    <div class="table-scroll">
-      <table class="tbl">
-        <thead><tr><th>Section</th><th>วัน</th><th>บรรยาย</th><th>ปฏิบัติการ</th><th>MS-Teams</th></tr></thead>
-        <tbody><tr><td>SEC 01 AM68111</td><td>จันทร์</td><td>13.00–15.00</td><td>15.00–17.00</td><td>TBA</td></tr></tbody>
-      </table>
-    </div>
-    <h3>การสอบ</h3>
-    <ul class="exams">
-      <li><span class="date"><b>25</b>ม.ค.</span><span><strong>สอบกลางภาค</strong><br>25 มกราคม 2570 เวลา 13.00–16.00</span></li>
-      <li><span class="date"><b>15</b>มี.ค.</span><span><strong>สอบปลายภาค</strong><br>15 มีนาคม 2570 เวลา 13.00–16.00</span></li>
-    </ul>
+<!-- ============================================================ Course info (tabs) -->
+<!-- Without JS the tab bar stays hidden and all three panels show stacked; assets/home.js turns it
+     into tabs. Panel ids (#schedule, #assessment, #references) are the nav-link targets. -->
+<section class="section wrap" id="info">
+  <div class="section-head">
+    <p class="eyebrow">Course info</p>
+    <h2>ข้อมูลรายวิชา</h2>
   </div>
-
-  <div class="card info-card" id="assessment">
-    <p class="eyebrow">Assessment</p>
-    <h2>การวัดผลการเรียน</h2>
-    <p>คะแนนเต็ม 100 คะแนน แบ่งออกเป็น</p>
-    <ul class="scores">
-      <li><span>การสอบกลางภาค</span><b>25%</b><i style="--w:25%"></i></li>
-      <li><span>การสอบปลายภาค</span><b>25%</b><i style="--w:25%"></i></li>
-      <li><span>งานที่ได้รับมอบหมาย</span><b>25%</b><i style="--w:25%"></i></li>
-      <li><span>โครงงาน</span><b>25%</b><i style="--w:25%"></i></li>
-    </ul>
-    <p class="callout">หากนักศึกษาเข้าเรียนน้อยกว่า 80% ของเวลาเรียนทั้งหมด หรือได้คะแนนรวมน้อยกว่า 50% ของคะแนนเต็ม จะไม่ผ่านในรายวิชานี้ และได้รับผลการเรียน F (เกรด 0.00)</p>
-    <p>นักศึกษาที่ผ่านเกณฑ์ดังกล่าว จะได้รับผลการเรียนตามเกณฑ์ของคะแนน t-score</p>
-    <div class="equation" role="math" aria-label="t equals 50 plus 10 times (x minus u) over s">
-      <var>t</var>&nbsp;=&nbsp;50&nbsp;+&nbsp;10<span class="frac"><span class="numer"><var>x</var> &minus; <var>u</var></span><span class="denom"><var>s</var></span></span>
+  <div class="card tabs">
+    <div class="tablist" role="tablist" aria-label="ข้อมูลรายวิชา" hidden>
+      <button type="button" role="tab" id="tab-schedule" aria-controls="schedule" aria-selected="true"><svg class="ic"><use href="#i-clock"/></svg>กำหนดการ</button>
+      <button type="button" role="tab" id="tab-assessment" aria-controls="assessment" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-check"/></svg>การวัดผล</button>
+      <button type="button" role="tab" id="tab-references" aria-controls="references" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-book"/></svg>เอกสารอ้างอิง</button>
     </div>
-    <p class="small">เมื่อ <var>x</var> คือคะแนนรวม <var>u</var> คือคะแนนเฉลี่ยของคะแนนรวม และ <var>s</var> คือส่วนเบี่ยงเบนมาตรฐานของคะแนนรวม</p>
-    <div class="table-scroll">
-      <table class="tbl grades">
-        <thead><tr><th>ผลการเรียน</th><th>เกรด</th><th>เกณฑ์ t-score</th></tr></thead>
-        <tbody>
-          <tr><td>A</td><td>4.00</td><td><var>t</var> ≥ 80</td></tr>
-          <tr><td>B+</td><td>3.50</td><td>75 ≤ <var>t</var> &lt; 80</td></tr>
-          <tr><td>B</td><td>3.00</td><td>70 ≤ <var>t</var> &lt; 75</td></tr>
-          <tr><td>C+</td><td>2.50</td><td>65 ≤ <var>t</var> &lt; 70</td></tr>
-          <tr><td>C</td><td>2.00</td><td>60 ≤ <var>t</var> &lt; 65</td></tr>
-          <tr><td>D+</td><td>1.50</td><td>55 ≤ <var>t</var> &lt; 60</td></tr>
-          <tr><td>D</td><td>1.00</td><td>50 ≤ <var>t</var> &lt; 55</td></tr>
-          <tr><td>F</td><td>0.00</td><td><var>t</var> &lt; 50</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
 
-<!-- ============================================================ References -->
-<section class="section wrap" id="references">
-  <div class="card">
-    <p class="eyebrow">References</p>
-    <h2>เอกสารอ้างอิง</h2>
-    <ol class="bib" lang="en">
-      <li>Frank Mittelbach et al. <i>The LaTeX Companion: Parts I &amp; II</i>. Addison-Wesley Professional, 2025.</li>
-      <li>George Grätzer. <i>Text and Math Into LaTeX</i>. Springer, 2024.</li>
-      <li>Leslie Lamport. <i>LaTeX: A Document Preparation System. User’s Guide and Reference Manual</i>. Addison-Wesley, 1994.</li>
-    </ol>
+    <div class="tabpanel" role="tabpanel" id="schedule" aria-labelledby="tab-schedule" tabindex="0">
+      <h3 class="panel-title">กำหนดการในชั้นเรียน</h3>
+      <div class="panel-grid">
+        <div>
+          <p>เรียนทฤษฎีและปฏิบัติการที่ห้อง ST1905 คณะวิทยาศาสตร์และเทคโนโลยี หรือเรียนออนไลน์ผ่านระบบ MS-Teams หรือเป็นไปตามประกาศของมหาวิทยาลัย</p>
+          <div class="table-scroll">
+            <table class="tbl">
+              <thead><tr><th>Section</th><th>วัน</th><th>บรรยาย</th><th>ปฏิบัติการ</th><th>MS-Teams</th></tr></thead>
+              <tbody><tr><td>SEC 01 AM68111</td><td>จันทร์</td><td>13.00–15.00</td><td>15.00–17.00</td><td>TBA</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h4 class="sub">การสอบ</h4>
+          <ul class="exams">
+            <li><span class="date"><b>25</b>ม.ค.</span><span><strong>สอบกลางภาค</strong><br>25 มกราคม 2570 เวลา 13.00–16.00</span></li>
+            <li><span class="date"><b>15</b>มี.ค.</span><span><strong>สอบปลายภาค</strong><br>15 มีนาคม 2570 เวลา 13.00–16.00</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="assessment" aria-labelledby="tab-assessment" tabindex="0">
+      <h3 class="panel-title">การวัดผลการเรียน</h3>
+      <div class="panel-grid">
+        <div>
+          <p>คะแนนเต็ม 100 คะแนน แบ่งออกเป็น</p>
+          <ul class="scores">
+            <li><span>การสอบกลางภาค</span><b>25%</b><i style="--w:25%"></i></li>
+            <li><span>การสอบปลายภาค</span><b>25%</b><i style="--w:25%"></i></li>
+            <li><span>งานที่ได้รับมอบหมาย</span><b>25%</b><i style="--w:25%"></i></li>
+            <li><span>โครงงาน</span><b>25%</b><i style="--w:25%"></i></li>
+          </ul>
+          <p class="callout">หากนักศึกษาเข้าเรียนน้อยกว่า 80% ของเวลาเรียนทั้งหมด หรือได้คะแนนรวมน้อยกว่า 50% ของคะแนนเต็ม จะไม่ผ่านในรายวิชานี้ และได้รับผลการเรียน F (เกรด 0.00)</p>
+        </div>
+        <div>
+          <p>นักศึกษาที่ผ่านเกณฑ์ดังกล่าว จะได้รับผลการเรียนตามเกณฑ์ของคะแนน t-score</p>
+          <div class="equation" role="math" aria-label="t equals 50 plus 10 times (x minus u) over s">
+            <var>t</var>&nbsp;=&nbsp;50&nbsp;+&nbsp;10<span class="frac"><span class="numer"><var>x</var> &minus; <var>u</var></span><span class="denom"><var>s</var></span></span>
+          </div>
+          <p class="small">เมื่อ <var>x</var> คือคะแนนรวม <var>u</var> คือคะแนนเฉลี่ยของคะแนนรวม และ <var>s</var> คือส่วนเบี่ยงเบนมาตรฐานของคะแนนรวม</p>
+          <div class="table-scroll">
+            <table class="tbl grades">
+              <thead><tr><th>ผลการเรียน</th><th>เกรด</th><th>เกณฑ์ t-score</th></tr></thead>
+              <tbody>
+                <tr><td>A</td><td>4.00</td><td><var>t</var> ≥ 80</td></tr>
+                <tr><td>B+</td><td>3.50</td><td>75 ≤ <var>t</var> &lt; 80</td></tr>
+                <tr><td>B</td><td>3.00</td><td>70 ≤ <var>t</var> &lt; 75</td></tr>
+                <tr><td>C+</td><td>2.50</td><td>65 ≤ <var>t</var> &lt; 70</td></tr>
+                <tr><td>C</td><td>2.00</td><td>60 ≤ <var>t</var> &lt; 65</td></tr>
+                <tr><td>D+</td><td>1.50</td><td>55 ≤ <var>t</var> &lt; 60</td></tr>
+                <tr><td>D</td><td>1.00</td><td>50 ≤ <var>t</var> &lt; 55</td></tr>
+                <tr><td>F</td><td>0.00</td><td><var>t</var> &lt; 50</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="references" aria-labelledby="tab-references" tabindex="0">
+      <h3 class="panel-title">เอกสารอ้างอิง</h3>
+      <ol class="bib" lang="en">
+        <li>Frank Mittelbach et al. <i>The LaTeX Companion: Parts I &amp; II</i>. Addison-Wesley Professional, 2025.</li>
+        <li>George Grätzer. <i>Text and Math Into LaTeX</i>. Springer, 2024.</li>
+        <li>Leslie Lamport. <i>LaTeX: A Document Preparation System. User’s Guide and Reference Manual</i>. Addison-Wesley, 1994.</li>
+      </ol>
+    </div>
   </div>
 </section>
 

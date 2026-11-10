@@ -2,7 +2,10 @@
    - theme switch in the top nav: the label shows the CURRENT mode (โหมดสว่าง / โหมดมืด); light by
      default, the choice is shared with the workshop pages (localStorage "workshop-theme") and the
      page <head> applies it before first paint
-   - nav highlight: marks the link of the section in view with aria-current                        */
+   - course info tabs (schedule / assessment / references): click, arrow keys, and nav links or
+     hashes to #schedule etc. open the matching tab; without JS the panels show stacked
+   - nav highlight: marks the link of the section (or active tab) in view with aria-current
+   - hero animation: see heroStage() below                                                        */
 (function () {
   "use strict";
   var KEY = "workshop-theme", root = document.documentElement;
@@ -32,20 +35,79 @@
   /* ---------- hero: source -> compile -> page ---------- */
   heroStage();
 
-  /* ---------- nav highlight ---------- */
-  if (!("IntersectionObserver" in window)) return;
-  var links = {};
+  /* nav links by target id, and which observed sections are in view (used by updateNav below) */
+  var links = {}, visible = {};
   document.querySelectorAll(".navlinks a[href^='#']").forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
-  var visible = {};
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
-    var current = null;
-    Object.keys(links).forEach(function (id) { if (!current && visible[id]) current = id; });
+
+  /* ---------- course info tabs ---------- */
+  var tabs = [].slice.call(document.querySelectorAll('.tabs [role="tab"]'));
+  var tabbox = tabs.length ? tabs[0].closest(".tabs") : null, info = document.getElementById("info");
+  var activeTab = tabs.length ? tabs[0].getAttribute("aria-controls") : null;
+  var isTab = function (id) { return tabs.some(function (t) { return t.getAttribute("aria-controls") === id; }); };
+  function activate(id, focus) {
+    if (!isTab(id)) return;
+    activeTab = id;
+    tabs.forEach(function (t) {
+      var on = t.getAttribute("aria-controls") === id;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      if (on && focus) t.focus();
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+    updateNav();
+  }
+  if (tabbox) {
+    tabbox.querySelector(".tablist").hidden = false;
+    tabbox.classList.add("js-tabs");
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { activate(t.getAttribute("aria-controls")); });
+      t.addEventListener("keydown", function (e) {
+        var j = e.key === "ArrowRight" ? (i + 1) % tabs.length : e.key === "ArrowLeft" ? (i - 1 + tabs.length) % tabs.length
+              : e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : -1;
+        if (j < 0) return;
+        e.preventDefault(); activate(tabs[j].getAttribute("aria-controls"), true);
+      });
+    });
+    /* a link or hash to #schedule / #assessment / #references opens that tab and scrolls to the card */
+    var openHash = function (smooth) {
+      var id = location.hash.slice(1);
+      if (!isTab(id)) return false;
+      activate(id);
+      if (!info) return true;
+      var go = function () { info.scrollIntoView({ behavior: smooth ? "smooth" : "auto" }); };
+      /* on first load, scroll after the browser's own fragment scroll (which targets the panel) */
+      if (document.readyState === "complete") go();
+      else window.addEventListener("load", function () { setTimeout(go, 0); });
+      return true;
+    };
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute("href").slice(1);
+      if (!isTab(id)) return;
+      e.preventDefault();
+      activate(id);
+      if (info) info.scrollIntoView({ behavior: "smooth" });
+      try { history.replaceState(null, "", "#" + id); } catch (err) {}
+    });
+    window.addEventListener("hashchange", function () { openHash(true); });
+    if (!openHash(false)) activate(activeTab);
+  }
+
+  /* ---------- nav highlight ---------- */
+  /* #topics highlights its link; while #info is in view, the link of the active tab is highlighted */
+  function updateNav() {
+    var current = visible.topics ? "topics" : visible.info ? activeTab : null;
     Object.keys(links).forEach(function (id) {
       if (id === current) links[id].setAttribute("aria-current", "true"); else links[id].removeAttribute("aria-current");
     });
+  }
+  if (!("IntersectionObserver" in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+    updateNav();
   }, { rootMargin: "-80px 0px -55% 0px" });
-  Object.keys(links).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  ["topics", "info"].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
 
   /* The hero stage types a LaTeX snippet, "compiles" it, builds the typeset page, holds, fades and
      moves to the next snippet. The HTML ships the final frame of snippet 1, which is what no-JS,
