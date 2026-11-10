@@ -37,20 +37,46 @@
 </nav>
 
 <header class="hero" id="top">
-  <pre class="hero-code" aria-hidden="true">\documentclass[a4paper]{article}
-\usepackage{amsmath, graphicx}
-\title{Professional Documents}
-\author{RMUTT 09114334}
-
-\begin{document}
-\maketitle
-\section{Introduction}
-Typesetting is an art.
-\begin{equation}
-  t = 50 + 10\,\frac{x-u}{s}
-\end{equation}
-\end{document}</pre>
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
   <div class="wrap hero-inner">
+    <!-- source -> compile -> page; prerendered final frame of snippet 1, animated by assets/home.js -->
+    <div class="hero-stage" id="hero-stage" aria-hidden="true">
+      <div class="editor">
+        <div class="ed-bar"><i></i><i></i><i></i><span class="ed-file">article.tex</span></div>
+        <div class="ed-code"><div class="ed-gutter">1
+2
+3
+4
+5
+6
+7
+8</div><pre class="ed-text"><span class="tk-cmd">\documentclass</span><span class="tk-br">{</span>article<span class="tk-br">}</span>
+<span class="tk-cmd">\title</span><span class="tk-br">{</span>Professional Documents<span class="tk-br">}</span>
+<span class="tk-cmd">\author</span><span class="tk-br">{</span>RMUTT 09114334<span class="tk-br">}</span>
+<span class="tk-cmd">\begin</span><span class="tk-br">{</span>document<span class="tk-br">}</span>
+<span class="tk-cmd">\maketitle</span>
+<span class="tk-cmd">\section</span><span class="tk-br">{</span>Introduction<span class="tk-br">}</span>
+Typesetting is an art.
+<span class="tk-cmd">\end</span><span class="tk-br">{</span>document<span class="tk-br">}</span><span class="caret"></span></pre></div>
+        <div class="ed-status ok"><span class="st-text">✓ article.pdf · 1 page</span><span class="st-bar"><i></i></span></div>
+      </div>
+      <div class="page built">
+        <div class="pe pg-title" style="--i:0">Professional Documents</div>
+        <div class="pe pg-author" style="--i:1">RMUTT 09114334</div>
+        <div class="pe pg-sec" style="--i:2"><b>1</b>Introduction</div>
+        <div class="pe" style="--i:3">Typesetting is an art.</div>
+        <div class="pe pg-line" style="--i:4"></div>
+        <div class="pe pg-line" style="--i:4"></div>
+        <div class="pe pg-line" style="--i:5"></div>
+        <div class="pe pg-line s" style="--i:5"></div>
+        <div class="pe pg-line" style="--i:6"></div>
+        <div class="pe pg-line" style="--i:6"></div>
+        <div class="pe pg-line s" style="--i:7"></div>
+        <div class="pe pg-num" style="--i:7">1</div>
+      </div>
+    </div>
+
     <p class="kicker">RMUTT · 09114334</p>
     <h1>ระบบการจัดเตรียมเอกสาร<wbr><span class="nowrap">อย่างมืออาชีพ</span></h1>
     <p class="hero-sub">Professional Document Preparation System</p>
