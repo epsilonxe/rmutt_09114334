@@ -1,0 +1,239 @@
+/* Course homepage (public/index.html), styled like a typeset LaTeX article.
+   Fonts (self-hosted, so the page renders on a local network without internet):
+   Latin Modern Roman (GUST Font License) for Latin text, Prompt 600 / Sarabun 300+600 (SIL OFL,
+   Thai subsets only) for Thai; each stack lists LM first, so Thai glyphs fall through to Sarabun.
+   Colours follow the workshop pages (labs/assets/workshop.css): terracotta accent, light by default,
+   [data-theme="dark"] on <html> set by home.js and shared with the workshops ("workshop-theme"). */
+
+/* ---------- fonts ---------- */
+@font-face { font-family: "LM Roman"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("fonts/lmroman10-regular.woff2") format("woff2"); }
+@font-face { font-family: "LM Roman"; font-style: italic; font-weight: 400; font-display: swap;
+  src: url("fonts/lmroman10-italic.woff2") format("woff2"); }
+@font-face { font-family: "LM Roman"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("fonts/lmroman10-bold.woff2") format("woff2"); }
+@font-face { font-family: "LM Roman Caps"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("fonts/lmromancaps10-regular.woff2") format("woff2"); }
+@font-face { font-family: "Sarabun Local"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("fonts/sarabun-300-thai.woff2") format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Sarabun Local"; font-style: italic; font-weight: 400; font-display: swap;
+  src: url("fonts/sarabun-300-thai.woff2") format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Sarabun Local"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("fonts/sarabun-600-thai.woff2") format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Prompt Local"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("fonts/prompt-600-thai.woff2") format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+
+/* ---------- tokens ---------- */
+:root {
+  --page: #eceae4;
+  --paper: #fbfaf7;
+  --text: #1b1a17;
+  --muted: #66625a;
+  --rule: #1b1a17;
+  --hair: #d9d5cc;
+  --accent: #b4441d;
+  --accent-soft: #f6e6dd;
+  --code-bg: #f1eee8;
+  --shadow: 0 1px 2px rgba(40,30,20,.06), 0 8px 28px rgba(40,30,20,.08);
+  --serif: "LM Roman", "Sarabun Local", "Sarabun", "Noto Serif Thai", "Latin Modern Roman", "Times New Roman", serif;
+  --head: "LM Roman", "Prompt Local", "Prompt", "Noto Sans Thai", serif;
+  --caps: "LM Roman Caps", "Sarabun Local", serif;
+  --mono: "Latin Modern Mono", "Fira Code", Menlo, Consolas, monospace;
+  --measure: 40rem;        /* text block */
+  --margin-col: 11rem;     /* margin notes */
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --page: #16181b;
+  --paper: #22252a;
+  --text: #e8e6e1;
+  --muted: #a7a39a;
+  --rule: #d8d4cc;
+  --hair: #3b3f46;
+  --accent: #f29268;
+  --accent-soft: #3a2a22;
+  --code-bg: #2d3137;
+  --shadow: 0 1px 2px rgba(0,0,0,.4);
+  color-scheme: dark;
+}
+
+/* ---------- base ---------- */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--page); color: var(--text);
+  font-family: var(--serif); font-size: 19px; line-height: 1.6;
+  font-kerning: normal; font-variant-ligatures: common-ligatures;
+}
+a { color: var(--accent); text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+p { margin: .6em 0; hyphens: auto; }
+code { font-family: var(--mono); font-size: .88em; background: var(--code-bg); padding: .05em .3em; border-radius: 3px; }
+var { font-style: italic; }
+.muted { color: var(--muted); }
+.num { font-variant-numeric: lining-nums tabular-nums; }
+
+/* the LaTeX logo, as \LaTeX draws it */
+.latex { white-space: nowrap; letter-spacing: 0; font-family: "LM Roman", serif; }
+.latex .a { font-size: .72em; vertical-align: .26em; margin: 0 -.15em 0 -.32em; }
+.latex .e { display: inline-block; vertical-align: -.22em; margin: 0 -.12em 0 -.17em; }
+
+/* ---------- the sheet ---------- */
+.sheet {
+  max-width: calc(var(--measure) + var(--margin-col) + 10rem);
+  margin: 2.5rem auto; padding: 1.4rem 5rem 2rem;
+  background: var(--paper); box-shadow: var(--shadow);
+}
+.running-head, .running-foot {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  font-family: var(--caps); font-size: .8rem; letter-spacing: .06em; color: var(--muted);
+}
+.running-head { border-bottom: .5px solid var(--hair); padding-bottom: .5rem; }
+.running-foot { border-top: .5px solid var(--hair); padding-top: .7rem; margin-top: 3rem; flex-wrap: wrap; }
+.running-foot a { color: inherit; }
+
+/* theme switch (added by home.js; the label shows the current mode) */
+.theme-switch {
+  font: inherit; letter-spacing: inherit; color: var(--muted); background: none; cursor: pointer;
+  border: .5px solid var(--hair); border-radius: 999px; padding: .15rem .7rem .15rem .5rem;
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.theme-switch:hover { color: var(--text); border-color: var(--muted); }
+.theme-switch .dot { width: .7rem; height: .7rem; border-radius: 50%; border: 1px solid currentColor;
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
+
+/* ---------- title block (\maketitle) ---------- */
+.title-block { text-align: center; padding: 3.2rem 0 1.6rem; }
+.kicker { font-family: var(--caps); letter-spacing: .12em; color: var(--accent); margin: 0 0 1rem; font-size: .95rem; }
+h1 { font-family: var(--head); font-weight: 700; font-size: 2.15rem; line-height: 1.35; margin: 0; }
+.subtitle { font-style: italic; font-size: 1.3rem; margin: .4rem 0 1.4rem; }
+.author { font-size: 1.1rem; margin: 0; }
+.affil { color: var(--muted); font-size: .95rem; margin: .1rem 0 0; }
+
+/* ---------- abstract ---------- */
+.abstract { max-width: calc(var(--measure) - 6rem); margin: 0 auto 2rem; font-size: .92rem; }
+.abstract-title { text-align: center; font-weight: 700; font-family: var(--head); margin: 0 0 .3rem; }
+.abstract p { text-align: justify; text-justify: inter-character; }
+.abstract p + p { text-indent: 1.5em; margin-top: 0; }
+
+/* ---------- table of contents ---------- */
+.contents { max-width: var(--measure); margin: 0 auto 1rem; }
+.contents-title { font-family: var(--head); font-weight: 700; font-size: 1.35rem; margin: 0 0 .4rem; }
+.contents ol { list-style: none; margin: 0; padding: 0; }
+.contents a { display: flex; align-items: baseline; gap: .6rem; color: var(--text); text-decoration: none; padding: .12rem 0; }
+.contents a:hover .t { color: var(--accent); }
+.contents .n { width: 1.6rem; font-weight: 700; }
+.contents .t { font-weight: 700; font-family: var(--head); }
+.contents .p { color: var(--muted); font-style: italic; }
+.lead { flex: 1; min-width: 1rem; border-bottom: 1.5px dotted var(--hair); transform: translateY(-.3em); }
+
+/* ---------- sections ---------- */
+main { max-width: calc(var(--measure) + var(--margin-col) + 2rem); margin: 0 auto; }
+main > section { max-width: var(--measure); margin-top: 3rem; scroll-margin-top: 1rem; }
+h2, h3 { font-family: var(--head); font-weight: 700; line-height: 1.35; }
+h2 { font-size: 1.45rem; margin: 0 0 .8rem; display: flex; gap: 1em; }
+h3 { font-size: 1.15rem; margin: 0; display: flex; gap: 1em; }
+.secnum { flex: none; font-variant-numeric: lining-nums; }
+.lede { color: var(--muted); }
+
+/* ---------- topics: text + margin notes ---------- */
+#topics { max-width: none; }
+#topics > h2, #topics > .lede { max-width: var(--measure); }
+.topic {
+  display: grid; grid-template-columns: minmax(0, var(--measure)) var(--margin-col);
+  column-gap: 2rem; margin-top: 1.9rem; scroll-margin-top: 1rem;
+}
+.topic > * { grid-column: 1; }
+.topic > h3 { grid-row: 1; }
+.topic > .margin {
+  grid-column: 2; grid-row: 1 / span 3; align-self: start;
+  display: flex; flex-direction: column; gap: .15rem;
+  font-size: .85rem; line-height: 1.45; padding-top: .25rem;
+  border-left: .5px solid var(--hair); padding-left: .8rem;
+}
+.topic > p { margin: .35rem 0 0; }
+.topic .note { font-size: .88rem; font-style: italic; color: var(--muted); }
+
+.workshops { list-style: none; margin: .7rem 0 0; padding: 0; border-top: .5px solid var(--hair); }
+.workshops li {
+  display: flex; align-items: baseline; flex-wrap: wrap; column-gap: .9rem; row-gap: 0;
+  padding: .45rem 0; border-bottom: .5px solid var(--hair);
+}
+.ws-no { flex: none; width: 7.2rem; font-family: var(--caps); font-size: .85rem; letter-spacing: .04em; color: var(--muted); }
+.ws-title { flex: 1 1 14rem; font-weight: 700; color: var(--text); text-decoration: none; }
+.ws-title:hover { color: var(--accent); text-decoration: underline; }
+.ws-files { flex: none; display: inline-flex; gap: .6rem; font-size: .85rem; font-family: var(--caps); letter-spacing: .04em; }
+
+/* ---------- tables (booktabs) ---------- */
+figure.table { margin: 1.4rem 0; }
+figcaption { text-align: center; font-size: .92rem; margin-bottom: .5rem; }
+figcaption .cap { font-weight: 700; margin-right: .4em; }
+.table-scroll { overflow-x: auto; }
+table.booktabs { border-collapse: collapse; margin: 0 auto; font-size: .95rem; }
+.booktabs thead tr { border-top: 1.4px solid var(--rule); border-bottom: .7px solid var(--rule); }
+.booktabs tbody tr:last-child { border-bottom: 1.4px solid var(--rule); }
+.booktabs th, .booktabs td { padding: .3rem .9rem; text-align: left; white-space: nowrap; }
+.booktabs th { font-weight: 700; }
+.booktabs .num { text-align: right; }
+.grades td:first-child { font-weight: 700; }
+.grades .iv { text-align: center; }
+
+.exams { margin: 1rem 0 0; }
+.exams div { display: flex; gap: 1rem; flex-wrap: wrap; }
+.exams dt { font-weight: 700; width: 7.5rem; }
+.exams dd { margin: 0; }
+
+/* score split with dotted leaders */
+.scores { list-style: none; padding: 0; margin: .4rem 0 .8rem; max-width: 24rem; }
+.scores li { display: flex; align-items: baseline; gap: .5rem; }
+
+/* display equation */
+.equation { display: flex; align-items: center; justify-content: center; position: relative; margin: 1.2rem 0; font-size: 1.1rem; }
+.eq-no { position: absolute; right: 0; }
+.frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 .15em; }
+.frac .numer { padding: 0 .25em; border-bottom: 1px solid currentColor; line-height: 1.3; }
+.frac .denom { line-height: 1.3; }
+
+/* bibliography */
+.bib { list-style: none; counter-reset: bib; padding: 0; margin: 0; font-size: .95rem; }
+.bib li { counter-increment: bib; position: relative; padding-left: 2.4rem; margin: .4rem 0; }
+.bib li::before { content: "[" counter(bib) "]"; position: absolute; left: 0; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1000px) {
+  .sheet { padding: 1.2rem 2.5rem 1.6rem; margin: 1.2rem auto; }
+  .topic { grid-template-columns: minmax(0, 1fr); }
+  .topic > .margin {
+    grid-column: 1; grid-row: auto; flex-direction: row; flex-wrap: wrap; gap: .2rem 1rem;
+    border-left: 0; padding: 0; margin-top: .2rem;
+  }
+  .topic > h3 { grid-row: auto; }
+}
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  .sheet { margin: 0; padding: .8rem 16px 1.2rem; box-shadow: none; }
+  .title-block { padding: 2rem 0 1.2rem; }
+  h1 { font-size: 1.65rem; }
+  .subtitle { font-size: 1.1rem; }
+  .abstract { max-width: none; }
+  h2, h3 { gap: .7em; }
+  .ws-no { width: auto; }
+  .ws-title { flex-basis: 100%; order: 0; }
+  .ws-no { order: -1; }
+  .equation { font-size: 1rem; }
+}
+
+/* ---------- print ---------- */
+@media print {
+  :root, :root[data-theme="dark"] { --page: #fff; --paper: #fff; --text: #000; --muted: #444; --rule: #000; --hair: #bbb; --accent: #000; }
+  body { font-size: 11pt; }
+  .sheet { box-shadow: none; margin: 0; padding: 0; max-width: none; }
+  .theme-switch { display: none; }
+  a { text-decoration: none; }
+}
