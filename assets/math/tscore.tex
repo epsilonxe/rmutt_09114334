@@ -1,0 +1,9 @@
+% t-score formula on the homepage (assessment tab), inlined into index.html as SVG.
+% Rebuild in a scratch folder:
+%   latex tscore.tex && dvisvgm --no-fonts --exact-bbox --optimize -o tscore.svg tscore.dvi
+% then paste the <svg> (without the XML prolog) into the .equation box in index.html.
+\documentclass[border=1pt]{standalone}
+\usepackage{amsmath}
+\begin{document}
+$\displaystyle t = 50 + 10\,\frac{x-u}{s}$
+\end{document}
