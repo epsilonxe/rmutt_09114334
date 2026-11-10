@@ -83,12 +83,22 @@
               '<li class="pe" style="--i:1">Beautiful mathematics</li><li class="pe" style="--i:2">Consistent style</li>' +
               '<li class="pe" style="--i:3">Reproducible documents</li></ul></div><div class="pe pg-num" style="--i:4">1 / 1</div>' }
     ];
-    var T = { char: 36, space: 10, line: 200, compile: 900, build: 1300, hold: 5000, fade: 650, gap: 350 };
+    var T = { char: 36, space: 10, line: 200, compile: 2000, finish: 650, build: 1300, hold: 5000, fade: 650, gap: 350 };
+    /* uneven compile progress: [time fraction, progress] knots (a stall, like loading packages) */
+    var KNOTS = [[0, 0], [.22, .38], [.40, .44], [.68, .81], [.80, .86], [1, 1]];
+    var progress = function (f) {
+      for (var i = 1; i < KNOTS.length; i++) if (f <= KNOTS[i][0]) {
+        var a = KNOTS[i - 1], b = KNOTS[i]; return a[1] + (b[1] - a[1]) * (f - a[0]) / (b[0] - a[0]);
+      }
+      return 1;
+    };
 
     var text = stage.querySelector(".ed-text"), gutter = stage.querySelector(".ed-gutter"),
         file = stage.querySelector(".ed-file"), status = stage.querySelector(".ed-status"),
-        stText = stage.querySelector(".st-text"), stBar = stage.querySelector(".st-bar i"),
-        page = stage.querySelector(".page");
+        stText = stage.querySelector(".st-text"), stPct = stage.querySelector(".st-pct"),
+        stBar = stage.querySelector(".st-bar"), stOut = stage.querySelector(".st-out"),
+        page = stage.querySelector(".page"), pulse = stage.querySelector(".page-pulse");
+    var setP = function (f) { stBar.style.setProperty("--p", (f * 100).toFixed(1) + "%"); stPct.textContent = Math.round(f * 100) + "%"; };
 
     var esc = function (s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
     var highlight = function (s) {
@@ -110,7 +120,9 @@
       typed = acc; t = 0; pos = -1; phase = "type"; shown = "";
       file.textContent = cur.file;
       page.className = cur.cls + " empty"; page.innerHTML = cur.page;
-      status.className = "ed-status"; stText.textContent = "● editing " + cur.file; stBar.style.setProperty("--p", "0%");
+      status.className = "ed-status"; stText.textContent = "● editing " + cur.file; setP(0);
+      stOut.textContent = cur.file.replace(".tex", ".pdf");
+      pulse.className = "page-pulse" + (cur.cls.indexOf("slide") >= 0 ? " slide" : "");
       render(0);
       stage.classList.remove("fading");
     }
@@ -128,12 +140,14 @@
       if (phase === "type") {
         var n = 0; while (n < at.length && at[n] <= t) n++;
         render(n);
-        if (n >= at.length) { phase = "compile"; t = 0; stText.textContent = "$ pdflatex " + cur.file; }
+        if (n >= at.length) { phase = "compile"; t = 0; stText.textContent = "$ pdflatex " + cur.file; status.className = "ed-status compiling"; }
       } else if (phase === "compile") {
-        stBar.style.setProperty("--p", Math.min(100, t / T.compile * 100).toFixed(1) + "%");
-        if (t >= T.compile) {
+        setP(progress(Math.min(1, t / T.compile)));
+        if (t >= T.compile) { phase = "finish"; t = 0; setP(1); status.className = "ed-status done"; }
+      } else if (phase === "finish") {          /* green flash, then collapse into the badge + pulse */
+        if (t >= T.finish) {
           phase = "build"; t = 0; status.className = "ed-status ok";
-          stText.textContent = "✓ " + cur.file.replace(".tex", ".pdf") + " · 1 page";
+          pulse.classList.remove("go"); void pulse.offsetWidth; pulse.classList.add("go");
           page.className = cur.cls; void page.offsetWidth; page.className = cur.cls + " built";
         }
       } else if (phase === "build") {
@@ -154,7 +168,7 @@
 
     /* start from the shipped final frame of snippet 1: hold it, then fade into snippet 2 */
     load(0); render(cur.code.length); phase = "build"; t = T.build;
-    status.className = "ed-status ok"; stText.textContent = "✓ article.pdf · 1 page"; page.className = cur.cls + " built";
+    setP(1); stText.textContent = "$ pdflatex " + cur.file; status.className = "ed-status ok"; page.className = cur.cls + " built";
 
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; setRunning(true); }).observe(hero);
