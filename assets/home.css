@@ -1,4 +1,4 @@
-/* Course homepage (public/index.html): sticky nav, dark ink hero, topic card grid, info cards.
+/* Course homepage (public/index.html): sticky nav, dark ink hero, Lectures and Workshops lists, tabbed info card.
    Tokens and fonts follow the workshop pages (labs/assets/workshop.css): Prompt 600 headings, Sarabun
    300/600 body, self-hosted in fonts/ (SIL OFL) with Google Fonts linked as a fallback; terracotta accent;
    light by default, [data-theme="dark"] set by home.js and shared with the workshops ("workshop-theme"). */
@@ -85,7 +85,7 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-t
 body { margin: 0; background: var(--page); color: var(--text); font-family: var(--font);
   font-weight: 300; font-size: 17px; line-height: 1.75; }
 strong, b, th, dt { font-weight: 600; }
-h1, h2, h3, .eyebrow, .kicker, .num, .brand, .navlinks, .btn, .pill, .ws-tag { font-family: var(--head); font-weight: 600; }
+h1, h2, h3, .eyebrow, .kicker, .num, .brand, .navlinks, .btn { font-family: var(--head); font-weight: 600; }
 h2 { font-size: 1.6rem; line-height: 1.35; margin: 0 0 .6rem; }
 h3 { font-size: 1.08rem; line-height: 1.4; margin: 0; }
 p { margin: .6em 0; }
@@ -249,38 +249,36 @@ var { font-style: italic; }
 .lede { color: var(--muted); margin: 0; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
 
-/* ---------- topic grid ---------- */
-.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.topic { display: flex; flex-direction: column; transition: transform .18s ease, box-shadow .18s ease, border-color .18s; }
-.topic:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); border-color: var(--border-strong); }
-.topic-wide { grid-column: 1 / -1; }
-.topic-top { display: flex; align-items: center; gap: 12px; }
-.num { flex: none; display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 10px;
+/* ---------- topics: Lectures list + Workshops list ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.list-card { padding: 0; overflow: hidden; }
+.list-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 16px 22px;
+  border-bottom: 1px solid var(--border); background: var(--surface); }
+.list-head h3 { font-size: 1.05rem; }
+.list-head h3 span { margin-left: 6px; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.list-head .count { font-size: .85rem; color: var(--muted); }
+.lectures, .workshops { list-style: none; margin: 0; padding: 0; }
+.lectures li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; padding: 18px 22px; scroll-margin-top: 80px; }
+.lectures li + li, .workshops li + li { border-top: 1px solid var(--border); }
+.num { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 10px;
   background: var(--accent-soft); color: var(--accent); font-size: .95rem; font-variant-numeric: tabular-nums; }
-.desc { color: var(--muted); font-size: .95rem; line-height: 1.7; margin: 14px 0 0; }
-.res { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px; font-size: .8rem;
-  color: var(--text); background: var(--surface-2); text-decoration: none; border: 1px solid transparent; }
-.pill:hover { border-color: var(--accent); color: var(--accent); }
-.pill .ic { color: var(--accent); }
-.topic-note { margin: 0; padding-top: 16px; font-size: .88rem; color: var(--muted); }
-.topic-note a { font-weight: 600; }
-
-.ws { list-style: none; margin: 0; padding: 18px 0 0; display: grid; gap: 8px; }
-.res + .ws { border-top: 0; }
-.ws li { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: 10px 12px; transition: border-color .15s; }
-.ws li:hover { border-color: var(--accent); }
-.ws-main { display: flex; align-items: flex-start; gap: 10px; color: var(--text); text-decoration: none; }
-.ws-main:hover .ws-title { color: var(--accent); }
-.ws-tag { flex: none; font-size: .72rem; letter-spacing: .04em; color: var(--accent-ink); background: var(--accent);
-  border-radius: 6px; padding: 1px 7px; margin-top: 3px; white-space: nowrap; }
-.ws-title { flex: 1; font-weight: 600; line-height: 1.5; }
-.ws-main .arrow { margin-top: 5px; color: var(--muted); transition: transform .15s, color .15s; }
-.ws-main:hover .arrow { transform: translateX(3px); color: var(--accent); }
-.ws-files { display: flex; gap: 14px; margin: 4px 0 0 0; padding-left: calc(10px + 3.1em); font-size: .8rem; }
-.ws-files a { display: inline-flex; align-items: center; gap: 4px; color: var(--muted); text-decoration: none; }
-.ws-files a:hover { color: var(--accent); }
-.ws-2col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.lec-title { font-family: var(--head); font-weight: 600; font-size: 1.05rem; line-height: 1.4; margin: 2px 0 0; }
+.lec-desc { color: var(--muted); font-size: .93rem; line-height: 1.7; margin: 4px 0 0; }
+.lec-links { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 8px 0 0; font-size: .88rem; }
+.lec-links a { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; text-decoration: none; }
+.lec-links a:hover { text-decoration: underline; }
+.workshops a { display: grid; grid-template-columns: 2.2em minmax(0, 1fr) auto auto; align-items: center; gap: 12px;
+  padding: 13px 22px; color: var(--text); text-decoration: none; transition: background .15s; }
+.workshops a:hover, .workshops a:focus-visible { background: var(--accent-soft); }
+.workshops a:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); border-radius: 0; }
+.ws-num { font-family: var(--head); font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
+.ws-name { font-weight: 600; line-height: 1.5; }
+.workshops a:hover .ws-name { color: var(--accent); }
+.ws-tags { display: inline-flex; gap: 4px; }
+.ws-tags span { font: 500 .72rem var(--mono); color: var(--muted); background: var(--surface-2); border-radius: 5px; padding: 2px 6px; white-space: nowrap; }
+.ws-tags .extra { font: 600 .74rem var(--font); }
+.ws-go { color: var(--muted); transition: transform .15s, color .15s; }
+.workshops a:hover .ws-go { transform: translateX(3px); color: var(--accent); }
 
 /* ---------- info cards ---------- */
 /* course info: segmented tabs (home.js); without JS the tablist stays hidden and panels stack */
@@ -344,11 +342,11 @@ var { font-style: italic; }
 .footer a { color: var(--ink-accent); }
 
 /* ---------- responsive ---------- */
-@media (max-width: 1079px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .split > .list-card:last-child { position: sticky; top: 84px; } }
+@media (max-width: 999px) { .split { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 899px) { .panel-grid { grid-template-columns: minmax(0, 1fr); } .panel-grid > div + div { margin-top: 18px; } .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 699px) {
   .wrap { padding: 0 16px; }
-  .grid, .ws-2col { grid-template-columns: minmax(0, 1fr); }
   .topnav-inner { gap: 10px; }
   .brand > span:last-child { display: none; }
   .theme-switch .label { display: none; }
@@ -358,8 +356,14 @@ var { font-style: italic; }
   .facts div { padding: 10px 12px; }
   .section { padding-top: 48px; }
   .card, .tabs { padding: 18px; }
+  .list-card { padding: 0; }
   [role="tab"] { padding: 8px 12px; font-size: .86rem; }
-  .ws-files { padding-left: 0; }
+  .lectures li { padding: 14px 16px; gap: 12px; grid-template-columns: 34px minmax(0, 1fr); }
+  .num { width: 34px; height: 34px; }
+  .list-head { padding: 14px 16px; }
+  .workshops a { padding: 12px 16px; grid-template-columns: 2em minmax(0, 1fr) auto; row-gap: 4px; }
+  .ws-tags { grid-column: 2; grid-row: 2; }
+  .ws-go { grid-column: 3; grid-row: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }

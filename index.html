@@ -16,8 +16,6 @@
   <symbol id="i-slides" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 4h18M4 4v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4M12 16v4M8 20h8"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M19 19v2H6"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
-  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
-  <symbol id="i-file" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M14 3H6v18h12V7zM14 3v4h4"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 13l2 2 4-4"/></g></symbol>
@@ -104,134 +102,113 @@ Typesetting is an art.
 <main>
 
 <!-- ============================================================ Topics -->
+<!-- Lectures (one row per deck, order of lectures/decks.tex) and Workshops (order of
+     labs/workshops.txt; tags = the topic numbers the workshop belongs to). Workshop rows link to
+     the workshop page, which has the downloads. -->
 <section class="section wrap" id="topics">
   <div class="section-head">
     <p class="eyebrow">Topics &amp; Workshops</p>
     <h2>หัวข้อการเรียนและปฏิบัติการ</h2>
-    <p class="lede">แต่ละหัวข้อมีสไลด์บรรยาย เอกสารประกอบการสอน และงานปฏิบัติการที่ทำต่อจากบรรยาย หน้า Workshop อธิบายขั้นตอนทั้งหมด ไฟล์ zip มีไฟล์ตั้งต้น และ pdf คือชิ้นงานต้นแบบ</p>
+    <p class="lede">แต่ละหัวข้อมีสไลด์บรรยายและเอกสารประกอบการสอน งานปฏิบัติการแต่ละชุดมีหน้าคำแนะนำของตัวเอง พร้อมไฟล์ตั้งต้นและชิ้นงานต้นแบบ</p>
   </div>
 
-  <div class="grid">
+  <div class="split">
+    <div class="card list-card">
+      <div class="list-head"><h3>บทเรียน <span>Lectures</span></h3><span class="count">9 หัวข้อ</span></div>
+      <ol class="lectures">
+        <li id="introduction">
+          <span class="num">01</span>
+          <div>
+            <h4 class="lec-title">Introduction to LaTeX</h4>
+            <p class="lec-desc">ประวัติและพัฒนาการของ TeX และ LaTeX เทกซ์เอ็นจิ้นและลาเทกซ์เอ็นจิ้น โครงสร้างพื้นฐานของเอกสาร และหลักการจัดเตรียมเอกสารด้วย LaTeX</p>
+            <p class="lec-links"><a href="materials/slides/introduction.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a><a href="materials/ch_01.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.1</a></p>
+          </div>
+        </li>
+        <li id="text_formatting">
+          <span class="num">02</span>
+          <div>
+            <h4 class="lec-title">Formatting Text</h4>
+            <p class="lec-desc">การเรียงพิมพ์ข้อความ กลไกการเรียงพิมพ์ การใช้คำสั่ง (commands) และสิ่งแวดล้อม (environments) ของ LaTeX และการจัดรูปแบบตัวอักษร</p>
+            <p class="lec-links"><a href="materials/slides/text_formatting.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a><a href="materials/ch_02.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.2</a></p>
+          </div>
+        </li>
+        <li id="document_structure">
+          <span class="num">03</span>
+          <div>
+            <h4 class="lec-title">Document Structure</h4>
+            <p class="lec-desc">คลาสเอกสาร การแบ่งส่วน บท และหัวข้อ สารบัญ และโครงสร้างของเอกสารประเภทบทความ รายงาน และหนังสือ</p>
+            <p class="lec-links"><a href="materials/slides/document_structure.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a><a href="materials/ch_02.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.2</a></p>
+          </div>
+        </li>
+        <li id="figures_tables">
+          <span class="num">04</span>
+          <div>
+            <h4 class="lec-title">Figures and Tables</h4>
+            <p class="lec-desc">การเรียงพิมพ์รายการและตาราง การประสานรูปภาพและสี การจัดการเนื้อหาแบบลอยตัว (floating bodies) และกราฟิกแบบเวกเตอร์ในงานคณิตศาสตร์</p>
+            <p class="lec-links"><a href="materials/slides/figures_tables.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a><a href="materials/ch_02.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.2</a><a href="materials/ch_05.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.5</a></p>
+          </div>
+        </li>
+        <li id="mathematics">
+          <span class="num">05</span>
+          <div>
+            <h4 class="lec-title">Mathematics</h4>
+            <p class="lec-desc">การเรียงพิมพ์นิพจน์และสมการทางคณิตศาสตร์ สัญกรณ์ทางคณิตศาสตร์ (mathematical symbols) เมทริกซ์ และการอ้างอิงสมการ</p>
+            <p class="lec-links"><a href="materials/slides/mathematics.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a><a href="materials/ch_03.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.3</a></p>
+          </div>
+        </li>
+        <li id="theorems_proofs">
+          <span class="num">06</span>
+          <div>
+            <h4 class="lec-title">Theorems and Proofs</h4>
+            <p class="lec-desc">การนิยามและเรียงพิมพ์บทนิยาม ทฤษฎีบท บทแทรก และการพิสูจน์ ตัวอย่างการเรียงพิมพ์งานทางคณิตศาสตร์ที่น่าสนใจ</p>
+            <p class="lec-links"><a href="materials/slides/theorems_proofs.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a><a href="materials/ch_03.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.3</a></p>
+          </div>
+        </li>
+        <li id="citations">
+          <span class="num">07</span>
+          <div>
+            <h4 class="lec-title">Citations and Bibliography</h4>
+            <p class="lec-desc">การจัดการเอกสารอ้างอิง การทำบรรณานุกรมและรายการดัชนี ข้อสำคัญและข้อควรระวังในการจัดเอกสาร</p>
+            <p class="lec-links"><a href="materials/slides/citations.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a><a href="materials/ch_04.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.4</a></p>
+          </div>
+        </li>
+        <li id="presentations">
+          <span class="num">08</span>
+          <div>
+            <h4 class="lec-title">Presentations with Beamer</h4>
+            <p class="lec-desc">การจัดเตรียมงานนำเสนอด้วยคลาส beamer ธีม เฟรม และการแสดงผลทีละขั้น</p>
+            <p class="lec-links"><a href="materials/slides/presentations.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a><a href="materials/ch_06.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.6</a></p>
+          </div>
+        </li>
+        <li id="thai_macros">
+          <span class="num">09</span>
+          <div>
+            <h4 class="lec-title">Thai, Macros and Large Documents</h4>
+            <p class="lec-desc">การเรียงพิมพ์เอกสารภาษาไทย การนิยามคำสั่งและสิ่งแวดล้อมขึ้นใช้เอง การเรียกใช้แพ็กเกจเพิ่มเติม และการจัดการเอกสารขนาดใหญ่</p>
+            <p class="lec-links"><a href="materials/slides/thai_macros.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a><a href="materials/ch_06.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.6</a></p>
+          </div>
+        </li>
+      </ol>
+    </div>
 
-    <article class="card topic" id="introduction">
-      <div class="topic-top"><span class="num">01</span><h3>Introduction to LaTeX</h3></div>
-      <p class="desc">ประวัติและพัฒนาการของ TeX และ LaTeX เทกซ์เอ็นจิ้นและลาเทกซ์เอ็นจิ้น โครงสร้างพื้นฐานของเอกสาร และหลักการจัดเตรียมเอกสารด้วย LaTeX</p>
-      <div class="res">
-        <a class="pill" href="materials/slides/introduction.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a>
-        <a class="pill" href="materials/ch_01.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.1</a>
-      </div>
-      <p class="topic-note">ปฏิบัติการของหัวข้อนี้รวมอยู่ใน <a href="#text_formatting">Workshop 1 ในหัวข้อ 02</a></p>
-    </article>
-
-    <article class="card topic" id="text_formatting">
-      <div class="topic-top"><span class="num">02</span><h3>Formatting Text</h3></div>
-      <p class="desc">การเรียงพิมพ์ข้อความ กลไกการเรียงพิมพ์ การใช้คำสั่ง (commands) และสิ่งแวดล้อม (environments) ของ LaTeX และการจัดรูปแบบตัวอักษร</p>
-      <div class="res">
-        <a class="pill" href="materials/slides/text_formatting.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a>
-        <a class="pill" href="materials/ch_02.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.2</a>
-      </div>
-      <ul class="ws">
-        <li><a class="ws-main" href="workshops/first_document/" target="_blank" rel="noopener"><span class="ws-tag">WS 1</span><span class="ws-title">เอกสารแรกและการจัดรูปแบบข้อความ</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/first_document/first_document.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/first_document/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-      </ul>
-    </article>
-
-    <article class="card topic" id="document_structure">
-      <div class="topic-top"><span class="num">03</span><h3>Document Structure</h3></div>
-      <p class="desc">คลาสเอกสาร การแบ่งส่วน บท และหัวข้อ สารบัญ และโครงสร้างของเอกสารประเภทบทความ รายงาน และหนังสือ</p>
-      <div class="res">
-        <a class="pill" href="materials/slides/document_structure.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a>
-        <a class="pill" href="materials/ch_02.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.2</a>
-      </div>
-      <ul class="ws">
-        <li><a class="ws-main" href="workshops/article_structure/" target="_blank" rel="noopener"><span class="ws-tag">WS 2</span><span class="ws-title">โครงสร้างเอกสารประเภทบทความ</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/article_structure/article_structure.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/article_structure/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-        <li><a class="ws-main" href="workshops/reports_books/" target="_blank" rel="noopener"><span class="ws-tag">WS 3</span><span class="ws-title">เอกสารประเภทรายงานและหนังสือ</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/reports_books/reports_books.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/reports_books/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-      </ul>
-    </article>
-
-    <article class="card topic" id="figures_tables">
-      <div class="topic-top"><span class="num">04</span><h3>Figures and Tables</h3></div>
-      <p class="desc">การเรียงพิมพ์รายการและตาราง การประสานรูปภาพและสี การจัดการเนื้อหาแบบลอยตัว (floating bodies) และกราฟิกแบบเวกเตอร์ในงานคณิตศาสตร์</p>
-      <div class="res">
-        <a class="pill" href="materials/slides/figures_tables.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a>
-        <a class="pill" href="materials/ch_02.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.2</a>
-        <a class="pill" href="materials/ch_05.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.5</a>
-      </div>
-      <ul class="ws">
-        <li><a class="ws-main" href="workshops/images_colours/" target="_blank" rel="noopener"><span class="ws-tag">WS 4</span><span class="ws-title">รูปภาพและสี</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/images_colours/images_colours.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/images_colours/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-        <li><a class="ws-main" href="workshops/tables/" target="_blank" rel="noopener"><span class="ws-tag">WS 5</span><span class="ws-title">ตาราง</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/tables/tables.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/tables/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-      </ul>
-    </article>
-
-    <article class="card topic" id="mathematics">
-      <div class="topic-top"><span class="num">05</span><h3>Mathematics</h3></div>
-      <p class="desc">การเรียงพิมพ์นิพจน์และสมการทางคณิตศาสตร์ สัญกรณ์ทางคณิตศาสตร์ (mathematical symbols) เมทริกซ์ และการอ้างอิงสมการ</p>
-      <div class="res">
-        <a class="pill" href="materials/slides/mathematics.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a>
-        <a class="pill" href="materials/ch_03.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.3</a>
-      </div>
-      <ul class="ws">
-        <li><a class="ws-main" href="workshops/math_expressions/" target="_blank" rel="noopener"><span class="ws-tag">WS 6</span><span class="ws-title">คณิตศาสตร์ 1 · นิพจน์</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/math_expressions/math_expressions.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/math_expressions/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-        <li><a class="ws-main" href="workshops/math_equations/" target="_blank" rel="noopener"><span class="ws-tag">WS 7</span><span class="ws-title">คณิตศาสตร์ 2 · สมการ เมทริกซ์ และการอ้างอิง</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/math_equations/math_equations.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/math_equations/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-      </ul>
-    </article>
-
-    <article class="card topic" id="theorems_proofs">
-      <div class="topic-top"><span class="num">06</span><h3>Theorems and Proofs</h3></div>
-      <p class="desc">การนิยามและเรียงพิมพ์บทนิยาม ทฤษฎีบท บทแทรก และการพิสูจน์ ตัวอย่างการเรียงพิมพ์งานทางคณิตศาสตร์ที่น่าสนใจ</p>
-      <div class="res">
-        <a class="pill" href="materials/slides/theorems_proofs.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a>
-        <a class="pill" href="materials/ch_03.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.3</a>
-      </div>
-      <ul class="ws">
-        <li><a class="ws-main" href="workshops/theorems_proofs/" target="_blank" rel="noopener"><span class="ws-tag">WS 8</span><span class="ws-title">ทฤษฎีบทและการพิสูจน์</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/theorems_proofs/theorems_proofs.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/theorems_proofs/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-      </ul>
-    </article>
-
-    <article class="card topic" id="citations">
-      <div class="topic-top"><span class="num">07</span><h3>Citations and Bibliography</h3></div>
-      <p class="desc">การจัดการเอกสารอ้างอิง การทำบรรณานุกรมและรายการดัชนี ข้อสำคัญและข้อควรระวังในการจัดเอกสาร</p>
-      <div class="res">
-        <a class="pill" href="materials/slides/citations.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a>
-        <a class="pill" href="materials/ch_04.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.4</a>
-      </div>
-      <ul class="ws">
-        <li><a class="ws-main" href="workshops/citations/" target="_blank" rel="noopener"><span class="ws-tag">WS 9</span><span class="ws-title">การอ้างอิงและบรรณานุกรม</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/citations/citations.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/citations/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-      </ul>
-    </article>
-
-    <article class="card topic" id="presentations">
-      <div class="topic-top"><span class="num">08</span><h3>Presentations with Beamer</h3></div>
-      <p class="desc">การจัดเตรียมงานนำเสนอด้วยคลาส beamer ธีม เฟรม และการแสดงผลทีละขั้น</p>
-      <div class="res">
-        <a class="pill" href="materials/slides/presentations.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a>
-        <a class="pill" href="materials/ch_06.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.6</a>
-      </div>
-      <ul class="ws">
-        <li><a class="ws-main" href="workshops/presentations/" target="_blank" rel="noopener"><span class="ws-tag">WS 10</span><span class="ws-title">สร้างสไลด์นำเสนอด้วย Beamer</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/presentations/presentations.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/presentations/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-      </ul>
-    </article>
-
-    <article class="card topic" id="thai_macros">
-      <div class="topic-top"><span class="num">09</span><h3>Thai, Macros and Large Documents</h3></div>
-      <p class="desc">การเรียงพิมพ์เอกสารภาษาไทย การนิยามคำสั่งและสิ่งแวดล้อมขึ้นใช้เอง การเรียกใช้แพ็กเกจเพิ่มเติม และการจัดการเอกสารขนาดใหญ่</p>
-      <div class="res">
-        <a class="pill" href="materials/slides/thai_macros.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-slides"/></svg>Slides</a>
-        <a class="pill" href="materials/ch_06.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-book"/></svg>Tutorial ch.6</a>
-      </div>
-      <ul class="ws">
-        <li><a class="ws-main" href="workshops/thai_macros/" target="_blank" rel="noopener"><span class="ws-tag">WS 11</span><span class="ws-title">เอกสารภาษาไทยและคำสั่งที่สร้างเอง</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/thai_macros/thai_macros.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/thai_macros/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-      </ul>
-    </article>
-
-    <article class="card topic topic-wide" id="extras">
-      <div class="topic-top"><span class="num">+</span><h3>งานปฏิบัติการเสริม</h3></div>
-      <p class="desc">นำ LaTeX ไปใช้ในงานสอนและงานวัดผล (ไม่มีสไลด์บรรยาย)</p>
-      <ul class="ws ws-2col">
-        <li><a class="ws-main" href="workshops/exam_paper/" target="_blank" rel="noopener"><span class="ws-tag">WS 12</span><span class="ws-title">สร้างข้อสอบด้วยคลาส exam</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/exam_paper/exam_paper.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/exam_paper/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-        <li><a class="ws-main" href="workshops/moodle_quiz/" target="_blank" rel="noopener"><span class="ws-tag">WS 13</span><span class="ws-title">สร้างคำถาม Moodle ด้วยแพ็กเกจ moodle</span><svg class="ic arrow"><use href="#i-arrow"/></svg></a><span class="ws-files"><a href="workshops/moodle_quiz/moodle_quiz.zip" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>zip</a><a href="workshops/moodle_quiz/doc.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-file"/></svg>pdf</a></span></li>
-      </ul>
-    </article>
-
+    <div class="card list-card">
+      <div class="list-head"><h3>ปฏิบัติการ <span>Workshops</span></h3><span class="count">13 ชุด</span></div>
+      <ol class="workshops">
+        <li><a href="workshops/first_document/" target="_blank" rel="noopener"><span class="ws-num">01</span><span class="ws-name">เอกสารแรกและการจัดรูปแบบข้อความ</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 01 Introduction to LaTeX">01</span><span title="หัวข้อ 02 Formatting Text">02</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/article_structure/" target="_blank" rel="noopener"><span class="ws-num">02</span><span class="ws-name">โครงสร้างเอกสารประเภทบทความ</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 03 Document Structure">03</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/reports_books/" target="_blank" rel="noopener"><span class="ws-num">03</span><span class="ws-name">เอกสารประเภทรายงานและหนังสือ</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 03 Document Structure">03</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/images_colours/" target="_blank" rel="noopener"><span class="ws-num">04</span><span class="ws-name">รูปภาพและสี</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 04 Figures and Tables">04</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/tables/" target="_blank" rel="noopener"><span class="ws-num">05</span><span class="ws-name">ตาราง</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 04 Figures and Tables">04</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/math_expressions/" target="_blank" rel="noopener"><span class="ws-num">06</span><span class="ws-name">คณิตศาสตร์ 1 · นิพจน์</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 05 Mathematics">05</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/math_equations/" target="_blank" rel="noopener"><span class="ws-num">07</span><span class="ws-name">คณิตศาสตร์ 2 · สมการ เมทริกซ์ และการอ้างอิง</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 05 Mathematics">05</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/theorems_proofs/" target="_blank" rel="noopener"><span class="ws-num">08</span><span class="ws-name">ทฤษฎีบทและการพิสูจน์</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 06 Theorems and Proofs">06</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/citations/" target="_blank" rel="noopener"><span class="ws-num">09</span><span class="ws-name">การอ้างอิงและบรรณานุกรม</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 07 Citations and Bibliography">07</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/presentations/" target="_blank" rel="noopener"><span class="ws-num">10</span><span class="ws-name">สร้างสไลด์นำเสนอด้วย Beamer</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 08 Presentations with Beamer">08</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/thai_macros/" target="_blank" rel="noopener"><span class="ws-num">11</span><span class="ws-name">เอกสารภาษาไทยและคำสั่งที่สร้างเอง</span><span class="ws-tags" aria-label="หัวข้อ"><span title="หัวข้อ 09 Thai, Macros and Large Documents">09</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/exam_paper/" target="_blank" rel="noopener"><span class="ws-num">12</span><span class="ws-name">สร้างข้อสอบด้วยคลาส exam</span><span class="ws-tags" aria-label="หัวข้อ"><span class="extra" title="งานปฏิบัติการเสริม ไม่มีสไลด์บรรยาย">เสริม</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="workshops/moodle_quiz/" target="_blank" rel="noopener"><span class="ws-num">13</span><span class="ws-name">สร้างคำถาม Moodle ด้วยแพ็กเกจ moodle</span><span class="ws-tags" aria-label="หัวข้อ"><span class="extra" title="งานปฏิบัติการเสริม ไม่มีสไลด์บรรยาย">เสริม</span></span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a></li>
+      </ol>
+    </div>
   </div>
 </section>
 
