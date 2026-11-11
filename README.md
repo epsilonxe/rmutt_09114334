@@ -4,4 +4,4 @@
 Lecturer: Asst. Prof. Ratthaprom Promkam, Dr.rer.nat.
 
 Course site (slides, tutorials, workshops, schedule and assessment):
-**https://epsilonxe.github.io/RMUTT_09114334/**
+**https://epsilonxe.github.io/rmutt_09114334/**
