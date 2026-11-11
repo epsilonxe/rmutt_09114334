@@ -108,7 +108,7 @@ Typesetting is an art.
 <!-- One row per deck (order of lectures/decks.tex) with its slides and the
      workshops mapped to it in labs/workshops.txt; workshop links open the workshop page, which has
      the downloads. Two tabs (assets/home.js): #core holds the main deck rows, #special the special
-     topics (S0 the student project, then S1, S2, ...); a special row without its deck yet shows a "slides coming" note in place of
+     topics (S1, S2, ...), #project-panel the student project summary; a special row without its deck yet shows a "slides coming" note in place of
      the Slides link, and its id becomes the deck name once the deck lands. Without JS the tab bar stays hidden and both panels show stacked. -->
 <section class="section wrap" id="topics">
   <div class="section-head">
@@ -120,7 +120,8 @@ Typesetting is an art.
   <div class="card syllabus tabs">
     <div class="tablist" role="tablist" aria-label="หัวข้อการเรียนและปฏิบัติการ" hidden>
       <button type="button" role="tab" id="tab-core" aria-controls="core" aria-selected="true"><svg class="ic"><use href="#i-slides"/></svg>หัวข้อหลัก<span class="tab-count">10</span></button>
-      <button type="button" role="tab" id="tab-special" aria-controls="special" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-book"/></svg>หัวข้อพิเศษ<span class="tab-count">3</span></button>
+      <button type="button" role="tab" id="tab-special" aria-controls="special" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-book"/></svg>หัวข้อพิเศษ<span class="tab-count">2</span></button>
+      <button type="button" role="tab" id="tab-project" aria-controls="project-panel" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-check"/></svg>โครงงาน</button>
     </div>
 
     <div class="tabpanel" role="tabpanel" id="core" aria-labelledby="tab-core" tabindex="0">
@@ -276,20 +277,6 @@ Typesetting is an art.
     <div class="tabpanel" role="tabpanel" id="special" aria-labelledby="tab-special" tabindex="0">
     <h3 class="panel-title">หัวข้อพิเศษ</h3>
     <ol class="topics">
-        <li class="topic-row special" id="project">
-          <div class="topic-main">
-            <span class="num">S0</span>
-            <div>
-              <h4 class="lec-title">Student Project</h4>
-              <p class="lec-desc">โครงงานเดี่ยว 25% จัดทำเอกสารฉบับสมบูรณ์ในหัวข้อที่เลือกเอง สไลด์ beamer จากเอกสารนั้น และนำเสนอในชั้นเรียน</p>
-              <p class="lec-links"><span class="lec-soon">ส่งงาน 26 ก.พ. 2570 · นำเสนอ 1 มี.ค. 2570</span></p>
-            </div>
-          </div>
-          <div class="topic-ws">
-            <p class="ws-label">ปฏิบัติการ</p>
-            <a class="ws-link" href="workshops/project/" target="_blank" rel="noopener"><span class="ws-num">15</span><span class="ws-name">โครงงาน เอกสาร สไลด์ และการนำเสนอ</span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a>
-          </div>
-        </li>
         <li class="topic-row special" id="exam_paper">
           <div class="topic-main">
             <span class="num">S1</span>
@@ -301,7 +288,7 @@ Typesetting is an art.
           </div>
           <div class="topic-ws">
             <p class="ws-label">ปฏิบัติการ</p>
-            <a class="ws-link" href="workshops/exam_paper/" target="_blank" rel="noopener"><span class="ws-num">16</span><span class="ws-name">สร้างข้อสอบด้วยคลาส exam</span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a>
+            <a class="ws-link" href="workshops/exam_paper/" target="_blank" rel="noopener"><span class="ws-num">15</span><span class="ws-name">สร้างข้อสอบด้วยคลาส exam</span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a>
           </div>
         </li>
         <li class="topic-row special" id="moodle_quiz">
@@ -315,10 +302,33 @@ Typesetting is an art.
           </div>
           <div class="topic-ws">
             <p class="ws-label">ปฏิบัติการ</p>
-            <a class="ws-link" href="workshops/moodle_quiz/" target="_blank" rel="noopener"><span class="ws-num">17</span><span class="ws-name">สร้างคำถาม Moodle ด้วยแพ็กเกจ moodle</span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a>
+            <a class="ws-link" href="workshops/moodle_quiz/" target="_blank" rel="noopener"><span class="ws-num">16</span><span class="ws-name">สร้างคำถาม Moodle ด้วยแพ็กเกจ moodle</span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a>
           </div>
         </li>
     </ol>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="project-panel" aria-labelledby="tab-project" tabindex="0">
+    <h3 class="panel-title">โครงงาน</h3>
+    <div class="project-body panel-grid">
+      <div>
+        <p>โครงงานเดี่ยว คิดเป็น 25% ของคะแนนรวม นักศึกษาเลือกหัวข้อเอง เขียนเป็นภาษาไทยหรือภาษาอังกฤษ จัดทำเอกสารฉบับสมบูรณ์ สไลด์ beamer จากเอกสารนั้น และนำเสนอในชั้นเรียน</p>
+        <ul class="scores">
+          <li><span>เอกสาร (article หรือ report 6–10 หน้า)</span><b>15</b><i style="--w:60%"></i></li>
+          <li><span>สไลด์ beamer</span><b>5</b><i style="--w:20%"></i></li>
+          <li><span>การนำเสนอ 5 นาที ตอบคำถาม 3 นาที</span><b>5</b><i style="--w:20%"></i></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="sub">กำหนดการ</h4>
+        <ul class="exams">
+          <li><span class="date"><b>1</b>ก.พ.</span><span><strong>แจ้งหัวข้อ</strong><br>แจ้งหัวข้อและชื่อเรื่องกับผู้สอนในชั้นเรียน</span></li>
+          <li><span class="date"><b>26</b>ก.พ.</span><span><strong>ส่งงาน</strong><br>ไฟล์ zip ภายในเวลา 23.59 น.</span></li>
+          <li><span class="date"><b>1</b>มี.ค.</span><span><strong>นำเสนอ</strong><br>นำเสนอในชั้นเรียน คนละ 8 นาที</span></li>
+        </ul>
+        <a class="ws-link project-link" id="project" href="workshops/project/" target="_blank" rel="noopener"><span class="ws-num">17</span><span class="ws-name">โครงงาน เอกสาร สไลด์ และการนำเสนอ</span><svg class="ic ws-go"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
     </div>
   </div>
 </section>

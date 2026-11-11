@@ -325,6 +325,8 @@ var { font-style: italic; }
 .grades td:first-child { font-weight: 600; color: var(--accent); }
 .grades td:nth-child(2) { font-variant-numeric: tabular-nums; }
 
+.project-body { padding: 22px 26px 26px; }   /* the project tab: a panel-grid inside the padding-free syllabus card */
+.project-link { margin-top: 14px; }
 .exams { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .exams li { display: flex; align-items: center; gap: 14px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; line-height: 1.55; }
 .date { flex: none; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 10px;
@@ -418,6 +420,7 @@ img.cover { filter: drop-shadow(0 4px 8px rgba(0,0,0,.22)); }
   .syllabus.js-tabs .tabpanel { margin-top: 16px; }
   [role="tab"] { padding: 8px 12px; font-size: .86rem; }
   .topic-row { padding: 16px; }
+  .project-body { padding: 16px; }
   .topic-main { grid-template-columns: 34px minmax(0, 1fr); gap: 12px; }
   .num { width: 34px; height: 34px; }
   .topic-ws { margin-left: 0; }
