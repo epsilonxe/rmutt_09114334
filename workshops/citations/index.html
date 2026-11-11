@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · การอ้างอิงและบรรณานุกรม</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>การอ้างอิงและบรรณานุกรม</h1>
+    <div class="downloads">
+      <a class="primary" href="citations.zip" target="_blank" rel="noopener">ดาวน์โหลด citations.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Citations and Bibliography</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>latexmk</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>citations_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">10′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">35′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">50′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เขียนฐานข้อมูลบรรณานุกรมในไฟล์ <code>.bib</code> สำหรับหนังสือ บทความวารสาร คู่มือ และเว็บไซต์ได้</li>
+  <li>ใช้แพ็กเกจ <code>biblatex</code> กับโปรแกรม <code>biber</code> เพื่ออ้างอิงด้วย <code>\cite</code>, <code>\parencite</code>, <code>\textcite</code> และพิมพ์บรรณานุกรมด้วย <code>\printbibliography</code> ได้</li>
+  <li>อธิบายลำดับการทำงาน pdflatex → biber → pdflatex และใช้ <code>latexmk</code> ให้ทำลำดับนี้อัตโนมัติได้</li>
+  <li>เปลี่ยนรูปแบบการอ้างอิง (<code>numeric</code>, <code>alphabetic</code>, <code>authoryear</code>, <code>ieee</code>) ได้โดยไม่แก้เนื้อหา</li>
+  <li>อ่านคำเตือนเรื่องการอ้างอิงจาก LaTeX และ biber ได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="citations.zip" target="_blank" rel="noopener"><code>citations.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>citations</code> ดังนี้</p>
+<pre class="tex nocopy"><code>citations/
+├── doc.pdf      ชิ้นงานต้นแบบ (2 หน้า)
+├── warmup.tex   ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex     ไฟล์เริ่มต้นสำหรับ Part B
+├── content.txt  เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่
+└── refs.bib     ฐานข้อมูลบรรณานุกรม 6 รายการ (ใช้ทั้ง Part A และ B)</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a>,
+  <a href="starter/refs.bib" target="_blank" rel="noopener"><code>refs.bib</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 10 นาที</span></div>
+<p>เปิดโฟลเดอร์ <code>citations</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน Workshop นี้ใช้โปรแกรมใหม่ 2 โปรแกรม ได้แก่ <code>biber</code> (จัดการบรรณานุกรม) และ <code>latexmk</code> (เรียกโปรแกรมต่าง ๆ ตามลำดับให้อัตโนมัติ) ตรวจว่ามีทั้งสองโปรแกรม</p>
+<div class="os-tabs">
+  <div class="os-panel" data-os="windows"><p class="os-label">Windows</p>
+<pre class="term"><code><span class="prompt">PS&gt; </span>biber --version
+<span class="prompt">PS&gt; </span>latexmk --version</code></pre>
+    <p>TeX Live มีทั้งสองโปรแกรมพร้อมใช้ ถ้าใช้ MiKTeX แล้ว <code>latexmk</code> แจ้งว่าหา Perl ไม่พบ ต้องติดตั้ง Strawberry Perl เพิ่ม (ขอไฟล์ติดตั้งจากผู้สอนได้) แล้วปิดและเปิดเทอร์มินัลใหม่</p></div>
+  <div class="os-panel" data-os="macos"><p class="os-label">macOS</p>
+<pre class="term"><code><span class="prompt">$ </span>biber --version
+<span class="prompt">$ </span>latexmk --version</code></pre></div>
+  <div class="os-panel" data-os="linux"><p class="os-label">Linux</p>
+<pre class="term"><code><span class="prompt">$ </span>biber --version
+<span class="prompt">$ </span>latexmk --version</code></pre>
+    <p>ถ้าไม่พบคำสั่ง ให้ติดตั้งแพ็กเกจ <code>biber</code> และ <code>latexmk</code> ของระบบ (เช่น <code>sudo apt install biber latexmk</code>)</p></div>
+</div>
+<div class="callout note">
+  <strong class="label">ทำไมต้องมี biber</strong>
+  <code>pdflatex</code> ไม่อ่านไฟล์ <code>.bib</code> เอง ครั้งแรกมันจดรายการที่อ้างถึงลงไฟล์ <code>.bcf</code> จากนั้น <code>biber</code> อ่าน <code>.bcf</code> กับ <code>.bib</code> แล้วเขียนบรรณานุกรมที่จัดรูปแบบแล้วลงไฟล์ <code>.bbl</code>
+  สุดท้าย <code>pdflatex</code> อ่าน <code>.bbl</code> มาพิมพ์ <code>latexmk</code> รู้ลำดับนี้และสั่งให้เองครบทุกขั้น
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 35 นาที</span></div>
+<p>ใช้ไฟล์ <code>warmup.tex</code> กับ <code>refs.bib</code> ทำทีละข้อ ข้อ A0–A1 สั่งโปรแกรมทีละตัวเองเพื่อให้เห็นการทำงาน ตั้งแต่ A2 จึงใช้ <code>latexmk</code></p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> เปิด <code>refs.bib</code> ใน Sublime Text แล้วดูโครงสร้างของแต่ละรายการ จากนั้นแทนบรรทัด <code>% A0: ...</code> ใน <code>warmup.tex</code> ด้วย
+<pre class="tex"><code>\usepackage[backend=biber]{biblatex}
+\addbibresource{refs.bib}</code></pre>
+    เพิ่ม <code>\cite{knuth1984texbook}</code> ท้ายประโยคแรก แทนบรรทัด <code>% A1: ...</code> ด้วย <code>\printbibliography</code> แล้วคอมไพล์ด้วย <code>pdflatex</code> ครั้งเดียว
+<pre class="term nocopy"><code><span class="out">LaTeX Warning: Citation 'knuth1984texbook' on page 1 undefined on input line 13</span>
+<span class="out">LaTeX Warning: Empty bibliography on input line 17.</span>
+<span class="out">LaTeX Warning: There were undefined references.</span>
+<span class="out">Package biblatex Warning: Please (re)run Biber on the file:</span>
+<span class="out">(biblatex)                and rerun LaTeX afterwards.</span></code></pre>
+    <p class="q">PDF แสดงอะไรตรงตำแหน่งที่อ้างอิง แต่ละรายการใน <code>.bib</code> มีส่วนใดบ้าง (ชนิด คีย์ และฟิลด์)</p></li>
+
+  <li><span class="step-id">A1</span> สั่ง <code>biber</code> (ใส่ชื่อไฟล์<strong>ไม่ต้องมีนามสกุล</strong>) แล้วสั่ง <code>pdflatex</code> อีกครั้ง
+<pre class="term"><code><span class="prompt">$ </span>biber warmup
+<span class="prompt">$ </span>pdflatex warmup.tex</code></pre>
+    <p class="q">เกิดไฟล์ใหม่อะไรบ้าง (<code>.bcf</code>, <code>.bbl</code>, <code>.blg</code>) เปิดไฟล์ <code>.bbl</code> ดูว่ามีอะไร</p></li>
+
+  <li><span class="step-id">A2</span> <strong>latexmk</strong> ลบไฟล์ที่เกิดขึ้นทั้งหมดยกเว้น <code>.tex</code> และ <code>.bib</code> แล้วสั่ง
+<pre class="term"><code><span class="prompt">$ </span>latexmk -pdf warmup.tex</code></pre>
+    อ่านบรรทัดที่ขึ้นต้นด้วย <code>Run number</code> และ <code>Running</code> ในเทอร์มินัล จากนั้นสั่ง <code>latexmk -pdf warmup.tex</code> ซ้ำโดยไม่แก้ไฟล์
+    <p class="q">latexmk เรียกโปรแกรมใดบ้าง กี่ครั้ง และครั้งที่สองทำอะไร</p>
+    ลองล้างไฟล์ด้วย <code>latexmk -c</code> (เก็บ PDF ไว้) และ <code>latexmk -C</code> (ลบ PDF ด้วย)</li>
+
+  <li><span class="step-id">A3</span> อ้างอิงเพิ่มใน 2 ประโยคที่เหลือ ด้วย <code>\cite{lamport1994latex}</code> และ <code>\cite{ctan}</code> แล้วอ้างสองรายการพร้อมกันด้วย <code>\cite{knuth1984texbook, knuth1979typography}</code>
+    <p class="q">ลำดับในบรรณานุกรมเรียงตามอะไร รายการใน <code>refs.bib</code> ที่ไม่ได้อ้างถึงปรากฏหรือไม่</p></li>
+
+  <li><span class="step-id">A4</span> <strong>รูปแบบ</strong> เปลี่ยนตัวเลือกเป็น <code>[backend=biber, style=alphabetic]</code> แล้ว <code>style=authoryear</code> และ <code>style=ieee</code> สั่ง <code>latexmk -pdf warmup.tex</code> ทุกครั้ง
+    <p class="q">การอ้างอิงในเนื้อความและรูปแบบบรรณานุกรมเปลี่ยนไปอย่างไร ต้องแก้เนื้อหาหรือไม่</p></li>
+
+  <li><span class="step-id">A5</span> ใช้ <code>style=authoryear</code> แล้วเปลี่ยน <code>\cite</code> ในประโยคแรกเป็น <code>\parencite</code> จากนั้นเขียนประโยคใหม่ <code>\textcite{lamport1994latex} wrote LaTeX on top of TeX.</code>
+    และลองใส่เลขหน้า <code>\parencite[p.~20]{knuth1984texbook}</code>
+    <p class="q"><code>\cite</code>, <code>\parencite</code> และ <code>\textcite</code> ให้ผลต่างกันอย่างไร ควรใช้แบบใดเมื่อชื่อผู้แต่งเป็นประธานของประโยค</p></li>
+
+  <li><span class="step-id">A6</span> <strong>เพิ่มรายการเอง</strong> เพิ่มหนังสือเล่มหนึ่งที่นักศึกษามีลงใน <code>refs.bib</code> ด้วยชนิด <code>@book</code> (ต้องมี <code>author</code>, <code>title</code>, <code>publisher</code>, <code>year</code>) แล้วอ้างถึง
+    สำหรับผู้แต่งหลายคน ให้คั่นชื่อด้วยคำว่า <code>and</code> เช่น <code>author = {Frank Mittelbach and Ulrike Fischer}</code>
+    <p class="q">ถ้าคั่นชื่อผู้แต่งด้วยจุลภาคแทน <code>and</code> ชื่อในบรรณานุกรมผิดอย่างไร</p></li>
+
+  <li><span class="step-id">A7</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> สะกดคีย์ผิดเป็น <code>\cite{knuth1948texbook}</code> แล้วสั่ง latexmk
+<pre class="term nocopy"><code><span class="out">Latexmk: Summary of warnings from last run of *latex:</span>
+<span class="out">  Latex failed to resolve 1 citation(s)</span>
+<span class="out">Latexmk: ====Problematic refs and citations with line #s in .tex file:</span>
+<span class="out">  Citation 'knuth1948texbook' on page 1 undefined on input line 13</span></code></pre>
+    เปิด <code>warmup.blg</code> หาบรรทัด <code>WARN - I didn't find a database entry for 'knuth1948texbook'</code>
+    <p class="q">PDF ยังสร้างได้หรือไม่ และผู้อ่านเห็นอะไรตรงตำแหน่งนั้น</p></li>
+
+  <li><span class="step-id">A8</span> แก้คีย์กลับ แล้วลบจุลภาคท้ายบรรทัด <code>publisher = {Addison-Wesley},</code> ของรายการแรกใน <code>refs.bib</code> แล้วสั่ง latexmk ข้อความจาก biber จะคล้ายนี้
+<pre class="term nocopy"><code><span class="err">ERROR - BibTeX subsystem: ... line 7, syntax error: found "address",
+expected end of entry ("}" or ")") (skipping to next "@")</span></code></pre>
+    <p class="q">รายการใดหายไปจากบรรณานุกรม และหมายเลขบรรทัดนี้หมายถึงบรรทัดในไฟล์ใด</p>
+    แก้ไฟล์กลับให้ถูกต้องก่อนไปต่อ</li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) ไฟล์ <code>.bib</code>, <code>.bcf</code> และ <code>.bbl</code> ทำหน้าที่อะไร (2) ทำไมต้องรัน pdflatex → biber → pdflatex
+  (3) <code>latexmk -pdf</code> และ <code>latexmk -c</code> ทำอะไร และ (4) จะเปลี่ยนรูปแบบการอ้างอิงทั้งเอกสารได้อย่างไร
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 50 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างบทความ 2 หน้าที่มีการอ้างอิง 6 แหล่งให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> คอมไพล์ด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>latexmk -pdf main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<p>ใน <code>content.txt</code> ตำแหน่งที่ต้องอ้างอิงเขียนไว้ เช่น <code>&lt;&lt;parencite ctan&gt;&gt;</code> หมายถึงให้ใช้ <code>\parencite{ctan}</code> ไม่ต้องแก้ไฟล์ <code>refs.bib</code></p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>ส่วนนำ</td><td><code>biblatex</code> ตัวเลือก <code>backend=biber</code> และ <code>style=authoryear</code>, <code>\addbibresource{refs.bib}</code></td></tr>
+    <tr><td>หัวเรื่อง</td><td><code>\title</code>, <code>\author</code>, <code>\date</code>, <code>\maketitle</code></td></tr>
+    <tr><td>โลโก้ TeX และ LaTeX</td><td><code>\TeX{}</code> และ <code>\LaTeX{}</code> (วงเล็บปีกกาว่างช่วยให้มีช่องว่างหลังโลโก้)</td></tr>
+    <tr><td>Knuth (1979) ต้นประโยค</td><td><code>\textcite</code></td></tr>
+    <tr><td>(Knuth 1984) ท้ายประโยค</td><td><code>\parencite</code> และอ้างสองรายการพร้อมกันได้ในคำสั่งเดียว</td></tr>
+    <tr><td>References</td><td><code>\printbibliography</code> ท้ายเอกสาร</td></tr>
+    <tr><td>ชื่อหนังสือ The TeXbook ในเนื้อความ</td><td><code>\textit</code> และ <code>\TeX book</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>ถ้าการอ้างอิงยังเป็นคีย์ตัวหนา ให้ดูสรุปคำเตือนท้ายผลลัพธ์ของ latexmk ว่าคีย์ใดหาไม่พบ</li>
+    <li>คีย์ต้องตรงกับใน <code>refs.bib</code> ทุกตัวอักษร รวมตัวพิมพ์เล็กและใหญ่</li>
+    <li>ถ้าเปลี่ยนรูปแบบแล้วผลไม่เปลี่ยน ให้สั่ง <code>latexmk -C</code> แล้วสั่ง <code>latexmk -pdf main.tex</code> ใหม่</li>
+    <li>คำว่า <code>visited on</code> ในบรรณานุกรมมาจากฟิลด์ <code>urldate</code> ของรายการ <code>@online</code></li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>citations_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วสั่ง <code>latexmk -pdf citations_&lt;รหัสนักศึกษา&gt;.tex</code> ส่งไฟล์ <code>.tex</code> และ <code>.pdf</code> (ไม่ต้องส่ง <code>refs.bib</code> เพราะไม่ได้แก้ไข)</p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> latexmk ทำงานจบโดยไม่มีข้อผิดพลาด และไม่มีสรุปคำเตือนเรื่อง citation</label></li>
+  <li><label><input type="checkbox" id="b2"> การอ้างอิงในเนื้อความเป็นแบบชื่อผู้แต่งและปี ไม่มีคีย์ตัวหนา</label></li>
+  <li><label><input type="checkbox" id="b3"> ใช้ <code>\textcite</code> 3 ครั้ง และ <code>\parencite</code> ในตำแหน่งที่เหลือ</label></li>
+  <li><label><input type="checkbox" id="b4"> บรรณานุกรมมีครบ 6 รายการและเรียงตามชื่อผู้แต่ง</label></li>
+  <li><label><input type="checkbox" id="b5"> โลโก้ TeX และ LaTeX แสดงถูกต้องและมีช่องว่างหลังโลโก้</label></li>
+  <li><label><input type="checkbox" id="b6"> เอกสารมี 2 หน้า และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> เปลี่ยนงาน Part B เป็น <code>style=ieee</code> และเปลี่ยน <code>\textcite</code> ให้ประโยคยังอ่านได้ถูกต้อง
+    <p class="q">ทำไมการอ้างอิงแบบตัวเลขจึงต้องเขียนชื่อผู้แต่งลงในประโยคเอง</p></li>
+  <li><span class="step-id">C2</span> ใช้ตัวเลือก <code>sorting=none</code> หรือ <code>sorting=ynt</code> แล้วสังเกตลำดับในบรรณานุกรม</li>
+  <li><span class="step-id">C3</span> ใช้ <code>\nocite{*}</code> เพื่อพิมพ์ทุกรายการใน <code>.bib</code> แม้ไม่ได้อ้างถึง และเปลี่ยนหัวข้อบรรณานุกรมด้วย <code>\printbibliography[title={Further Reading}]</code></li>
+  <li><span class="step-id">C4</span> เขียนบทความสั้น 1 หน้าในหัวข้อที่สนใจ อ้างอิงอย่างน้อย 4 แหล่ง ได้แก่ หนังสือ บทความวารสาร เว็บไซต์ และอีกหนึ่งชนิดที่เลือกเอง</li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td>การอ้างอิงแสดงเป็นคีย์ตัวหนา และมี <code>Please (re)run Biber</code></td>
+        <td>ยังไม่ได้รัน biber ใช้ <code>latexmk -pdf</code> แทนการสั่ง pdflatex เอง</td></tr>
+    <tr><td><code>WARN - I didn't find a database entry for '...'</code></td>
+        <td>คีย์ใน <code>\cite</code> ไม่ตรงกับใน <code>.bib</code> หรือ <code>\addbibresource</code> ชี้ไฟล์ผิด</td></tr>
+    <tr><td><code>ERROR - BibTeX subsystem: ... syntax error</code></td>
+        <td>ไฟล์ <code>.bib</code> ผิดรูปแบบ มักเป็นจุลภาคหรือวงเล็บปีกกาที่ขาด ดูหมายเลขบรรทัดในข้อความ</td></tr>
+    <tr><td><code>LaTeX Warning: Empty bibliography</code></td>
+        <td>ยังไม่มีการอ้างอิงที่ biber หาพบเลย หรือยังไม่ได้รัน biber</td></tr>
+    <tr><td><code>! LaTeX Error: File `biblatex.sty' not found.</code></td>
+        <td>ติดตั้ง TeX ไม่ครบชุด ติดตั้งแพ็กเกจ biblatex เพิ่ม</td></tr>
+    <tr><td><code>latexmk</code> แจ้งว่าหา Perl ไม่พบ (Windows กับ MiKTeX)</td>
+        <td>ติดตั้ง Strawberry Perl แล้วเปิดเทอร์มินัลใหม่</td></tr>
+    <tr><td>ผู้แต่งหลายคนกลายเป็นชื่อเดียวยาว ๆ</td>
+        <td>คั่นชื่อผู้แต่งด้วย <code>and</code> ไม่ใช่จุลภาค</td></tr>
+    <tr><td>ผู้แต่งที่เป็นหน่วยงานถูกตัดเป็นชื่อและนามสกุล</td>
+        <td>ครอบด้วยวงเล็บปีกกาสองชั้น เช่น <code>{{CTAN Team}}</code></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Citations and Bibliography</em> (Minimal Working Example, Bibliography Files, Supported Entry Types and Fields, Citation Styles, Bibliography Styles)</li>
+  <li>เอกสารของ biblatex ในเครื่อง สั่ง <code>texdoc biblatex</code> ในเทอร์มินัล</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) หัวข้อ 4.1 Bibliography</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

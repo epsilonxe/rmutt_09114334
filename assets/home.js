@@ -2,13 +2,24 @@
    - theme switch in the top nav: the label shows the CURRENT mode (โหมดสว่าง / โหมดมืด); light by
      default, the choice is shared with the workshop pages (localStorage "workshop-theme") and the
      page <head> applies it before first paint
-   - course info tabs (schedule / assessment / references): click, arrow keys, and nav links or
-     hashes to #schedule etc. open the matching tab; without JS the panels show stacked
+   - tabs: topics (core / special) and course info (schedule / outcomes / assessment / references);
+     click, arrow keys, and links or hashes to a panel or anything in it (#schedule, #exam_paper) open the
+     matching tab; without JS the panels show stacked
+   - references: each book card gets a row of quiet chips (APA · IEEE · Chicago · BibTeX) that copy its citation
    - nav highlight: marks the link of the section (or active tab) in view with aria-current
+   - maths: [data-tex] elements hold LaTeX, rendered by KaTeX (cdnjs) when it loaded; data-tex="inline"
+     renders in text style, any other value as a display formula
    - hero animation: see heroStage() below                                                        */
 (function () {
   "use strict";
   var KEY = "workshop-theme", root = document.documentElement;
+
+  /* ---------- maths ---------- */
+  if (window.katex) {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-tex]"), function (el) {
+      window.katex.render(el.textContent, el, { displayMode: el.getAttribute("data-tex") !== "inline", throwOnError: false });
+    });
+  }
 
   /* ---------- theme switch ---------- */
   var slot = document.getElementById("theme-slot");
@@ -39,59 +50,128 @@
   var links = {}, visible = {};
   document.querySelectorAll(".navlinks a[href^='#']").forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
 
-  /* ---------- course info tabs ---------- */
-  var tabs = [].slice.call(document.querySelectorAll('.tabs [role="tab"]'));
-  var tabbox = tabs.length ? tabs[0].closest(".tabs") : null, info = document.getElementById("info");
-  var activeTab = tabs.length ? tabs[0].getAttribute("aria-controls") : null;
-  var isTab = function (id) { return tabs.some(function (t) { return t.getAttribute("aria-controls") === id; }); };
-  function activate(id, focus) {
-    if (!isTab(id)) return;
-    activeTab = id;
-    tabs.forEach(function (t) {
+  /* ---------- tabs: topics (core / special) and course info (schedule / outcomes / ...) ---------- */
+  var groups = [], activeTab = null;
+  /* the tab group and panel holding an element: the panel itself or anything in it (#exam_paper, #introduction) */
+  function locate(el) {
+    for (var g = 0; g < groups.length; g++) {
+      for (var p = 0; p < groups[g].panels.length; p++) {
+        if (groups[g].panels[p].contains(el)) return { group: groups[g], panel: groups[g].panels[p] };
+      }
+    }
+    return null;
+  }
+  function activate(group, id, focus) {
+    group.tabs.forEach(function (t) {
       var on = t.getAttribute("aria-controls") === id;
       t.setAttribute("aria-selected", on ? "true" : "false");
       t.tabIndex = on ? 0 : -1;
       if (on && focus) t.focus();
       document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
     });
+    if (group.box.closest("#info")) activeTab = id;
     updateNav();
   }
-  if (tabbox) {
-    tabbox.querySelector(".tablist").hidden = false;
-    tabbox.classList.add("js-tabs");
+  document.querySelectorAll(".tabs").forEach(function (box) {
+    var tabs = [].slice.call(box.querySelectorAll('[role="tab"]'));
+    if (!tabs.length) return;
+    var group = { box: box, tabs: tabs,
+      panels: tabs.map(function (t) { return document.getElementById(t.getAttribute("aria-controls")); }) };
+    groups.push(group);
+    box.querySelector(".tablist").hidden = false;
+    box.classList.add("js-tabs");
     tabs.forEach(function (t, i) {
-      t.addEventListener("click", function () { activate(t.getAttribute("aria-controls")); });
+      t.addEventListener("click", function () { activate(group, t.getAttribute("aria-controls")); });
       t.addEventListener("keydown", function (e) {
         var j = e.key === "ArrowRight" ? (i + 1) % tabs.length : e.key === "ArrowLeft" ? (i - 1 + tabs.length) % tabs.length
               : e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : -1;
         if (j < 0) return;
-        e.preventDefault(); activate(tabs[j].getAttribute("aria-controls"), true);
+        e.preventDefault(); activate(group, tabs[j].getAttribute("aria-controls"), true);
       });
     });
-    /* a link or hash to #schedule / #assessment / #references opens that tab and scrolls to the card */
-    var openHash = function (smooth) {
-      var id = location.hash.slice(1);
-      if (!isTab(id)) return false;
-      activate(id);
-      if (!info) return true;
-      var go = function () { info.scrollIntoView({ behavior: smooth ? "smooth" : "auto" }); };
-      /* on first load, scroll after the browser's own fragment scroll (which targets the panel) */
-      if (document.readyState === "complete") go();
-      else window.addEventListener("load", function () { setTimeout(go, 0); });
-      return true;
-    };
+    activate(group, tabs[0].getAttribute("aria-controls"));
+  });
+  /* a link or hash to a panel, or to anything inside one, opens that tab and scrolls: to the whole section
+     for a panel (#schedule scrolls to #info), to the element itself otherwise (#exam_paper) */
+  function reveal(id, smooth) {
+    var el = id && document.getElementById(id), hit = el && locate(el);
+    if (!hit) return false;
+    activate(hit.group, hit.panel.id);
+    var dest = el === hit.panel ? hit.group.box.closest("section") || el : el;
+    var go = function () { dest.scrollIntoView({ behavior: smooth ? "smooth" : "auto" }); };
+    /* on first load, scroll after the browser's own fragment scroll (which may target a hidden panel) */
+    if (document.readyState === "complete") go();
+    else window.addEventListener("load", function () { setTimeout(go, 0); });
+    return true;
+  }
+  if (groups.length) {
     document.addEventListener("click", function (e) {
       var a = e.target.closest && e.target.closest('a[href^="#"]');
       if (!a) return;
       var id = a.getAttribute("href").slice(1);
-      if (!isTab(id)) return;
+      if (!reveal(id, true)) return;
       e.preventDefault();
-      activate(id);
-      if (info) info.scrollIntoView({ behavior: "smooth" });
       try { history.replaceState(null, "", "#" + id); } catch (err) {}
     });
-    window.addEventListener("hashchange", function () { openHash(true); });
-    if (!openHash(false)) activate(activeTab);
+    window.addEventListener("hashchange", function () { reveal(location.hash.slice(1), true); });
+    reveal(location.hash.slice(1), false);
+  }
+
+  /* ---------- references: copy a citation ---------- */
+  /* each book card holds its citations in a hidden div.cites, one element per style (data-style is the label).
+     Under the card's actions this builds a quiet row "คัดลอก APA · IEEE · Chicago · BibTeX"; a chip copies its
+     citation as HTML (italic title, for Word / Docs) plus plain text, BibTeX as plain text only, falling
+     back to plain text, then to execCommand. The chip shows ✓ (or ✕) for 2 s; a live region announces it. */
+  var citeSets = document.querySelectorAll(".book .cites");
+  if (citeSets.length) {
+    var live = document.createElement("span");
+    live.setAttribute("aria-live", "polite");
+    live.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap";
+    document.body.appendChild(live);
+    var legacyCopy = function (text) {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;top:0;left:-9999px";
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      return ok ? Promise.resolve() : Promise.reject();
+    };
+    var copy = function (html, text) {
+      var cb = navigator.clipboard;
+      var plain = function () { return cb && cb.writeText ? cb.writeText(text) : Promise.reject(); };
+      var first = html && cb && cb.write && window.ClipboardItem
+        ? cb.write([new ClipboardItem({
+            "text/html": new Blob([html], { type: "text/html" }),
+            "text/plain": new Blob([text], { type: "text/plain" })
+          })]).catch(plain)
+        : plain();
+      return first.catch(function () { return legacyCopy(text); });
+    };
+    Array.prototype.forEach.call(citeSets, function (set) {
+      var row = document.createElement("div");
+      row.className = "cite-row";
+      row.innerHTML = '<span class="cite-label">คัดลอก</span>';
+      Array.prototype.forEach.call(set.children, function (el, i) {
+        var name = el.getAttribute("data-style"), raw = el.tagName === "PRE", timer;
+        if (i) row.insertAdjacentHTML("beforeend", '<span class="cite-sep" aria-hidden="true">·</span>');
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "cite-chip"; chip.textContent = name;
+        chip.setAttribute("aria-label", "คัดลอกการอ้างอิงแบบ " + name);
+        chip.addEventListener("click", function () {
+          var text = raw ? el.textContent.trim() : el.textContent.replace(/\s+/g, " ").trim();
+          var show = function (ok) {
+            clearTimeout(timer);
+            chip.textContent = (ok ? "✓ " : "✕ ") + name; chip.classList.toggle("done", ok);
+            live.textContent = ok ? "คัดลอก " + name + " แล้ว" : "คัดลอก " + name + " ไม่สำเร็จ";
+            timer = setTimeout(function () { chip.textContent = name; chip.classList.remove("done"); }, 2000);
+          };
+          copy(raw ? null : el.innerHTML.trim(), text).then(function () { show(true); }, function () { show(false); });
+        });
+        row.appendChild(chip);
+      });
+      set.parentNode.appendChild(row);
+    });
   }
 
   /* ---------- nav highlight ---------- */
@@ -130,11 +210,11 @@
               '<div class="pe pg-sec" style="--i:2"><b>1</b>Introduction</div><div class="pe" style="--i:3">Typesetting is an art.</div>' +
               idx(bars("LLLsLLs")) + '<div class="pe pg-num" style="--i:8">1</div>' },
       { file: "math.tex",
-        code: "\\documentclass{article}\n\\usepackage{amsmath}\n\\begin{document}\n\\section{Grading}\n% t-score of a total x\n\\begin{equation}\n  t = 50 + 10\\,\\frac{x-u}{s}\n\\end{equation}\n\\end{document}",
+        code: "\\documentclass{article}\n\\usepackage{amsmath}\n\\begin{document}\n\\section{Grading}\n% t-score of a total x\n\\begin{equation}\n  t = 50 + 10\\,\\left(\\frac{x-\\mu}{\\sigma}\\right)\n\\end{equation}\n\\end{document}",
         cls: "page",
         page: '<div class="pe pg-sec" style="--i:0"><b>1</b>Grading</div>' +
               '<div class="pe pg-line" style="--i:1"></div><div class="pe pg-line s" style="--i:1"></div>' +
-              '<div class="pe pg-eq" style="--i:2"><i>t</i>&nbsp;=&nbsp;50&nbsp;+&nbsp;10<span class="frac"><span class="numer"><i>x</i> − <i>u</i></span><span class="denom"><i>s</i></span></span><span class="no">(1)</span></div>' +
+              '<div class="pe pg-eq" style="--i:2"><i>t</i>&nbsp;=&nbsp;50&nbsp;+&nbsp;10<span class="paren">(</span><span class="frac"><span class="numer"><i>x</i> − <i>μ</i></span><span class="denom"><i>σ</i></span></span><span class="paren">)</span><span class="no">(1)</span></div>' +
               '<div class="pe pg-line" style="--i:3"></div><div class="pe pg-line" style="--i:3"></div><div class="pe pg-line s" style="--i:4"></div>' +
               '<div class="pe pg-line" style="--i:5"></div><div class="pe pg-line" style="--i:5"></div><div class="pe pg-line s" style="--i:6"></div>' +
               '<div class="pe pg-num" style="--i:6">1</div>' },

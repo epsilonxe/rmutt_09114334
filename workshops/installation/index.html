@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · ติดตั้ง LaTeX และเครื่องมือ</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>ติดตั้ง LaTeX และเครื่องมือ</h1>
+    <div class="downloads">
+      <a class="primary" href="installation.zip" target="_blank" rel="noopener">ดาวน์โหลด installation.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Introduction to LaTeX<br>(หัวข้อ Installation)</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>MiKTeX / MacTeX / TeX Live<br>Sublime Text, เทอร์มินัล</dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>installation_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#before"><span>ก่อนเริ่ม</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#part-a"><span>Part A · ติดตั้ง</span><span class="t">60′</span></a></li>
+    <li><a href="#part-b"><span>Part B · ตรวจสอบระบบ</span><span class="t">30′</span></a></li>
+    <li><a href="#part-c"><span>Part C · เพิ่มเติม</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>ติดตั้งระบบ LaTeX ที่เหมาะกับระบบปฏิบัติการของตนเอง ได้แก่ MiKTeX (Windows), MacTeX (macOS) หรือ TeX Live (Linux)</li>
+  <li>ติดตั้งและตั้งค่าโปรแกรมแก้ไขข้อความ Sublime Text และโปรแกรมอ่าน PDF ที่ใช้ตลอดรายวิชา</li>
+  <li>เปิดเทอร์มินัลในโฟลเดอร์งาน เปลี่ยนโฟลเดอร์ด้วย <code>cd</code> และดูรายชื่อไฟล์ด้วย <code>ls</code> หรือ <code>dir</code> ได้</li>
+  <li>คอมไพล์ไฟล์ LaTeX ด้วย <code>pdflatex</code> และ <code>xelatex</code> และยืนยันว่าแพ็กเกจและฟอนต์ที่ต้องใช้ในรายวิชาพร้อมใช้งาน</li>
+</ol>
+</section>
+
+<section class="card" id="before">
+  <div class="sec-head"><h2>ก่อนเริ่ม</h2></div>
+<p>Workshop นี้ทำในชั้นเรียน แต่ไฟล์ติดตั้งมีขนาดใหญ่ (MacTeX ประมาณ 6 GB) ถ้าทำได้ให้<strong>ดาวน์โหลดไฟล์ติดตั้งมาก่อนเข้าเรียน</strong>
+  และเสียบสายชาร์จไว้ระหว่างติดตั้ง</p>
+<ul>
+  <li>พื้นที่ว่างในดิสก์อย่างน้อย 10 GB และสิทธิ์ผู้ดูแลเครื่อง (administrator) สำหรับติดตั้งโปรแกรม</li>
+  <li>รายวิชานี้<strong>ไม่ใช้โปรแกรม IDE สำหรับ LaTeX</strong> (เช่น TeXstudio หรือ Overleaf) แต่ใช้ Sublime Text คู่กับเทอร์มินัล
+    เพื่อให้เห็นว่าการเรียงพิมพ์เกิดขึ้นอย่างไรจริง ๆ</li>
+  <li>ถ้าเครื่องเคยติดตั้ง LaTeX ไว้แล้ว ให้ข้ามไปทำ <a href="#part-b">Part B</a> ได้เลย ถ้าผ่านทุกข้อก็ไม่ต้องติดตั้งใหม่</li>
+</ul>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="installation.zip" target="_blank" rel="noopener"><code>installation.zip</code></a> แล้วแตกไฟล์ (Extract) ไว้ในที่ที่หาง่าย เช่น Desktop จะได้โฟลเดอร์ <code>installation</code> ดังนี้</p>
+<pre class="tex nocopy"><code>installation/
+├── doc.pdf     ชิ้นงานต้นแบบ (ผลการตรวจสอบระบบที่ผ่านทุกข้อ)
+├── hello.tex   ไฟล์ทดสอบแรกสำหรับ pdflatex
+└── check.tex   ไฟล์ตรวจสอบระบบสำหรับ xelatex (แก้เพียง 3 บรรทัด)</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/hello.tex" target="_blank" rel="noopener"><code>hello.tex</code></a>,
+  <a href="starter/check.tex" target="_blank" rel="noopener"><code>check.tex</code></a></p>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>ติดตั้ง</h2><span class="badge">ประมาณ 60 นาที</span></div>
+<p>เลือกแท็บตามระบบปฏิบัติการของเครื่อง แล้วทำทีละข้อ ระหว่างรอติดตั้งระบบ LaTeX ให้ทำข้อ A2–A4 ไปพร้อมกันได้</p>
+
+<ol class="steps">
+  <li><span class="step-id">A1</span> <strong>ติดตั้งระบบ LaTeX</strong>
+    <div class="os-tabs">
+      <div class="os-panel" data-os="windows">
+        <p class="os-label">Windows</p>
+        <p>ใช้ <strong>MiKTeX</strong> ดาวน์โหลดได้ที่ <a href="https://miktex.org/download" target="_blank" rel="noopener">miktex.org/download</a></p>
+        <ol>
+          <li>ดาวน์โหลด <em>Basic MiKTeX Installer</em> สำหรับ Windows (ประมาณ 150 MB) แล้วดับเบิลคลิกเพื่อติดตั้ง</li>
+          <li>ทำตามขั้นตอนที่แสดง ที่ตัวเลือก <em>Install missing packages on-the-fly</em> ให้เลือก <strong>Always</strong>
+            เพื่อให้ MiKTeX ดาวน์โหลดแพ็กเกจที่ยังไม่มีให้เองเมื่อคอมไพล์</li>
+          <li>รอจนแถบความคืบหน้าเต็ม แล้วกด <em>Close</em></li>
+          <li>เปิดโปรแกรม <strong>MiKTeX Console</strong> จากเมนู Start ไปที่แท็บ Updates กด <em>Check for updates</em> แล้วกด <em>Update now</em></li>
+        </ol>
+      </div>
+      <div class="os-panel" data-os="macos">
+        <p class="os-label">macOS</p>
+        <p>ใช้ <strong>MacTeX</strong> ดาวน์โหลดได้ที่ <a href="https://www.tug.org/mactex/mactex-download.html" target="_blank" rel="noopener">tug.org/mactex</a></p>
+        <ol>
+          <li>ดาวน์โหลดไฟล์ <code>MacTeX.pkg</code> (ประมาณ 6 GB) ด้วย Safari</li>
+          <li>ดับเบิลคลิกไฟล์ที่ได้ แล้วทำตามขั้นตอนที่แสดง ในหน้า Installation Type กด Customize แล้วเอาเครื่องหมายออกจาก GUI-Applications ได้ เพราะรายวิชานี้ไม่ใช้</li>
+          <li>เมื่อติดตั้งเสร็จ ให้<strong>ปิดหน้าต่าง Terminal ทุกหน้าต่างแล้วเปิดใหม่</strong> คำสั่ง LaTeX จึงจะใช้ได้</li>
+        </ol>
+      </div>
+      <div class="os-panel" data-os="linux">
+        <p class="os-label">Linux</p>
+        <p>ใช้ <strong>TeX Live</strong> จาก <a href="https://www.tug.org/texlive/" target="_blank" rel="noopener">tug.org/texlive</a> ติดตั้งด้วยคำสั่งในเทอร์มินัล (ใช้เวลานานตามความเร็วอินเทอร์เน็ต)</p>
+<pre class="term"><code><span class="prompt">$ </span>cd /tmp
+<span class="prompt">$ </span>wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+<span class="prompt">$ </span>zcat install-tl-unx.tar.gz | tar xf -
+<span class="prompt">$ </span>cd install-tl-*
+<span class="prompt">$ </span>sudo perl ./install-tl --no-interaction</code></pre>
+        <p>จากนั้นเพิ่มโฟลเดอร์ของโปรแกรมไว้หน้า <code>PATH</code> ในไฟล์ <code>~/.bashrc</code> (เปลี่ยน <code>2026</code> ให้ตรงกับปีที่ติดตั้ง) แล้วเปิดเทอร์มินัลใหม่</p>
+<pre class="term"><code><span class="prompt">$ </span>echo 'export PATH=/usr/local/texlive/2026/bin/x86_64-linux:$PATH' &gt;&gt; ~/.bashrc</code></pre>
+      </div>
+    </div>
+  </li>
+
+  <li><span class="step-id">A2</span> <strong>ติดตั้ง Sublime Text</strong> จาก <a href="https://www.sublimetext.com/download" target="_blank" rel="noopener">sublimetext.com/download</a> (ใช้ได้ทั้ง Windows, macOS และ Linux)
+    <ul>
+      <li>เปิดการตัดบรรทัดอัตโนมัติด้วยเมนู View → Word Wrap</li>
+      <li>ทุก Workshop จะเปิดทั้งโฟลเดอร์งานด้วยเมนู File → Open Folder แล้วเลือกไฟล์จากแถบด้านซ้าย</li>
+      <li>ยัง<strong>ไม่ต้อง</strong>ติดตั้งแพ็กเกจเสริมที่คอมไพล์ LaTeX ให้อัตโนมัติ (เช่น LaTeXTools)</li>
+    </ul>
+  </li>
+
+  <li><span class="step-id">A3</span> <strong>ตั้งค่าการเปิดไฟล์</strong>
+    <div class="os-tabs">
+      <div class="os-panel" data-os="windows">
+        <p class="os-label">Windows</p>
+        <ul>
+          <li>ติดตั้ง <strong>SumatraPDF</strong> จาก <a href="https://www.sumatrapdfreader.org/download-free-pdf-viewer" target="_blank" rel="noopener">sumatrapdfreader.org</a>
+            แล้วตั้งเป็นโปรแกรมเปิด PDF ค่าเริ่มต้น (คลิกขวาที่ไฟล์ PDF ใดก็ได้ → Open with → Choose another app → เลือก SumatraPDF → Always)
+            เพราะ SumatraPDF ไม่ล็อกไฟล์และโหลดไฟล์ใหม่ให้เองเมื่อคอมไพล์ซ้ำ</li>
+          <li>เปิดการแสดงนามสกุลไฟล์ใน File Explorer ที่เมนู View → Show → File name extensions เพื่อไม่ให้เผลอบันทึกเป็น <code>check.tex.txt</code></li>
+        </ul>
+      </div>
+      <div class="os-panel" data-os="macos">
+        <p class="os-label">macOS</p>
+        <p>ใช้โปรแกรม Preview ที่มากับเครื่อง ซึ่งโหลดไฟล์ใหม่ให้เองเมื่อคอมไพล์ซ้ำ
+          และควรเปิดการแสดงนามสกุลไฟล์ใน Finder ที่เมนู Finder → Settings → Advanced → Show all filename extensions</p>
+      </div>
+      <div class="os-panel" data-os="linux">
+        <p class="os-label">Linux</p>
+        <p>ใช้โปรแกรมอ่าน PDF ค่าเริ่มต้นของระบบ (เช่น Document Viewer) ไม่ต้องติดตั้งเพิ่ม</p>
+      </div>
+    </div>
+  </li>
+
+  <li><span class="step-id">A4</span> <strong>เปิดเทอร์มินัลในโฟลเดอร์ installation</strong>
+    <div class="os-tabs">
+      <div class="os-panel" data-os="windows">
+        <p class="os-label">Windows</p>
+        <p>เปิดโฟลเดอร์ <code>installation</code> ใน File Explorer คลิกที่แถบที่อยู่ (address bar) พิมพ์ <code>powershell</code> แล้วกด <kbd>Enter</kbd></p>
+<pre class="term"><code><span class="prompt">PS&gt; </span>dir
+<span class="prompt">PS&gt; </span>cd ..
+<span class="prompt">PS&gt; </span>cd installation</code></pre>
+      </div>
+      <div class="os-panel" data-os="macos">
+        <p class="os-label">macOS</p>
+        <p>เปิดแอป Terminal พิมพ์ <code>cd</code> ตามด้วยเว้นวรรค แล้วลากโฟลเดอร์ <code>installation</code> จาก Finder มาวางในหน้าต่าง Terminal แล้วกด <kbd>Enter</kbd></p>
+<pre class="term"><code><span class="prompt">$ </span>ls
+<span class="prompt">$ </span>cd ..
+<span class="prompt">$ </span>cd installation</code></pre>
+      </div>
+      <div class="os-panel" data-os="linux">
+        <p class="os-label">Linux</p>
+        <p>เปิด Terminal แล้วไปที่โฟลเดอร์ด้วย <code>cd</code> เช่น <code>cd ~/Desktop/installation</code></p>
+<pre class="term"><code><span class="prompt">$ </span>ls
+<span class="prompt">$ </span>cd ..
+<span class="prompt">$ </span>cd installation</code></pre>
+      </div>
+    </div>
+    <ul>
+      <li><code>ls</code> (หรือ <code>dir</code>) แสดงรายชื่อไฟล์ในโฟลเดอร์ปัจจุบัน ต้องเห็น <code>doc.pdf</code>, <code>hello.tex</code> และ <code>check.tex</code></li>
+      <li><code>cd ..</code> ย้ายขึ้นไปหนึ่งระดับ และ <code>cd ชื่อโฟลเดอร์</code> เข้าไปในโฟลเดอร์นั้น</li>
+      <li>กดลูกศรขึ้น <kbd>↑</kbd> เพื่อเรียกคำสั่งเดิมโดยไม่ต้องพิมพ์ใหม่ และกด <kbd>Tab</kbd> ระหว่างพิมพ์ชื่อไฟล์เพื่อให้เติมชื่อให้เอง</li>
+    </ul>
+    เมื่อติดตั้งระบบ LaTeX เสร็จ ให้ทดสอบด้วยคำสั่ง
+    <div class="os-tabs">
+      <div class="os-panel" data-os="windows"><p class="os-label">Windows</p>
+<!-- verify on Windows: copy the real first line from MiKTeX -->
+<pre class="term"><code><span class="prompt">PS&gt; </span>pdflatex --version
+<span class="out">MiKTeX-pdfTeX ... (MiKTeX ...)</span></code></pre></div>
+      <div class="os-panel" data-os="macos"><p class="os-label">macOS</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex --version
+<span class="out">pdfTeX 3.141592653-2.6-1.40.29 (TeX Live 2026)</span></code></pre></div>
+      <div class="os-panel" data-os="linux"><p class="os-label">Linux</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex --version
+<span class="out">pdfTeX 3.141592653-2.6-1.40.29 (TeX Live 2026)</span></code></pre></div>
+    </div>
+    <p class="q">ถ้าบรรทัดแรกแสดงรุ่นของโปรแกรม แปลว่าติดตั้งสำเร็จ ถ้าขึ้นว่าไม่รู้จักคำสั่ง ให้ดูหัวข้อ<a href="#errors">ข้อผิดพลาดที่พบบ่อย</a></p>
+  </li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ (1) <code>pdflatex --version</code> แสดงรุ่นของโปรแกรม (2) Sublime Text เปิดโฟลเดอร์ <code>installation</code> ได้
+  และ (3) เทอร์มินัลอยู่ในโฟลเดอร์ <code>installation</code> และ <code>ls</code> หรือ <code>dir</code> แสดงไฟล์ครบ 3 ไฟล์
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>ตรวจสอบระบบ</h2><span class="badge">ประมาณ 30 นาที</span></div>
+<p>คอมไพล์ไฟล์ทดสอบ 2 ไฟล์ เพื่อยืนยันว่าเครื่องพร้อมสำหรับทุก Workshop ในรายวิชา แล้วส่งผลการตรวจสอบเป็นงานของ Workshop นี้</p>
+
+<ol class="steps">
+  <li><span class="step-id">B1</span> <strong>คอมไพล์ครั้งแรก</strong> เปิด <code>hello.tex</code> ใน Sublime Text ดูเนื้อหา แล้วในเทอร์มินัลพิมพ์
+<pre class="term"><code><span class="prompt">$ </span>pdflatex hello.tex</code></pre>
+    บรรทัดท้าย ๆ ของผลลัพธ์ควรเป็น
+<pre class="term nocopy"><code><span class="out">Output written on hello.pdf (1 page, 24944 bytes).
+Transcript written on hello.log.</span></code></pre>
+    จากนั้นเปิดไฟล์ PDF
+    <div class="os-tabs">
+      <div class="os-panel" data-os="windows"><p class="os-label">Windows</p>
+<pre class="term"><code><span class="prompt">PS&gt; </span>start hello.pdf</code></pre></div>
+      <div class="os-panel" data-os="macos"><p class="os-label">macOS</p>
+<pre class="term"><code><span class="prompt">$ </span>open hello.pdf</code></pre></div>
+      <div class="os-panel" data-os="linux"><p class="os-label">Linux</p>
+<pre class="term"><code><span class="prompt">$ </span>xdg-open hello.pdf</code></pre></div>
+    </div>
+    <p class="q">หลังคอมไพล์ <code>ls</code> (หรือ <code>dir</code>) แสดงไฟล์ใหม่อะไรบ้าง</p></li>
+
+  <li><span class="step-id">B2</span> <strong>กรอกข้อมูลใน check.tex</strong> พิมพ์คำสั่ง
+<pre class="term"><code><span class="prompt">$ </span>xelatex --version</code></pre>
+    แล้วคัดลอก<strong>บรรทัดแรก</strong>ของผลลัพธ์ (เลือกข้อความด้วยเมาส์ แล้วกด <kbd>Ctrl</kbd>+<kbd>C</kbd> หรือ <kbd>⌘</kbd>+<kbd>C</kbd>)
+    เปิด <code>check.tex</code> ใน Sublime Text แก้ 3 บรรทัดบนสุด แทนข้อความใน <code>&lt;...&gt;</code> ด้วยชื่อ นามสกุล รหัสนักศึกษา และบรรทัดที่คัดลอกมา เช่น
+<pre class="tex nocopy"><code>\newcommand{\studentname}{สมชาย ใจดี}
+\newcommand{\studentid}{6812345678}
+\newcommand{\versionline}{XeTeX 3.141592653-2.6-0.999998 (TeX Live 2026)}</code></pre>
+    ห้ามแก้ส่วนที่เหลือของไฟล์ แล้วบันทึกไฟล์</li>
+
+  <li><span class="step-id">B3</span> <strong>ตรวจสอบระบบ</strong> คอมไพล์ด้วย XeLaTeX (ซึ่งรองรับฟอนต์ภาษาไทย)
+<pre class="term"><code><span class="prompt">$ </span>xelatex check.tex</code></pre>
+    เปิด <code>check.pdf</code> แล้วเปรียบเทียบกับ <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a>
+    ทุกแถวต้องแสดง <strong>✓ OK</strong> และกล่องล่างสุดต้องเป็น <em>All checks passed</em>
+    <div class="callout note">
+      <strong class="label">ผู้ใช้ MiKTeX</strong>
+      การคอมไพล์ครั้งแรกจะช้ากว่าปกติ เพราะ MiKTeX ดาวน์โหลดแพ็กเกจที่ยังไม่มีให้เอง ถ้ามีหน้าต่างถามให้ติดตั้งแพ็กเกจ ให้กด Install แล้วรอจนคอมไพล์เสร็จ
+    </div>
+    <p class="q">แถวใดที่ขึ้น × missing ให้ดูวิธีแก้ในหัวข้อ<a href="#errors">ข้อผิดพลาดที่พบบ่อย</a> แล้วคอมไพล์ใหม่จนผ่านทุกข้อ</p></li>
+
+  <li><span class="step-id">B4</span> <strong>ตรวจโปรแกรมที่ใช้ภายหลัง</strong> Workshop เรื่องการอ้างอิงจะใช้โปรแกรม <code>latexmk</code> และ <code>biber</code> ทดสอบด้วย
+<pre class="term"><code><span class="prompt">$ </span>latexmk --version
+<span class="out">Latexmk, John Collins, 9 March 2026. Version 4.88</span>
+<span class="prompt">$ </span>biber --version
+<span class="out">biber version: 2.22</span></code></pre>
+    ตัวเลขรุ่นของแต่ละเครื่องอาจต่างจากตัวอย่างได้ ขอเพียงไม่ขึ้นว่าไม่รู้จักคำสั่ง</li>
+</ol>
+
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc.png" alt="ภาพตัวอย่างผลการตรวจสอบระบบที่ผ่านทุกข้อ" width="910" height="1287"></a>
+  <figcaption>ชิ้นงานต้นแบบ (คลิกเพื่อเปิด PDF)</figcaption>
+</figure>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์ <code>check.tex</code> เป็น <code>installation_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วคอมไพล์ใหม่ด้วยชื่อนั้น จะได้ PDF ชื่อเดียวกันโดยอัตโนมัติ ส่งทั้งไฟล์ <code>.tex</code> และ <code>.pdf</code></p>
+<pre class="term"><code><span class="prompt">$ </span>xelatex installation_6812345678.tex</code></pre>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> <code>pdflatex hello.tex</code> สร้าง <code>hello.pdf</code> และเปิดดูได้</label></li>
+  <li><label><input type="checkbox" id="b2"> ชื่อ รหัสนักศึกษา และบรรทัดจาก <code>xelatex --version</code> แสดงถูกต้องในไฟล์ PDF</label></li>
+  <li><label><input type="checkbox" id="b3"> แพ็กเกจทุกแถวและฟอนต์ Laksaman แสดง ✓ OK และข้อความภาษาไทยแสดงผลถูกต้อง</label></li>
+  <li><label><input type="checkbox" id="b4"> กล่องล่างสุดเป็น <em>All checks passed</em></label></li>
+  <li><label><input type="checkbox" id="b5"> <code>latexmk --version</code> และ <code>biber --version</code> แสดงรุ่นของโปรแกรม</label></li>
+  <li><label><input type="checkbox" id="b6"> ชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>เพิ่มเติม</h2><span class="badge optional">ไม่บังคับ · ประมาณ 15–20 นาที</span></div>
+<ol class="steps">
+  <li><span class="step-id">C1</span> <strong>อัปเดตระบบ LaTeX</strong> ควรทำเป็นครั้งคราว และเมื่อพบว่าแพ็กเกจเก่าเกินไป
+    <div class="os-tabs">
+      <div class="os-panel" data-os="windows"><p class="os-label">Windows</p>
+        <p>เปิด MiKTeX Console ไปที่แท็บ Updates กด <em>Check for updates</em> แล้วกด <em>Update now</em>
+          ส่วนแท็บ Packages ใช้ค้นหาและติดตั้งแพ็กเกจทีละตัวได้</p></div>
+      <div class="os-panel" data-os="macos"><p class="os-label">macOS</p>
+<pre class="term"><code><span class="prompt">$ </span>sudo tlmgr update --self --all</code></pre></div>
+      <div class="os-panel" data-os="linux"><p class="os-label">Linux</p>
+<pre class="term"><code><span class="prompt">$ </span>sudo tlmgr update --self --all</code></pre>
+        <p>ถ้า <code>sudo</code> หา <code>tlmgr</code> ไม่พบ ให้ใช้ <code>sudo env PATH="$PATH" tlmgr update --self --all</code></p></div>
+    </div>
+  </li>
+  <li><span class="step-id">C2</span> <strong>เปิดคู่มือในเครื่อง</strong> ระบบ LaTeX มีคู่มือของแพ็กเกจมาด้วย เปิดได้โดยไม่ต้องใช้อินเทอร์เน็ต
+<pre class="term"><code><span class="prompt">$ </span>texdoc lshort
+<span class="prompt">$ </span>texdoc amsmath</code></pre>
+    <p class="q">คู่มือ <em>The Not So Short Introduction to LaTeX</em> (lshort) มีกี่บท และบทใดเกี่ยวกับสมการคณิตศาสตร์</p></li>
+  <li><span class="step-id">C3</span> <strong>หาตำแหน่งไฟล์ของแพ็กเกจ</strong> คำสั่ง <code>kpsewhich</code> บอกว่าไฟล์ที่ LaTeX ใช้อยู่ที่ใด
+<pre class="term"><code><span class="prompt">$ </span>kpsewhich article.cls
+<span class="prompt">$ </span>kpsewhich Laksaman.otf</code></pre>
+    <p class="q">ไฟล์ทั้งสองอยู่ในโฟลเดอร์ใดของเครื่อง</p></li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>'pdflatex' is not recognized ...</code> (Windows) หรือ <code>command not found: pdflatex</code></td>
+        <td>เทอร์มินัลเปิดไว้ก่อนติดตั้งเสร็จ ให้ปิดแล้วเปิดเทอร์มินัลใหม่ ถ้ายังไม่ได้ให้รีสตาร์ตเครื่อง
+          บน Linux ให้ตรวจว่าเพิ่ม <code>PATH</code> ใน <code>~/.bashrc</code> แล้ว และปีกับชื่อโฟลเดอร์ตรงกับที่ติดตั้ง</td></tr>
+    <tr><td>MiKTeX แสดงหน้าต่างถามให้ติดตั้งแพ็กเกจ</td>
+        <td>เป็นเรื่องปกติของการคอมไพล์ครั้งแรก กด Install แล้วรอ ถ้าไม่อยากให้ถามอีก ให้เปิด MiKTeX Console ที่เมนู Settings แล้วเลือก Always install missing packages on-the-fly</td></tr>
+    <tr><td>แถวของแพ็กเกจขึ้น <code>× missing</code></td>
+        <td>Windows ให้ติดตั้งแพ็กเกจนั้นจาก MiKTeX Console แท็บ Packages
+          macOS และ Linux ให้ใช้ <code>sudo tlmgr install ชื่อแพ็กเกจ</code> แล้วคอมไพล์ใหม่</td></tr>
+    <!-- verify on Windows: does MiKTeX install fonts-tlwg on the fly for Laksaman.otf? -->
+    <tr><td>แถว <code>Laksaman</code> ขึ้น <code>× missing</code> หรือข้อความภาษาไทยเป็นกล่องสี่เหลี่ยม</td>
+        <td>ยังไม่มีฟอนต์ภาษาไทยของ TLWG บน Windows ให้ติดตั้งแพ็กเกจ <code>fonts-tlwg</code> จาก MiKTeX Console แท็บ Packages
+          บน macOS และ Linux ให้ใช้ <code>sudo tlmgr install fonts-tlwg</code></td></tr>
+    <tr><td>คอมไพล์ <code>check.tex</code> ด้วย <code>pdflatex</code> แล้วเกิดข้อผิดพลาดเรื่อง <code>fontspec</code></td>
+        <td>ไฟล์นี้ต้องคอมไพล์ด้วย <code>xelatex</code> เท่านั้น</td></tr>
+    <!-- verify on Windows: MiKTeX's latexmk needs a Perl interpreter -->
+    <tr><td><code>latexmk --version</code> บน Windows ขึ้นว่าหา <code>perl</code> ไม่พบ</td>
+        <td>latexmk ของ MiKTeX ต้องใช้โปรแกรม Perl ให้ติดตั้ง Strawberry Perl จาก <a href="https://strawberryperl.com" target="_blank" rel="noopener">strawberryperl.com</a> แล้วเปิดเทอร์มินัลใหม่</td></tr>
+    <tr><td><code>! I can't find file `check.tex'.</code></td>
+        <td>เทอร์มินัลไม่ได้อยู่ในโฟลเดอร์ของไฟล์ (ตรวจด้วย <code>ls</code> หรือ <code>dir</code> แล้ว <code>cd</code> ให้ถูก) หรือไฟล์ถูกบันทึกเป็น <code>check.tex.txt</code></td></tr>
+    <tr><td><code>! I can't write on file `check.pdf'.</code></td>
+        <td>ไฟล์ PDF เปิดค้างอยู่ในโปรแกรมที่ล็อกไฟล์ (เช่น Adobe Acrobat) ให้ปิดไฟล์ก่อน แล้วใช้ SumatraPDF ตามข้อ A3</td></tr>
+    <tr><td>macOS ไม่ยอมเปิดไฟล์ติดตั้ง หรือติดตั้งไม่สำเร็จกลางทาง</td>
+        <td>ไฟล์ดาวน์โหลดอาจไม่ครบ ให้ดาวน์โหลด <code>MacTeX.pkg</code> ใหม่ด้วย Safari และตรวจว่าดิสก์มีพื้นที่ว่างพอ</td></tr>
+    <tr><td>เทอร์มินัลค้างที่ <code>?</code></td>
+        <td>LaTeX พบข้อผิดพลาดและรอคำสั่ง พิมพ์ <kbd>x</kbd> แล้ว <kbd>Enter</kbd> เพื่อหยุด แล้วตรวจว่าแก้ <code>check.tex</code> เฉพาะ 3 บรรทัดบนสุด</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Introduction to LaTeX</em> หัวข้อ Installation และ Testing</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) บทที่ 1 (Things You Need to Know)</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

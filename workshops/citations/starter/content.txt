@@ -1,0 +1,47 @@
+=====================================================================
+ Workshop citations - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+ ตำแหน่งที่ต้องอ้างอิงเขียนไว้ใน << ... >> พร้อมชนิดของการอ้างอิงและคีย์ในไฟล์ refs.bib
+ คำว่า TeX และ LaTeX ให้เขียนเป็นโลโก้ด้วย \TeX{} และ \LaTeX{}
+=====================================================================
+
+[ชื่อเรื่อง]
+Why TeX Still Matters
+
+[ผู้เขียน]
+Typesetting Club
+
+[วันที่]
+June 2026
+
+[หัวข้อระดับ 1]
+Introduction
+
+Most documents today are written in word processors, yet many mathematicians, physicists and computer scientists still write their papers in LaTeX. This essay explains where TeX came from, why LaTeX was built on top of it, and why both are still in use almost fifty years later.
+
+[หัวข้อระดับ 1]
+From Metal to Code
+
+For five centuries, books were printed from metal type that skilled workers arranged by hand or by machine. Mathematics was the hardest text to set, because formulas mix symbols of many sizes on several levels. In the 1970s publishers moved to photographic and then digital typesetting, and the quality of mathematical books dropped sharply.
+
+[หัวข้อระดับ 1]
+Knuth's TeX
+
+<<textcite knuth1979typography>> described how disappointed he was when he saw the proofs of a new edition of his own book. He decided to write a program that would set mathematics as well as the best printers of the past, and spent almost ten years on it. The result was TeX, documented in full detail in The TeXbook [ตัวเอียง เขียนโลโก้ด้วย \TeX book] <<parencite knuth1984texbook>>.
+
+TeX treats a page as boxes and glue: characters and formulas are boxes, and the spaces between them are glue that can stretch or shrink. The program chooses the line breaks for a whole paragraph at once, which is why its output looks so even.
+
+[หัวข้อระดับ 1]
+LaTeX
+
+TeX gives the author complete control, but it also asks the author to think about every detail of the layout. Leslie Lamport wrote LaTeX as a set of macros on top of TeX so that authors could describe the structure [เน้น] of a document, such as sections, lists and figures, and leave the layout to the system <<parencite lamport1994latex>>.
+
+Today the most complete reference to LaTeX and its packages is <<textcite mittelbach2023companion>>, while beginners usually start with a free guide <<parencite oetiker2021lshort>>.
+
+[หัวข้อระดับ 1]
+TeX Today
+
+Thousands of packages extend LaTeX for chemistry, music, chess, linguistics and many other subjects. They are collected in one archive <<parencite ctan>>, and distributions such as TeX Live install them all at once. Because the core program has hardly changed since 1990, a document written forty years ago can still be compiled today <<parencite knuth1984texbook, lamport1994latex>>.
+
+[บรรณานุกรมท้ายเอกสาร]

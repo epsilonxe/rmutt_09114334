@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · เอกสารประเภทรายงานและหนังสือ</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>เอกสารประเภทรายงานและหนังสือ</h1>
+    <div class="downloads">
+      <a class="primary" href="reports_books.zip" target="_blank" rel="noopener">ดาวน์โหลด reports_books.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Document Structure</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>pdflatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>reports_books_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">35′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">55′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เลือกใช้คลาสเอกสาร <code>article</code>, <code>report</code> และ <code>book</code> ได้เหมาะกับงาน และบอกความแตกต่างหลักของแต่ละคลาสได้</li>
+  <li>แบ่งเอกสารเป็นบทด้วย <code>\chapter</code> และสร้างบทที่ไม่มีหมายเลขด้วย <code>\chapter*</code> ได้</li>
+  <li>สร้างภาคผนวกด้วย <code>\appendix</code> ได้</li>
+  <li>ใช้ <code>\frontmatter</code>, <code>\mainmatter</code> และ <code>\backmatter</code> ในหนังสือ และอธิบายผลต่อเลขหน้าและหมายเลขบทได้</li>
+  <li>ปรับตัวเลือกของคลาส <code>openany</code>, <code>oneside</code> และรูปแบบหน้า <code>\pagestyle</code> ได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="reports_books.zip" target="_blank" rel="noopener"><code>reports_books.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>reports_books</code> ดังนี้</p>
+<pre class="tex nocopy"><code>reports_books/
+├── doc.pdf      ชิ้นงานต้นแบบ (รายงาน 8 หน้า)
+├── warmup.tex   หนังสือเล่มเล็กสำหรับ Part A
+├── main.tex     ไฟล์เริ่มต้นสำหรับ Part B
+└── content.txt  เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>ใช้เครื่องมือชุดเดียวกับ Workshop ก่อนหน้า เปิดโฟลเดอร์ <code>reports_books</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน
+  เอกสารทั้งสองไฟล์มีสารบัญ จึงต้อง<strong>คอมไพล์ 2 ครั้ง</strong>ทุกครั้งที่แก้หัวข้อหรือบท</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex warmup.tex
+<span class="prompt">$ </span>pdflatex warmup.tex</code></pre>
+<div class="callout note">
+  <strong class="label">อ่าน PDF หลายหน้า</strong>
+  ใน Workshop นี้ให้สังเกต<strong>เลขหน้า</strong> หน้าว่าง และหัวกระดาษด้านบนของแต่ละหน้าด้วย ไม่ใช่เฉพาะเนื้อหา
+  ใน SumatraPDF และ Preview เลือกมุมมองแบบสองหน้า (Facing / Two Pages) ได้ จะเห็นหน้าซ้ายและขวาของหนังสือคู่กัน
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 35 นาที</span></div>
+<p>ไฟล์ <code>warmup.tex</code> เป็นหนังสือเล่มเล็กเรื่องการผูกเชือกที่ใช้คลาส <code>book</code> ทำทีละข้อ คอมไพล์ 2 ครั้ง และสังเกตผล</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> คอมไพล์ไฟล์ตามที่ได้รับ 2 ครั้ง ดูบรรทัดสุดท้ายในเทอร์มินัล <code>Output written on warmup.pdf (11 pages, ...)</code>
+    <p class="q">เนื้อหาสั้นมากแต่ได้ถึง 11 หน้า หน้าว่างอยู่ตรงไหนบ้าง และบทใหม่ทุกบทเริ่มที่หน้าเลขคี่หรือเลขคู่</p></li>
+
+  <li><span class="step-id">A1</span> เปลี่ยนเป็น <code>\documentclass[openany]{book}</code> แล้วคอมไพล์ 2 ครั้ง
+    <p class="q">จำนวนหน้าเหลือเท่าไร ตัวเลือก <code>openany</code> เปลี่ยนกฎการขึ้นบทใหม่อย่างไร</p></li>
+
+  <li><span class="step-id">A2</span> ลบ <code>openany</code> ออก แล้วใส่ <code>\frontmatter</code> ไว้ใต้ <code>\begin{document}</code>
+    และใส่ <code>\mainmatter</code> ไว้หน้า <code>\chapter{Basic Knots}</code>
+    <p class="q">เลขหน้าของสารบัญและบท <code>Before You Start</code> เป็นตัวเลขแบบใด บทนั้นมีหมายเลขบทหรือไม่ และ <code>Basic Knots</code> กลายเป็นบทที่เท่าไร</p></li>
+
+  <li><span class="step-id">A3</span> ใส่ <code>\appendix</code> ไว้หน้า <code>\chapter{Answers to the Quiz}</code>
+    <p class="q">ชื่อบทนี้ในเนื้อหาและในสารบัญเปลี่ยนไปอย่างไร</p></li>
+
+  <li><span class="step-id">A4</span> เปลี่ยน <code>\appendix</code> เป็น <code>\backmatter</code> แล้วเปรียบเทียบ จากนั้นเปลี่ยนกลับเป็น <code>\appendix</code>
+    <p class="q">บทที่อยู่หลัง <code>\backmatter</code> มีหมายเลขหรือไม่</p></li>
+
+  <li><span class="step-id">A5</span> สังเกตหัวกระดาษ (ข้อความเล็ก ๆ ด้านบนของหน้า) ในหน้าที่ไม่ใช่หน้าแรกของบท แล้วเพิ่ม <code>\pagestyle{plain}</code> ไว้หลัง <code>\mainmatter</code>
+    <p class="q">หัวกระดาษหายไปหรือไม่ เลขหน้าย้ายไปอยู่ตรงไหน</p></li>
+
+  <li><span class="step-id">A6</span> เปลี่ยนเป็น <code>\documentclass[oneside]{book}</code> แล้วดูแบบสองหน้าคู่กัน
+    <p class="q">ระยะขอบซ้ายขวาของหน้าคี่และหน้าคู่ต่างกันก่อนและหลังใช้ <code>oneside</code> หรือไม่</p></li>
+
+  <li><span class="step-id">A7</span> <strong>เปลี่ยนคลาสเป็น report</strong> ด้วย <code>\documentclass{report}</code> แล้วคอมไพล์ เทอร์มินัลจะหยุดและแสดง
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+l.13 \frontmatter
+
+?</code></pre>
+    พิมพ์ <kbd>x</kbd> แล้ว <kbd>Enter</kbd> จากนั้นลบ <code>\frontmatter</code> และ <code>\mainmatter</code> ออก แล้วเปลี่ยน <code>\chapter{Before You Start}</code> เป็น <code>\chapter*{Before You Start}</code>
+    <p class="q">ทำไมคลาส <code>report</code> จึงไม่รู้จัก <code>\frontmatter</code> และหัวเรื่องของรายงานต่างจากหนังสืออย่างไร</p></li>
+
+  <li><span class="step-id">A8</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> เปลี่ยนคลาสเป็น <code>article</code> แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+l.17 \chapter
+             {Before You Start}
+?</code></pre>
+    <p class="q">ถ้าต้องการแบ่งบทความเป็นส่วนใหญ่ ๆ ควรใช้คำสั่งใดแทน <code>\chapter</code></p>
+    พิมพ์ <kbd>x</kbd> แล้ว <kbd>Enter</kbd> แล้วเปลี่ยนกลับเป็น <code>book</code> ก่อนไปต่อ (หมายเลขบรรทัดของแต่ละคนอาจไม่ตรงกับตัวอย่าง)</li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) คลาสใดมี <code>\chapter</code> (2) ทำไมหนังสือจึงมีหน้าว่าง และแก้ได้อย่างไร
+  (3) <code>\frontmatter</code> กับ <code>\mainmatter</code> เปลี่ยนเลขหน้าอย่างไร และ (4) <code>\appendix</code> เปลี่ยนชื่อบทอย่างไร
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 55 นาที</span></div>
+<p>เปิด <code>main.tex</code> (ใช้คลาส <code>report</code>) และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างรายงาน 8 หน้าให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> คอมไพล์ 2 ครั้งด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex main.tex
+<span class="prompt">$ </span>pdflatex main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-3.png" alt="ชิ้นงานต้นแบบหน้า 3" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 3</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-4.png" alt="ชิ้นงานต้นแบบหน้า 4" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 4</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-5.png" alt="ชิ้นงานต้นแบบหน้า 5" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 5</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-6.png" alt="ชิ้นงานต้นแบบหน้า 6" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 6</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-7.png" alt="ชิ้นงานต้นแบบหน้า 7" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 7</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-8.png" alt="ชิ้นงานต้นแบบหน้า 8" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 8</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<p>ใน <code>content.txt</code> ป้ายในวงเล็บเหลี่ยมบอกว่าแต่ละบรรทัดเป็นบท หัวข้อ หรือรายการ ตารางนี้บอกเฉพาะ<em>สิ่งที่ต้องใช้</em></p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>หน้า 1 (หน้าปก)</td><td><code>\title</code>, <code>\author</code>, <code>\date</code> และ <code>\maketitle</code> ชื่อผู้เขียนมี 2 บรรทัด ใช้ <code>\\</code></td></tr>
+    <tr><td>หน้า 2 (Abstract)</td><td>สภาพแวดล้อม <code>abstract</code> (คลาส <code>report</code> แยกไว้หน้าของตัวเอง)</td></tr>
+    <tr><td>หน้า 3 (Contents)</td><td><code>\tableofcontents</code></td></tr>
+    <tr><td>บทที่ 1–3</td><td><code>\chapter</code>, <code>\section</code>, <code>\subsection</code></td></tr>
+    <tr><td>Aims, Suggestions และ Field Checklist</td><td><code>enumerate</code> และ <code>itemize</code> จาก <a href="../text_formatting/" target="_blank" rel="noopener">Workshop การจัดรูปแบบข้อความ</a></td></tr>
+    <tr><td>Acknowledgements</td><td>บทที่ไม่มีหมายเลขและไม่อยู่ในสารบัญ</td></tr>
+    <tr><td>Appendix A</td><td><code>\appendix</code> ก่อนบทสุดท้าย</td></tr>
+    <tr><td><code>9 a.m.</code>, <code>20 cm</code>, <code>4 mg/L</code></td><td>ช่องว่างไม่ตัดบรรทัด <code>~</code> ระหว่างตัวเลขกับหน่วย</td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>คลาส <code>report</code> ขึ้นหน้าใหม่ให้ทุกบทเอง ไม่ต้องสั่งขึ้นหน้าใหม่</li>
+    <li>หน้าปกและหน้าบทคัดย่อไม่มีเลขหน้า สารบัญอยู่หน้าที่มีเลข 1 นี่เป็นค่าปกติของคลาส <code>report</code></li>
+    <li>ถ้าภาคผนวกในสารบัญแสดงเป็น <code>4 Field Checklist</code> แปลว่าลืม <code>\appendix</code> หรือวางผิดตำแหน่ง</li>
+    <li>ถ้าได้มากกว่า 8 หน้า ให้ตรวจว่าใช้คลาส <code>report</code> ไม่ใช่ <code>book</code></li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>reports_books_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วคอมไพล์ใหม่ 2 ครั้งด้วยชื่อนั้น ส่งทั้งไฟล์ <code>.tex</code> และ <code>.pdf</code></p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> คอมไพล์ผ่านโดยไม่มีบรรทัดที่ขึ้นต้นด้วย <code>!</code></label></li>
+  <li><label><input type="checkbox" id="b2"> หน้าปก หน้าบทคัดย่อ และหน้าสารบัญแยกกันคนละหน้า</label></li>
+  <li><label><input type="checkbox" id="b3"> สารบัญมี 3 บท หัวข้อย่อยครบ และ <code>A Field Checklist</code> ที่ท้ายสุด</label></li>
+  <li><label><input type="checkbox" id="b4"> Acknowledgements ไม่มีหมายเลขและไม่อยู่ในสารบัญ</label></li>
+  <li><label><input type="checkbox" id="b5"> รายการมีหมายเลข 2 ชุด และรายการไม่มีหมายเลข 1 ชุด</label></li>
+  <li><label><input type="checkbox" id="b6"> เอกสารมี 8 หน้า และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ (คัดลอกจากงาน Part B) ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> เปลี่ยนรายงานเป็นคลาส <code>book</code> ทั้งเล่ม ใช้ <code>\frontmatter</code> กับ Acknowledgements เป็นคำนำ (ย้ายไปไว้ก่อนบทที่ 1) และ <code>\mainmatter</code> ก่อนบทที่ 1
+    <p class="q">สิ่งใดต้องเปลี่ยนเพราะคลาส <code>book</code> ไม่มีสภาพแวดล้อม <code>abstract</code></p></li>
+  <li><span class="step-id">C2</span> ทำ C1 ต่อให้หนังสือไม่มีหน้าว่างเลยโดยใช้ตัวเลือกของคลาส แล้วนับจำนวนหน้าเทียบกับก่อนแก้</li>
+  <li><span class="step-id">C3</span> แบ่งรายงานเป็น 2 ภาคด้วย <code>\part</code> (บทที่ 1–2 และบทที่ 3)
+    <p class="q">ในคลาส <code>report</code> คำสั่ง <code>\part</code> ทำให้เกิดอะไรขึ้นกับหน้า และต่างจากใน <code>article</code> ที่ลองใน <a href="../article_structure/" target="_blank" rel="noopener">Workshop โครงสร้างเอกสารประเภทบทความ</a> อย่างไร</p></li>
+  <li><span class="step-id">C4</span> เขียนรายงานสั้น ๆ ของตัวเองเป็นภาษาอังกฤษอย่างน้อย 3 บทและภาคผนวก 1 บท เช่น รายงานกิจกรรมชมรมหรือการสำรวจในมหาวิทยาลัย</li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! Undefined control sequence.</code> ที่ <code>\chapter</code></td>
+        <td>ใช้คลาส <code>article</code> ซึ่งไม่มีบท เปลี่ยนเป็น <code>report</code> หรือ <code>book</code></td></tr>
+    <tr><td><code>! Undefined control sequence.</code> ที่ <code>\frontmatter</code> หรือ <code>\mainmatter</code></td>
+        <td>คำสั่งเหล่านี้มีเฉพาะในคลาส <code>book</code></td></tr>
+    <tr><td><code>! LaTeX Error: Environment abstract undefined.</code></td>
+        <td>คลาส <code>book</code> ไม่มี <code>abstract</code> ใช้ <code>\chapter*{Abstract}</code> แทน หรือใช้คลาส <code>report</code></td></tr>
+    <tr><td>มีหน้าว่างระหว่างบท</td>
+        <td>คลาส <code>book</code> เริ่มบทใหม่ที่หน้าขวา (เลขคี่) เสมอ ใช้ตัวเลือก <code>openany</code> ถ้าไม่ต้องการ</td></tr>
+    <tr><td>ภาคผนวกได้หมายเลข 4 แทน A</td>
+        <td>ลืม <code>\appendix</code> หรือวางไว้หลัง <code>\chapter</code> ของภาคผนวก</td></tr>
+    <tr><td>บทที่ไม่มีหมายเลขหายไปจากสารบัญ</td>
+        <td>เป็นพฤติกรรมปกติของ <code>\chapter*</code></td></tr>
+    <tr><td>สารบัญไม่ตรงกับเนื้อหา</td>
+        <td>คอมไพล์อีกครั้ง หรือลบ <code>.aux</code> และ <code>.toc</code> แล้วคอมไพล์ใหม่ 2 ครั้ง</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Document Structure</em> (หัวข้อ Standard Document Classes และตัวอย่างผลลัพธ์ของ report และ book)</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) บทที่ 1 หัวข้อ Document Classes และบทที่ 2 หัวข้อ Chapters and Sections</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

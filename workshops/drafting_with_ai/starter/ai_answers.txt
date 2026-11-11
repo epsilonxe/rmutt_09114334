@@ -1,0 +1,115 @@
+=====================================================================
+ Workshop drafting_with_ai - ตัวอย่างคำตอบจาก AI (ดัดแปลงเพื่อการสอน)
+ คำตอบเหล่านี้เขียนขึ้นเพื่อการสอน โดยเลียนแบบจุดผิดที่แชตบอต AI ทำบ่อย
+ ทุกคำตอบใน Part B มีจุดผิดอย่างน้อยหนึ่งจุด บางจุดทำให้คอมไพล์ไม่ผ่าน
+ บางจุดคอมไพล์ผ่านแต่ผลไม่ตรงกับ doc.pdf หรือคณิตศาสตร์ผิด
+=====================================================================
+
+[A1 - คำตอบของพรอมต์แบบไม่ดี]
+
+Sure! Here is a complete LaTeX document with the table:
+
+\documentclass{article}
+\usepackage{booktabs}
+\begin{document}
+\begin{table}[h]
+\centering
+\begin{tabular}{cc}
+\toprule
+Prime & Square \\
+\midrule
+2 & 4 \\
+3 & 9 \\
+5 & 25 \\
+7 & 49 \\
+11 & 121 \\
+\bottomrule
+\end{tabular}
+\caption{The first five primes and their squares}
+\end{table}
+\end{document}
+
+[A2 - คำตอบของพรอมต์แบบดี]
+
+\begin{center}
+\begin{tabular}{c|c}
+\hline
+$p$ & $p^2$ \\
+\hline
+2 & 4 \\
+3 & 9 \\
+5 & 25 \\
+7 & 49 \\
+11 & 121 \\
+\hline
+\end{tabular}
+\end{center}
+
+=====================================================================
+ Part B
+=====================================================================
+
+[P1 - ส่วนนำและหัวเรื่อง]
+
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm, amsproof}
+\usepackage{graphicx}
+
+\title{Pythagorean Triples}
+\author{Typesetting Club}
+\date{\today}
+
+[P2 - รูปภาพ]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{triangle.pdf}
+    \caption{A right triangle with legs $a$, $b$ and hypotenuse $c$}
+    \label{fig:triangle}
+\end{figure}
+
+The [H] option places the figure exactly here in the text.
+
+[P3 - ตาราง]
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+$a$ & $b$ & $c$ & $a^2 + b^2$ \\
+\hline
+3 & 4 & 5 & 25 \\
+6 & 8 & 10 & 100 \\
+5 & 12 & 13 & 169 \\
+9 & 12 & 15 & 225 \\
+8 & 15 & 17 & 289 \\
+\hline
+\end{tabular}
+\caption{The five Pythagorean triples with the smallest $c$}
+\label{tab:triple}
+\end{table}
+
+[P4 - ทฤษฎีบท]
+
+\begin{theorem}[Euclid]
+\label{thm:euclid}
+Let $m$ and $n$ be integers with $m > n > 0$. Then
+$$a = m^2 - n^2, \quad b = 2mn, \quad c = m^2 + n^2$$
+form a Pythagorean triple.
+\end{theorem}
+
+Nothing needs to be added to the preamble: the theorem environment is
+provided by the amsthm package, which you already load.
+
+[P5 - บทพิสูจน์]
+
+\begin{proof}
+Since $m > n > 0$, all three numbers are positive. Expanding gives
+\begin{eqnarray*}
+a^2 + b^2 &=& (m^2 - n^2)^2 + (2mn)^2 \\
+          &=& m^4 - 2m^2n^2 + n^4 + 2m^2n^2 \\
+          &=& m^4 + 2m^2n^2 + n^4 \\
+          &=& (m^2 + n^2)^2 = c^2.
+\end{eqnarray*}
+\end{proof}

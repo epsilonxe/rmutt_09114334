@@ -1,0 +1,64 @@
+=====================================================================
+ Workshop drafting_with_ai - พรอมต์สำหรับคัดลอกไปถาม AI (Prompts)
+ คัดลอกทีละพรอมต์ไปวางในแชตบอต AI ตามลำดับ P1-P5
+ ทุกพรอมต์บอกโปรแกรมที่ใช้คอมไพล์ แพ็กเกจที่อนุญาต และสิ่งที่ต้องการอย่างชัดเจน
+=====================================================================
+
+[A1 - พรอมต์แบบไม่ดี]
+make a latex table of the first five primes and their squares
+
+[A2 - พรอมต์แบบดี]
+I compile a LaTeX article with pdflatex. Write only the code to paste
+inside the document body (no \documentclass, no preamble).
+I need a centred table, without a caption, made with the center
+environment and tabular. It has two columns with the math-mode headers
+$p$ and $p^2$, a vertical rule between the columns, and \hline rules
+at the top, below the header and at the bottom. Rows: the first five
+prime numbers and their squares. Use no extra packages.
+
+[P1 - ส่วนนำและหัวเรื่อง]
+I am writing an article with the LaTeX class article, compiled with
+pdflatex. Write only the preamble: \documentclass, the packages and the
+title block, ending just before \begin{document}.
+Load exactly these packages: amsmath, amssymb, amsthm and graphicx.
+Title: Pythagorean Triples. Author: Typesetting Club.
+Date: November 2026 (write it as text, not today's date).
+Use only standard packages that come with TeX Live.
+
+[P2 - รูปภาพ]
+Write only the LaTeX code for a floating figure (no preamble).
+It includes the image file triangle.pdf, centred, at 35% of the text
+width, with the caption "A right triangle with legs $a$, $b$ and
+hypotenuse $c$" and the label fig:triangle. The document is compiled
+with pdflatex and loads graphicx and no other packages.
+
+[P3 - ตาราง]
+Write only the LaTeX code for a floating table (no preamble), centred,
+with the caption "The five Pythagorean triples with the smallest $c$"
+ABOVE the table and the label tab:triples.
+Columns: $a$, $b$, $c$ and $a^2 + b^2$ (headers in math mode), centred.
+Rules: one vertical rule before the last column only, and \hline at the
+top, below the header and at the bottom.
+Rows: 3 4 5 25 / 6 8 10 100 / 5 12 13 169 / 9 12 15 225 / 8 15 17 289.
+Use only tabular and no extra packages.
+
+[P4 - ทฤษฎีบท]
+My preamble loads amsmath, amssymb, amsthm and graphicx (pdflatex).
+Write the LaTeX code for a numbered theorem titled Theorem, with the
+optional name Euclid and the label thm:euclid. If something must be
+added to the preamble, show it separately. The statement is:
+Let m and n be integers with m > n > 0. Then
+a = m^2 - n^2, b = 2mn, c = m^2 + n^2
+form a Pythagorean triple.
+Display the three equations on one unnumbered line.
+
+[P5 - บทพิสูจน์]
+Write the LaTeX code for the proof of that theorem with the proof
+environment of amsthm. The text is: "Since m > n > 0, all three numbers
+are positive. Expanding gives" followed by an unnumbered align*
+computation, one step per line:
+a^2 + b^2 = (m^2 - n^2)^2 + (2mn)^2
+          = m^4 - 2m^2 n^2 + n^4 + 4m^2 n^2
+          = m^4 + 2m^2 n^2 + n^4
+          = (m^2 + n^2)^2 = c^2.
+Put the QED box at the end of the last line, not on its own line.

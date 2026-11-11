@@ -1,0 +1,60 @@
+=====================================================================
+ Workshop moodle_quiz - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+ คำตอบที่ถูกมีเครื่องหมาย * นำหน้า
+ ชื่อคำสั่งที่มีเครื่องหมาย \ ให้เขียนด้วย \texttt{\textbackslash ...} (ห้ามใช้ \verb)
+=====================================================================
+
+[ชื่อชุดคำถาม (category)]
+09114334 Quiz 2
+
+---------------------------------------------------------------------
+[คำถาม 1 - ปรนัย - 2 คะแนน]
+[ชื่อคำถาม] Second-level heading
+Which command starts a second-level heading in an article?   [article เป็นตัวพิมพ์ดีด]
+  \section
+* \subsection
+  \chapter
+  \paragraph       [ผลป้อนกลับ (feedback) ของตัวเลือกนี้ \paragraph is the fourth level.]
+
+[คำถาม 2 - ปรนัยตอบได้หลายข้อ - 2 คะแนน]
+[ชื่อคำถาม] Floating environments
+Which of these environments are floats? Select all that apply.
+* figure
+* table
+  tabular
+  center
+
+[คำถาม 3 - ถูกหรือผิด - คำตอบที่ถูกคือ ผิด (False)]
+[ชื่อคำถาม] Thai and pdflatex
+The thaispec package can be compiled with pdflatex.
+  [ผลป้อนกลับเมื่อตอบ True]  No. The package needs XeLaTeX.
+  [ผลป้อนกลับเมื่อตอบ False] Right. Compile with xelatex.
+
+[คำถาม 4 - ตัวเลข - 2 คะแนน]
+[ชื่อคำถาม] Beamer pages
+A beamer frame contains three \pause commands. How many pages does this frame produce in the PDF?
+  4
+
+[คำถาม 5 - ตัวเลข - 2 คะแนน - ยอมให้คลาดเคลื่อน 0.05]
+[ชื่อคำถาม] Image width
+The text width of a page is 15 cm. How wide, in centimetres, is an image inserted with width=0.45\textwidth?
+  6.75
+
+[คำถาม 6 - เติมคำสั้น - ช่องว่างอยู่กลางประโยค]
+[ชื่อคำถาม] List of tables
+Fill in the command name, without the backslash. The command ______ prints a list of all table captions.
+  listoftables
+
+[คำถาม 7 - จับคู่]
+[ชื่อคำถาม] Maths environments
+Match each environment with its result.
+  equation  ->  one numbered equation
+  align     ->  several numbered equations lined up at &
+  align*    ->  several equations lined up, without numbers
+  cases     ->  a function defined piece by piece
+
+[คำถาม 8 - อัตนัย - 3 คะแนน]
+[ชื่อคำถาม] Why LaTeX
+In two or three sentences, explain one advantage of preparing a quiz in LaTeX instead of typing it into Moodle directly.

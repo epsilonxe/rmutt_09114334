@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · สร้างข้อสอบด้วยคลาส exam</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop · เสริม</div></div>
+    <h1>สร้างข้อสอบด้วยคลาส exam</h1>
+    <div class="downloads">
+      <a class="primary" href="exam_paper.zip" target="_blank" rel="noopener">ดาวน์โหลด exam_paper.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>ไม่มีบทเรียนประกอบ<br>(ต่อยอดจาก <a href="../thai_macros/" target="_blank" rel="noopener">Workshop เอกสารภาษาไทยและคำสั่งที่สร้างเอง</a>)</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>latexmk -xelatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>exam_paper_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">45′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">45′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>Workshop นี้เป็นงานเสริม ไม่มีสไลด์บทเรียนประกอบ คำสั่งใหม่ทุกคำสั่งอธิบายไว้ใน Part A เมื่อจบแล้ว นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เขียนข้อสอบด้วยคลาส <code>exam</code> โดยใช้ <code>questions</code>, <code>\question</code> และ <code>parts</code> พร้อมกำหนดคะแนนแต่ละข้อได้</li>
+  <li>สร้างข้อสอบปรนัยด้วย <code>choices</code>, <code>oneparchoices</code> และ <code>checkboxes</code> และข้อเติมคำด้วย <code>\fillin</code> ได้</li>
+  <li>เว้นที่สำหรับเขียนตอบด้วยเส้นบรรทัดหรือกรอบได้</li>
+  <li>เขียนเฉลยไว้ในไฟล์เดียวกับข้อสอบ และพิมพ์ฉบับนักศึกษาหรือฉบับเฉลยด้วยตัวเลือก <code>answers</code> ได้</li>
+  <li>ทำหัวกระดาษ ท้ายกระดาษ และตารางคะแนนที่รวมคะแนนให้อัตโนมัติ เป็นภาษาไทยได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="exam_paper.zip" target="_blank" rel="noopener"><code>exam_paper.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>exam_paper</code> ดังนี้</p>
+<pre class="tex nocopy"><code>exam_paper/
+├── doc.pdf            ชิ้นงานต้นแบบ ฉบับนักศึกษา (2 หน้า)
+├── warmup.tex         ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex           ไฟล์เริ่มต้นสำหรับ Part B
+├── content.txt        เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่
+└── Laksaman.fontspec  ไฟล์ฟอนต์ไทยแบบเดียวกับ thai_macros (ห้ามลบ)</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a>,
+  <a href="starter/Laksaman.fontspec" target="_blank" rel="noopener"><code>Laksaman.fontspec</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>เปิดโฟลเดอร์ <code>exam_paper</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน
+คลาส <code>exam</code> มากับ TeX Live และ MiKTeX อยู่แล้ว ข้อสอบเป็นภาษาไทยจึงใช้ <code>thaispec</code> กับฟอนต์ Laksaman และคอมไพล์ด้วย XeLaTeX เหมือน <a href="../thai_macros/" target="_blank" rel="noopener">Workshop เอกสารภาษาไทยและคำสั่งที่สร้างเอง</a></p>
+<pre class="term"><code><span class="prompt">$ </span>latexmk -xelatex warmup.tex</code></pre>
+<div class="callout note">
+  <strong class="label">ทำไมต้อง latexmk</strong>
+  คะแนนรวม จำนวนหน้า และตารางคะแนนคำนวณจากการคอมไพล์ครั้งก่อน ถ้าสั่ง <code>xelatex</code> ครั้งเดียวค่าเหล่านี้อาจผิดหรือเป็นเครื่องหมายคำถาม <code>latexmk</code> คอมไพล์ซ้ำจนค่าถูกต้องให้เอง
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 45 นาที</span></div>
+<p>ใช้ไฟล์ <code>warmup.tex</code> (แบบทดสอบภูมิศาสตร์ 2 ข้อ) ทำทีละข้อ แล้วสั่ง <code>latexmk -xelatex warmup.tex</code> ทุกครั้งที่แก้</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> คอมไพล์ <code>warmup.tex</code> ตามที่ได้รับ แล้วเปิด PDF ดูโครงสร้างในไฟล์
+<pre class="tex nocopy"><code>\begin{questions}
+\question[2]
+กรุงเทพมหานครตั้งอยู่ริมแม่น้ำสายใด
+...
+\end{questions}</code></pre>
+    <p class="q">เลขข้อและคะแนนมาจากส่วนใดของโค้ด และคะแนนพิมพ์เป็นภาษาอะไร</p></li>
+
+  <li><span class="step-id">A1</span> <strong>คะแนนภาษาไทยและคะแนนรวม</strong> เพิ่ม <code>\pointpoints{คะแนน}{คะแนน}</code> ในส่วนนำ (คำแรกใช้กับ 1 คะแนน คำที่สองใช้กับหลายคะแนน)
+    แล้วเพิ่มบรรทัด <code>คะแนนเต็ม \numpoints\ คะแนน</code> ใต้ชื่อแบบทดสอบ คอมไพล์ จากนั้นเปลี่ยนบรรทัดแรกเป็น <code>\documentclass[12pt,addpoints]{exam}</code>
+    <p class="q">ก่อนใส่ <code>addpoints</code> คะแนนเต็มเป็นเท่าใด และหลังใส่เป็นเท่าใด</p></li>
+
+  <li><span class="step-id">A2</span> <strong>ปรนัย</strong> ใส่ตัวเลือกให้ข้อ 1 โดยวางต่อจากคำถาม
+<pre class="tex"><code>\begin{choices}
+  \choice แม่น้ำท่าจีน
+  \CorrectChoice แม่น้ำเจ้าพระยา
+  \choice แม่น้ำแม่กลอง
+  \choice แม่น้ำป่าสัก
+\end{choices}</code></pre>
+    จากนั้นลองเปลี่ยน <code>choices</code> เป็น <code>oneparchoices</code> และ <code>checkboxes</code>
+    <p class="q">ทั้งสามแบบจัดตัวเลือกต่างกันอย่างไร ตอนนี้ <code>\CorrectChoice</code> แสดงผลต่างจาก <code>\choice</code> หรือไม่</p></li>
+
+  <li><span class="step-id">A3</span> <strong>ข้อย่อยและเติมคำ</strong> แบ่งข้อ 2 เป็นข้อย่อย แต่ละข้อย่อยมีคะแนนของตัวเอง และลบ <code>[3]</code> หลัง <code>\question</code> ของข้อ 2 ออก
+<pre class="tex"><code>\begin{parts}
+  \part[1] จังหวัดทางทิศเหนือ \fillin[ปทุมธานี][3cm]
+  \part[1] จังหวัดทางทิศตะวันออก \fillin[ฉะเชิงเทรา][3cm]
+  \part[1] จังหวัดทางทิศใต้ \fillin[สมุทรปราการ][3cm]
+\end{parts}</code></pre>
+    <p class="q">คะแนนเต็มยังเป็นเท่าเดิมหรือไม่ และข้อความในวงเล็บเหลี่ยมแรกของ <code>\fillin</code> หายไปไหน</p></li>
+
+  <li><span class="step-id">A4</span> <strong>ที่สำหรับเขียนตอบ</strong> เพิ่มข้อ 3 ที่มี 4 คะแนน ถามว่า <code>อธิบายว่าทำไมกรุงเทพมหานครจึงน้ำท่วมง่าย</code> แล้วลองเว้นที่ตอบสามแบบทีละแบบ
+    ได้แก่ <code>\vspace{3cm}</code>, <code>\fillwithlines{3cm}</code> และ <code>\makeemptybox{3cm}</code>
+    <p class="q">แบบใดเหมาะกับคำตอบที่เป็นข้อความ และแบบใดเหมาะกับการวาดรูปหรือแสดงวิธีทำ</p></li>
+
+  <li><span class="step-id">A5</span> <strong>เฉลยในไฟล์เดียวกัน</strong> ในข้อ 3 แทนคำสั่งเว้นที่ด้วย
+<pre class="tex"><code>\begin{solutionorlines}[3cm]
+  พื้นที่ต่ำ อยู่ใกล้ปากแม่น้ำ และแผ่นดินทรุดตัวทุกปี
+\end{solutionorlines}</code></pre>
+    คอมไพล์ แล้วเพิ่มตัวเลือก <code>answers</code> เป็น <code>\documentclass[12pt,addpoints,answers]{exam}</code> และคอมไพล์อีกครั้ง
+    เพิ่ม <code>\renewcommand{\solutiontitle}{\noindent\textbf{เฉลย}\enspace}</code> ในส่วนนำเพื่อเปลี่ยนคำว่า Solution
+    <p class="q">ฉบับที่มีและไม่มี <code>answers</code> ต่างกันที่ใดบ้าง (ดูข้อ 1, 2 และ 3) ทำไมการเก็บเฉลยไว้ในไฟล์เดียวกับข้อสอบจึงสะดวก</p>
+    ลบ <code>answers</code> ออกก่อนทำข้อต่อไป</li>
+
+  <li><span class="step-id">A6</span> <strong>หัวและท้ายกระดาษ</strong> เพิ่มในส่วนนำ
+<pre class="tex"><code>\pagestyle{headandfoot}
+\header{แบบทดสอบภูมิศาสตร์}{}{ชั้นปีที่ 1}
+\headrule
+\footer{}{หน้า \thepage\ จาก \numpages}{}</code></pre>
+    <p class="q">วงเล็บปีกกาสามคู่ของ <code>\header</code> และ <code>\footer</code> หมายถึงตำแหน่งใด</p></li>
+
+  <li><span class="step-id">A7</span> <strong>ตารางคะแนน</strong> เพิ่มก่อน <code>\begin{questions}</code>
+<pre class="tex"><code>\begin{center}
+\gradetable[h][questions]
+\end{center}</code></pre>
+    แล้วเปลี่ยนคำในตารางเป็นภาษาไทยด้วย <code>\hqword{ข้อที่}</code>, <code>\hpword{คะแนนเต็ม}</code>, <code>\hsword{คะแนนที่ได้}</code> และ <code>\htword{รวม}</code> ในส่วนนำ
+    <p class="q">ถ้าเปลี่ยน <code>[h]</code> เป็น <code>[v]</code> ตารางเปลี่ยนอย่างไร และคำในตารางยังเป็นภาษาไทยหรือไม่ (ตารางแนวตั้งใช้ <code>\vqword</code>, <code>\vpword</code>, <code>\vsword</code> และ <code>\vtword</code>) คะแนนข้อ 2 ในตารางคิดจากอะไร</p></li>
+
+  <li><span class="step-id">A8</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> ทำทีละข้อในไฟล์ <code>warmup.tex</code> ฉบับเดิม (ก่อนแก้ A2) แล้วแก้กลับ
+    <ol type="a">
+      <li>เขียน <code>\choice แม่น้ำเจ้าพระยา</code> ต่อจากคำถามข้อ 1 โดยไม่มี <code>choices</code> ครอบ
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+<span class="out">l.18 \choice</span></code></pre></li>
+      <li>ลบ <code>\begin{questions}</code> และ <code>\end{questions}</code>
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+<span class="out">l.15 \question</span>
+<span class="out">              [2]</span></code></pre></li>
+      <li>เขียน <code>\part[1] จังหวัดทางทิศเหนือ</code> ต่อจากคำถามข้อ 2 โดยไม่มี <code>parts</code> ครอบ</li>
+    </ol>
+    <p class="q">ข้อ c มีข้อความผิดพลาดหรือไม่ และ PDF แสดงอะไร (คำสั่ง <code>\part</code> นอก <code>parts</code> คือคำสั่งแบ่งภาคของ LaTeX ทั่วไป)</p></li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) ตัวเลือก <code>addpoints</code> และ <code>answers</code> ทำอะไร (2) <code>\choice</code>, <code>\question</code> และ <code>\part</code> ต้องอยู่ในสภาพแวดล้อมใด
+  และ (3) จะพิมพ์ข้อสอบฉบับนักศึกษาและฉบับเฉลยจากไฟล์เดียวกันได้อย่างไร
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 45 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างแบบทดสอบ 20 คะแนนให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong>
+ต้นแบบเป็นฉบับนักศึกษา แต่ไฟล์ของนักศึกษาต้องมีเฉลยครบทุกข้อด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>latexmk -xelatex main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>คะแนนรวมอัตโนมัติ</td><td>ตัวเลือก <code>addpoints</code>, <code>\numpoints</code></td></tr>
+    <tr><td>หัวและท้ายกระดาษ</td><td><code>\pagestyle{headandfoot}</code>, <code>\header</code>, <code>\headrule</code>, <code>\footer</code>, <code>\numpages</code></td></tr>
+    <tr><td>คำภาษาไทย</td><td><code>\pointpoints</code>, <code>\hqword</code>, <code>\hpword</code>, <code>\hsword</code>, <code>\htword</code>, <code>\solutiontitle</code></td></tr>
+    <tr><td>บรรทัดชื่อ</td><td><code>\makebox[ความกว้าง]{\dotfill}</code> และ <code>\hfill</code> (ชื่อกว้าง <code>0.45\textwidth</code> รหัสกว้าง <code>0.25\textwidth</code>)</td></tr>
+    <tr><td>ตารางคะแนน</td><td><code>\gradetable[h][questions]</code></td></tr>
+    <tr><td>ข้อ 1–3</td><td><code>choices</code>, <code>oneparchoices</code>, <code>checkboxes</code>, <code>\CorrectChoice</code></td></tr>
+    <tr><td>ข้อ 4</td><td><code>parts</code>, <code>\fillin[คำตอบ][4cm]</code></td></tr>
+    <tr><td>ข้อ 5</td><td><code>\newpage</code>, <code>solutionorlines</code>, <code>solutionorbox</code> และ <code>verbatim</code> สำหรับเฉลยที่เป็นโค้ด</td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>ชื่อคำสั่งในตัวเลือกพิมพ์ด้วย <code>\verb|\section|</code> และในเฉลยของ <code>\fillin</code> ใช้ <code>\texttt{\textbackslash tableofcontents}</code></li>
+    <li>ข้อที่มีข้อย่อยไม่ต้องใส่คะแนนหลัง <code>\question</code> คะแนนของข้อคือผลรวมของข้อย่อย</li>
+    <li><code>solutionorbox</code> รับความสูงของกรอบในวงเล็บเหลี่ยมเหมือน <code>solutionorlines</code></li>
+    <li>ตรวจเฉลยโดยใส่ <code>answers</code> ชั่วคราว แล้วเอาออกก่อนส่ง</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>exam_paper_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วสั่ง <code>latexmk -xelatex exam_paper_&lt;รหัสนักศึกษา&gt;.tex</code> ส่งไฟล์ <code>.tex</code> และ <code>.pdf</code> ฉบับนักศึกษา (ไม่มี <code>answers</code>)</p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> latexmk ทำงานจบโดยไม่มีข้อผิดพลาด และ PDF มี 2 หน้า</label></li>
+  <li><label><input type="checkbox" id="b2"> คะแนนเต็มที่ส่วนหัวและในตารางคะแนนเป็น 20 โดยไม่ได้พิมพ์ตัวเลขเอง</label></li>
+  <li><label><input type="checkbox" id="b3"> ท้ายกระดาษแสดง หน้า 1 จาก 2 และ หน้า 2 จาก 2</label></li>
+  <li><label><input type="checkbox" id="b4"> คะแนนแต่ละข้อและคำในตารางคะแนนเป็นภาษาไทย</label></li>
+  <li><label><input type="checkbox" id="b5"> ทุกข้อมีเฉลย และเมื่อใส่ <code>answers</code> เฉลยแสดงครบถูกต้อง</label></li>
+  <li><label><input type="checkbox" id="b6"> PDF ที่ส่งเป็นฉบับนักศึกษา ไม่มีเฉลย</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> แบ่งข้อสอบเป็นสองตอน เขียน <code>ตอนที่ 1 ปรนัย</code> เป็นข้อความตัวหนาก่อน <code>\begin{questions}</code> และเพิ่ม <code>\fullwidth{\textbf{ตอนที่ 2 อัตนัย}}</code> ก่อนข้อ 4
+    <p class="q">ถ้าใช้ <code>\fullwidth</code> ก่อนข้อ 1 เกิดอะไรขึ้น</p></li>
+  <li><span class="step-id">C2</span> ใช้ <code>\bonusquestion[2]</code> เพิ่มข้อคะแนนพิเศษ แล้วดูว่าคะแนนพิเศษนับรวมใน <code>\numpoints</code> หรือไม่ (ลองใช้ <code>\numbonuspoints</code>)</li>
+  <li><span class="step-id">C3</span> เปลี่ยนป้ายข้อเป็น <code>ข้อที่ 1.</code> ด้วย <code>\renewcommand{\questionlabel}{\textbf{ข้อที่ \thequestion.}}</code></li>
+  <li><span class="step-id">C4</span> ทำหน้าปกข้อสอบที่มีโลโก้ คำชี้แจง และตารางคะแนนแนวตั้ง <code>\gradetable[v][questions]</code> ภายในสภาพแวดล้อม <code>coverpages</code> (คำในตารางแนวตั้งเปลี่ยนด้วย <code>\vqword</code> และคำสั่งชุดเดียวกัน)
+    <p class="q">เลขหน้าของหน้าปกนับรวมใน <code>\numpages</code> หรือไม่</p></li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! Undefined control sequence.</code> ที่ <code>\choice</code></td>
+        <td><code>\choice</code> อยู่นอก <code>choices</code>, <code>oneparchoices</code> หรือ <code>checkboxes</code></td></tr>
+    <tr><td><code>! Undefined control sequence.</code> ที่ <code>\question</code></td>
+        <td>ลืม <code>\begin{questions}</code> หรือ <code>\question</code> อยู่หลัง <code>\end{questions}</code></td></tr>
+    <tr><td>มีหัวข้อ Part I ขึ้นมาเอง</td>
+        <td><code>\part</code> อยู่นอก <code>parts</code> จึงกลายเป็นคำสั่งแบ่งภาคของ LaTeX</td></tr>
+    <tr><td>คะแนนเต็มเป็น 0</td>
+        <td>ลืมตัวเลือก <code>addpoints</code></td></tr>
+    <tr><td>คะแนนรวม จำนวนหน้า หรือตารางคะแนนผิด หรือเป็น <code>??</code></td>
+        <td>คอมไพล์ครั้งเดียว ใช้ <code>latexmk -xelatex</code></td></tr>
+    <tr><td>เฉลยหลุดไปในฉบับนักศึกษา</td>
+        <td>ยังมีตัวเลือก <code>answers</code> หรือคำสั่ง <code>\printanswers</code> อยู่</td></tr>
+    <tr><td>ฉบับเฉลยไม่มีคำตอบของบางข้อ</td>
+        <td>ใช้ <code>\fillwithlines</code> หรือ <code>\makeemptybox</code> ซึ่งไม่มีเฉลย ให้ใช้ <code>solutionorlines</code> หรือ <code>solutionorbox</code></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>คู่มือคลาส exam ในเครื่อง สั่ง <code>texdoc exam</code> ในเทอร์มินัล (หัวข้อ Questions, Choices, Points, Solutions, Grading tables, Headers and footers)</li>
+  <li>สไลด์บทเรียน <em>Thai, Macros and Large Documents</em> สำหรับ <code>thaispec</code></li>
+  <li>ข้อสอบกลางภาคและปลายภาคของวิชานี้ที่ผู้สอนแจก เป็นตัวอย่างข้อสอบจริงที่ทำด้วยคลาส exam</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

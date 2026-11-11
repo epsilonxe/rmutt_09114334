@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · ตาราง</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>ตาราง</h1>
+    <div class="downloads">
+      <a class="primary" href="tables.zip" target="_blank" rel="noopener">ดาวน์โหลด tables.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Figures and Tables<br>(ส่วนตาราง)</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>pdflatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>tables_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">35′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">55′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>สร้างตารางด้วยสภาพแวดล้อม <code>tabular</code> โดยใช้ <code>&amp;</code> คั่นช่อง และ <code>\\</code> จบแถวได้</li>
+  <li>กำหนดการจัดแนวของคอลัมน์ <code>l</code>, <code>c</code>, <code>r</code> และคอลัมน์แบบย่อหน้า <code>p{...}</code> ได้</li>
+  <li>ตีเส้นตารางด้วย <code>|</code>, <code>\hline</code> และ <code>\cline</code> และรวมช่องในแนวนอนด้วย <code>\multicolumn</code> ได้</li>
+  <li>ทำตารางเป็นรูปแบบลอยตัวด้วย <code>table</code> พร้อม <code>\caption</code>, <code>\label</code>, <code>\ref</code> และ <code>\listoftables</code> ได้</li>
+  <li>อ่านข้อความผิดพลาดที่เกิดจากตารางได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="tables.zip" target="_blank" rel="noopener"><code>tables.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>tables</code> ดังนี้</p>
+<pre class="tex nocopy"><code>tables/
+├── doc.pdf      ชิ้นงานต้นแบบ (2 หน้า)
+├── warmup.tex   ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex     ไฟล์เริ่มต้นสำหรับ Part B
+└── content.txt  เนื้อหาทั้งหมดของ Part B (ข้อมูลตารางคั่นด้วย |)</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>ใช้เครื่องมือชุดเดียวกับ Workshop ก่อนหน้า เปิดโฟลเดอร์ <code>tables</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน
+  Workshop นี้ไม่ต้องเรียกแพ็กเกจเพิ่ม</p>
+<div class="callout note">
+  <strong class="label">เคล็ดลับการพิมพ์ตาราง</strong>
+  จัดเครื่องหมาย <code>&amp;</code> ของทุกแถวให้ตรงกันด้วยการเว้นวรรคใน Sublime Text ตารางในไฟล์ <code>.tex</code> จะอ่านง่ายขึ้นมาก และเห็นทันทีว่าแถวใดมีช่องเกินหรือขาด
+  ช่องว่างเหล่านี้ไม่มีผลต่อผลลัพธ์
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 35 นาที</span></div>
+<p>ไฟล์ <code>warmup.tex</code> มีรายการผลไม้ที่ยังเป็นข้อความธรรมดา ทำทีละข้อ บันทึก คอมไพล์ และสังเกตผล</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> แทน 4 บรรทัดของรายการผลไม้ด้วยตาราง
+<pre class="tex"><code>\begin{tabular}{l l r}
+Fruit  &amp; Colour &amp; Price \\
+Apple  &amp; red    &amp; 25    \\
+Banana &amp; yellow &amp; 10    \\
+Mango  &amp; yellow &amp; 40    \\
+\end{tabular}</code></pre>
+    <p class="q"><code>{l l r}</code> บอกอะไร ตัวเลขในคอลัมน์สุดท้ายจัดแนวแบบใด</p></li>
+
+  <li><span class="step-id">A1</span> เปลี่ยนเป็น <code>{c c c}</code> และ <code>{r l l}</code> แล้วเปลี่ยนกลับเป็น <code>{l l r}</code>
+    <p class="q">ตัวเลขราคาควรจัดแนวแบบใดจึงอ่านง่ายที่สุด เพราะอะไร</p></li>
+
+  <li><span class="step-id">A2</span> <strong>เส้นตาราง</strong> เปลี่ยนเป็น <code>{|l|l|r|}</code> ใส่ <code>\hline</code> ก่อนแถวแรก หลังแถวหัวตาราง และหลังแถวสุดท้าย
+    จากนั้นลอง <code>\hline\hline</code> ใต้หัวตาราง และ <code>{||l|l|r||}</code>
+    <p class="q">เส้นแนวตั้งกับเส้นแนวนอนกำหนดคนละที่อย่างไร</p></li>
+
+  <li><span class="step-id">A3</span> เพิ่มคอลัมน์ที่ 4 ชื่อ <code>Note</code> โดยใส่ข้อความยาว ๆ ในแถว Mango เช่น <code>Only in April and May, when the farms near Chachoengsao harvest them.</code>
+    ใช้ชนิดคอลัมน์ <code>l</code> ก่อน แล้วเปลี่ยนเป็น <code>p{4cm}</code>
+    <p class="q">คอลัมน์ <code>l</code> ทำอะไรกับข้อความยาว และ <code>p{4cm}</code> แก้ปัญหาอย่างไร</p></li>
+
+  <li><span class="step-id">A4</span> <strong>ตารางลอยตัว</strong> ครอบตารางด้วย
+<pre class="tex"><code>\begin{table}[htbp]
+  \centering
+  ... ตารางเดิม ...
+  \caption{Fruit prices.}
+  \label{tab:fruit}
+\end{table}</code></pre>
+    แล้วแก้ประโยค <code>Prices are in baht per kilogram.</code> เป็น <code>Prices in Table~\ref{tab:fruit} are in baht per kilogram.</code>
+    และใส่ <code>\listoftables</code> ใต้ <code>\begin{document}</code> คอมไพล์ 2 ครั้ง
+    <p class="q">คำบรรยายตารางขึ้นต้นด้วยคำอะไร และ <code>\listoftables</code> ต่างจาก <code>\listoffigures</code> ใน <a href="../images_colours/" target="_blank" rel="noopener">Workshop รูปภาพและสี</a> อย่างไร</p></li>
+
+  <li><span class="step-id">A5</span> <strong>รวมช่อง</strong> เพิ่มแถวใหม่เหนือหัวตาราง ให้คำว่า <code>Details</code> คร่อมคอลัมน์ที่ 2 และ 3
+<pre class="tex"><code>       &amp; \multicolumn{2}{c|}{Details} &amp; \\
+\cline{2-3}</code></pre>
+    <code>\multicolumn{จำนวนคอลัมน์}{การจัดแนวและเส้น}{ข้อความ}</code> รวมช่องในแนวนอน ส่วน <code>\cline{2-3}</code> ตีเส้นเฉพาะคอลัมน์ 2 ถึง 3
+    <p class="q">ทำไมต้องเขียน <code>c|</code> ในอาร์กิวเมนต์ที่ 2 แทน <code>c</code> ลองเอา <code>|</code> ออกแล้วดูผล</p></li>
+
+  <li><span class="step-id">A6</span> ใส่ <code>\renewcommand{\arraystretch}{1.5}</code> ไว้ใน <code>table</code> ก่อน <code>\begin{tabular}</code>
+    <p class="q">ค่านี้เปลี่ยนอะไร และทำไมจึงไม่กระทบตารางอื่นนอก <code>table</code> นี้</p></li>
+
+  <li><span class="step-id">A7</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> เพิ่มช่องเกินในแถว Apple เป็น <code>Apple &amp; red &amp; 25 &amp; extra \\</code> (เมื่อตารางมี 3 คอลัมน์) แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! Extra alignment tab has been changed to \cr.</span>
+&lt;recently read&gt; \endtemplate
+
+l.16 Apple &amp; red &amp; 25 &amp;
+                        extra \\
+?</code></pre>
+    <p class="q">ข้อความผิดพลาดบอกว่าเกินที่ช่องไหน ถ้ากด <kbd>Enter</kbd> ต่อ คำว่า extra ไปอยู่ที่ใด</p></li>
+
+  <li><span class="step-id">A8</span> แก้ข้อ A7 กลับ แล้วพิมพ์ <code>Our fruit &amp; vegetable stall</code> ในย่อหน้าแรก (นอกตาราง)
+<pre class="term nocopy"><code><span class="err">! Misplaced alignment tab character &amp;.</span>
+l.10 Our fruit &amp;
+                 vegetable stall sells fruit from local farms. The list belo...
+</code></pre>
+    <p class="q">ต้องเขียนเครื่องหมาย <code>&amp;</code> นอกตารางอย่างไร (ทบทวนอักขระพิเศษจาก <a href="../text_formatting/" target="_blank" rel="noopener">Workshop การจัดรูปแบบข้อความ</a>)</p>
+    แก้ไฟล์กลับให้คอมไพล์ผ่านก่อนไปต่อ (หมายเลขบรรทัดของแต่ละคนอาจไม่ตรงกับตัวอย่าง)</li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) <code>&amp;</code> และ <code>\\</code> ทำหน้าที่อะไรในตาราง (2) ต่างกันอย่างไรระหว่าง <code>tabular</code> กับ <code>table</code>
+  (3) เมื่อใดควรใช้คอลัมน์ <code>p{...}</code> และ (4) <code>\multicolumn</code> มีอาร์กิวเมนต์อะไรบ้าง
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 55 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างประกาศของร้านกาแฟ 2 หน้าให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> คอมไพล์ 2 ครั้งด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex main.tex
+<span class="prompt">$ </span>pdflatex main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<p>ทำทีละตาราง ตารางยากขึ้นตามลำดับ ใน <code>content.txt</code> ข้อมูลแต่ละช่องคั่นด้วย <code>|</code> ให้เปลี่ยนเป็น <code>&amp;</code> และจบแถวด้วย <code>\\</code></p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>หัวเรื่อง</td><td><code>center</code>, <code>\LARGE</code>, <code>\large</code> จาก <a href="../text_formatting/" target="_blank" rel="noopener">Workshop การจัดรูปแบบข้อความ</a> (ตัว é พิมพ์ได้ตรง ๆ หรือเขียน <code>Caf\'e</code>)</td></tr>
+    <tr><td>List of Tables</td><td><code>\listoftables</code> และคอมไพล์ 2 ครั้ง</td></tr>
+    <tr><td>Table 1</td><td><code>{|l|c|c|}</code>, <code>\hline</code> 3 เส้น, หัวตารางตัวหนา, ช่วงเวลาใช้ขีด <code>--</code></td></tr>
+    <tr><td>Table 2</td><td><code>{|l|r|r|r|}</code>, <code>\multicolumn</code> สำหรับคำว่า Size, <code>\cline</code>, เส้นคู่ <code>\hline\hline</code> ใต้หัวตาราง, ขีดยาว <code>---</code></td></tr>
+    <tr><td>Table 3</td><td>คอลัมน์ <code>p{0.25\textwidth}</code> และ <code>p{0.6\textwidth}</code> พร้อมเส้นทุกแถว และ <code>\arraystretch</code> เท่ากับ <code>1.3</code></td></tr>
+    <tr><td>ทุกตาราง</td><td><code>table</code> ตำแหน่ง <code>[htbp]</code>, <code>\centering</code>, <code>\caption</code> <strong>ใต้</strong>ตาราง, <code>\label</code> และ <code>\ref</code> ในเนื้อความ</td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>แถวแรกของ Table 2 มีช่องแรกว่าง เริ่มแถวด้วย <code>&amp;</code> ได้เลย</li>
+    <li>ใน <code>\multicolumn{3}{c|}{...}</code> ต้องใส่ <code>|</code> ด้านขวาเอง เพราะช่องที่รวมแล้วไม่ใช้เส้นจากหัว <code>tabular</code></li>
+    <li>Table 3 ในต้นแบบลอยไปบนสุดของหน้า 2 ไม่ต้องบังคับให้อยู่หน้า 1</li>
+    <li>ถ้าความกว้างของ Table 3 ล้นขอบ ให้ตรวจว่าผลรวมความกว้างคอลัมน์ไม่เกิน <code>\textwidth</code> (เส้นและช่องว่างรอบช่องก็กินที่ด้วย)</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>tables_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วคอมไพล์ใหม่ 2 ครั้งด้วยชื่อนั้น ส่งทั้งไฟล์ <code>.tex</code> และ <code>.pdf</code></p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> คอมไพล์ผ่านโดยไม่มีบรรทัดที่ขึ้นต้นด้วย <code>!</code> และไม่มี <code>Overfull \hbox</code></label></li>
+  <li><label><input type="checkbox" id="b2"> List of Tables มีครบ 3 รายการพร้อมเลขหน้า</label></li>
+  <li><label><input type="checkbox" id="b3"> ตัวเลขใน Table 2 ชิดขวา และคำว่า Size คร่อม 3 คอลัมน์</label></li>
+  <li><label><input type="checkbox" id="b4"> ข้อความยาวใน Table 3 ตัดบรรทัดภายในช่อง</label></li>
+  <li><label><input type="checkbox" id="b5"> ทุกตารางมีคำบรรยายใต้ตาราง และข้อความอ้างถึงด้วย <code>\ref</code></label></li>
+  <li><label><input type="checkbox" id="b6"> เอกสารมี 2 หน้า และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ (คัดลอกจากงาน Part B) ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> ย้าย <code>\caption</code> ของทุกตารางไปไว้<strong>เหนือ</strong>ตาราง (ตามธรรมเนียมของงานวิชาการหลายแห่ง)
+    <p class="q">คำบรรยายกับเส้นบนของตารางชิดกันเกินไปหรือไม่ แก้ด้วย <code>\vspace{4pt}</code> หลัง <code>\caption</code> ได้อย่างไร</p></li>
+  <li><span class="step-id">C2</span> ใช้แพ็กเกจ <code>multirow</code> (<code>\usepackage{multirow}</code>) ทำให้คำว่า <code>Drink</code> ใน Table 2 คร่อม 2 แถวด้วย <code>\multirow{2}{*}{\textbf{Drink}}</code> และลบแถวว่างที่ไม่ใช้ออก</li>
+  <li><span class="step-id">C3</span> ใช้ <code>\usepackage[table]{xcolor}</code> แล้วระบายสีหัวตารางด้วย <code>\rowcolor{gray!20}</code> หรือช่องเดียวด้วย <code>\cellcolor{yellow!30}</code></li>
+  <li><span class="step-id">C4</span> สร้างตารางสอนของตัวเองในภาคเรียนนี้ (วัน × ช่วงเวลา) โดยวิชาที่เรียนต่อเนื่องหลายช่วงใช้ <code>\multicolumn</code></li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! Extra alignment tab has been changed to \cr.</code></td>
+        <td>แถวมี <code>&amp;</code> มากกว่าจำนวนคอลัมน์ที่ประกาศไว้ใน <code>{...}</code> ของ <code>tabular</code></td></tr>
+    <tr><td><code>! Misplaced alignment tab character &amp;.</code></td>
+        <td>ใช้ <code>&amp;</code> นอกตาราง ให้เขียน <code>\&amp;</code></td></tr>
+    <tr><td><code>! LaTeX Error: \begin{tabular} on input line ... ended by \end{document}.</code></td>
+        <td>ลืม <code>\end{tabular}</code></td></tr>
+    <tr><td><code>! LaTeX Error: Illegal character in array arg.</code></td>
+        <td>สะกดชนิดคอลัมน์ผิด เช่น <code>{|l|m|r|}</code> หรือ <code>{p4cm}</code> ที่ลืมวงเล็บปีกกา</td></tr>
+    <tr><td><code>! Misplaced \noalign.</code></td>
+        <td>ใช้ <code>\hline</code> โดยแถวก่อนหน้ายังไม่จบด้วย <code>\\</code></td></tr>
+    <tr><td>เส้นแนวตั้งขาดเป็นช่วง ๆ</td>
+        <td>บางแถวมีช่องน้อยกว่าคอลัมน์ หรือ <code>\multicolumn</code> ไม่มี <code>|</code> ในอาร์กิวเมนต์ที่ 2</td></tr>
+    <tr><td>ตารางล้นขอบขวา (<code>Overfull \hbox</code>)</td>
+        <td>ข้อความยาวในคอลัมน์ <code>l</code> หรือ <code>c</code> ใช้คอลัมน์ <code>p{...}</code> แทน</td></tr>
+    <tr><td>เห็น <code>??</code> แทนหมายเลขตาราง</td>
+        <td>คอมไพล์อีกครั้ง หรือตรวจว่า <code>\label</code> อยู่หลัง <code>\caption</code></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Figures and Tables</em> ส่วน Tables (Tabular Environment, Adding borders, Column Aligning, Positioning Tables, List of Tables, Merging Cells and Partial Lines)</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) หัวข้อ 2.11.6 Tabular และ 2.13 Floating Bodies</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+=====================================================================
+ Workshop debugging_with_ai - ตัวอย่างคำตอบจาก AI (ดัดแปลงเพื่อการสอน)
+ คำตอบเหล่านี้เขียนขึ้นเพื่อการสอน โดยเลียนแบบจุดผิดที่แชตบอต AI ทำบ่อย
+ บางคำตอบถูก บางคำตอบผิด หน้าที่ของนักศึกษาคือตรวจสอบทุกคำตอบด้วยการคอมไพล์จริง
+ อย่าเชื่อคำตอบใดเพียงเพราะเขียนอย่างมั่นใจ
+=====================================================================
+
+[A3 - คำตอบเมื่อถามว่า "my latex doesn't work, how do I fix it"]
+
+There are many possible reasons why a LaTeX document does not compile.
+Common causes include missing packages, unmatched braces, special
+characters such as % or & that need escaping, and compiling with the
+wrong engine. Try installing the full TeX Live distribution, check your
+document for typos, and compile again. If the problem persists, please
+share the error message.
+
+[A3 - คำตอบเมื่อถามด้วยพรอมต์ที่ดี (มีโค้ดและข้อความผิดพลาดครบ)]
+
+The message "Runaway argument? {bold phrase that never ends. ..." shows
+that \textbf{ was opened but never closed, so TeX kept reading until
+the end of the file looking for the closing brace. That is why the
+error has no line number. Add } after "never ends" on line 9:
+
+  The second sentence has a \textbf{bold phrase that never ends}.
+
+=====================================================================
+ Part B - คำตอบสำหรับจุดผิด B1-B6 ใน main.tex
+=====================================================================
+
+[B1]  ! LaTeX Error: File `amsmaths.sty' not found.
+
+The error means LaTeX cannot find a package called amsmaths. There is
+no such package: the AMS mathematics package is called amsmath
+(without the final s). Change line 6 to
+
+  \usepackage{amsmath}
+
+[B2]  ! Missing $ inserted.   l.25 ... birthday_
+
+"Missing $ inserted" means you used a math-only symbol outside math
+mode. The underscore _ creates a subscript, and subscripts only work
+in math mode. Put the file name in math mode and the error will go away:
+
+  with a short script called $birthday_table.py$.
+
+[B3]  ! LaTeX Error: \begin{align} on input line 32 ended by \end{equation}.
+
+Every environment must be closed with the same name it was opened
+with. The align environment that starts on line 32 is closed with
+\end{equation} on line 36. Change line 36 to
+
+  \end{align}
+
+[B4]  ! Undefined control sequence.   l.37 ... $x \in \R
+
+\R is the blackboard-bold R used for the real numbers. It is provided
+by the amsfonts package, which you have not loaded. Add this line to
+the preamble and the error will disappear:
+
+  \usepackage{amsfonts}
+
+[B5]  Citation 'mises1939' on page 1 undefined on input line 23
+
+The key in \textcite{mises1939} does not match any entry in refs.bib,
+so biber cannot find it (see the line "I didn't find a database entry"
+in main.blg). Open refs.bib, find the von Mises article and copy its
+key exactly; keys are case-sensitive.
+
+[B6]  Reference `tab:value' on page 1 undefined on input line 46
+
+\ref{tab:value} on line 46 has no matching \label. The table is
+labelled tab:values (with an s), so the two names differ. Make them
+the same, for example change line 46 to \ref{tab:values}.

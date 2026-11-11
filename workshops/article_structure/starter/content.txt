@@ -1,0 +1,71 @@
+=====================================================================
+ Workshop article_structure - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+=====================================================================
+
+[ชื่อเรื่อง]
+Keeping Bees in the City
+
+[ผู้เขียน]
+Campus Garden Society
+
+[วันที่]
+May 2026
+
+[บทคัดย่อ]
+Honey bees are surprisingly well suited to city life. This short article explains why urban gardens need pollinators, what a beginner needs before the first hive arrives, and how to run a safe first inspection.
+
+[หัวข้อระดับ 1]
+Introduction
+
+A single hive on a rooftop can visit flowers up to three kilometres away. Parks, street trees and balcony gardens bloom at different times, so city bees often find food for longer than bees on farms that grow one crop.
+
+Beekeeping is also a quiet hobby. A healthy colony needs about half an hour of attention every week during spring and summer, and almost none in winter.
+
+[หัวข้อระดับ 1]
+Why Bees Matter
+
+[หัวข้อระดับ 2]
+Pollination
+
+About one third of the food we eat depends on pollinators. Bees move pollen from flower to flower while they collect nectar, and many fruit trees give a much smaller harvest without them.
+
+[หัวข้อระดับ 2]
+Honey and Wax
+
+A strong colony can store more honey than it needs. The beekeeper takes only the surplus and the wax caps that cover it, which can be melted into candles.
+
+[เชิงอรรถ ต่อท้ายคำว่า surplus]
+Leave at least 15 kg of honey in the hive for the winter.
+
+[หัวข้อระดับ 1]
+Getting Started
+
+[หัวข้อระดับ 2]
+Choosing a Site
+
+Place the hive where the entrance faces away from paths and doors. A fence or a hedge in front of the entrance makes the bees fly up and over the heads of people nearby.
+
+[หัวข้อระดับ 2]
+Equipment
+
+[หัวข้อระดับ 3]
+Protective Clothing
+
+A veil and a pair of gloves are enough for most beginners. A full suit is useful on hot days, when bees are more defensive.
+
+[หัวข้อระดับ 3]
+Hive Tools
+
+A smoker calms the bees, and a flat hive tool lifts the frames apart. Both are cheap and last for many years.
+
+[หัวข้อระดับ 2]
+The First Inspection
+
+Open the hive on a warm, calm afternoon when most bees are out foraging. Look for eggs, larvae and stored food, then close the hive within ten minutes.
+
+[หัวข้อไม่มีหมายเลข และไม่อยู่ในสารบัญ]
+Acknowledgements
+
+We thank the campus grounds team for the rooftop space and the first two colonies.

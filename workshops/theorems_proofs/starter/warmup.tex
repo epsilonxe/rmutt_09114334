@@ -1,0 +1,30 @@
+% Workshop theorems_proofs - ไฟล์สำหรับ Part A (Warm-up)
+% ทำตามขั้นตอน A0-A8 ใน index.html ทีละขั้น
+% คอมไพล์ด้วยคำสั่ง  pdflatex warmup.tex  ในเทอร์มินัล 2 ครั้ง (เพราะมี \ref)
+
+\documentclass{article}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+% A0: add \usepackage{amsthm} and \newtheorem here
+
+\begin{document}
+
+\section{Even and Odd Numbers}
+
+\textbf{Definition.} An integer $n$ is \emph{even} if $n = 2k$ for some
+integer $k$, and \emph{odd} if $n = 2k + 1$ for some integer $k$.
+
+\textbf{Theorem.} The sum of two even integers is even.
+
+\textbf{Proof.} Let $m = 2k$ and $n = 2l$. Then
+\[
+  m + n = 2k + 2l = 2(k + l).
+\]
+Since $k + l$ is an integer, $m + n$ is even.
+
+\textbf{Theorem.} The product of two odd integers is odd.
+
+\textbf{Remark.} The sum of two odd integers is always even.
+
+\end{document}

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · สร้างคำถาม Moodle ด้วยแพ็กเกจ moodle</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop · เสริม</div></div>
+    <h1>สร้างคำถาม Moodle ด้วยแพ็กเกจ moodle</h1>
+    <div class="downloads">
+      <a class="primary" href="moodle_quiz.zip" target="_blank" rel="noopener">ดาวน์โหลด moodle_quiz.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>ไม่มีบทเรียนประกอบ<br>(ต่อยอดจาก <a href="../exam_paper/" target="_blank" rel="noopener">Workshop สร้างข้อสอบด้วยคลาส exam</a>)</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>pdflatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>moodle_quiz_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br><code>.pdf</code> และ <code>-moodle.xml</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">45′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">40′</span></a></li>
+    <li><a href="#import"><span>นำเข้า Moodle</span><span class="t">10′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>Workshop นี้เป็นงานเสริม ไม่มีสไลด์บทเรียนประกอบ คำสั่งใหม่ทุกคำสั่งอธิบายไว้ใน Part A เมื่อจบแล้ว นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เขียนคำถามสำหรับระบบ Moodle ด้วยแพ็กเกจ <code>moodle</code> ภายในสภาพแวดล้อม <code>quiz</code> ได้</li>
+  <li>สร้างคำถาม 6 ชนิด ได้แก่ ปรนัย (<code>multi</code>) ถูกหรือผิด (<code>truefalse</code>) ตัวเลข (<code>numerical</code>) เติมคำสั้น (<code>shortanswer</code>) จับคู่ (<code>matching</code>) และอัตนัย (<code>essay</code>) ได้</li>
+  <li>กำหนดคะแนน ผลป้อนกลับ (feedback) คำตอบหลายข้อ และค่าคลาดเคลื่อนของคำตอบได้</li>
+  <li>อธิบายความสัมพันธ์ระหว่างไฟล์ PDF ที่ใช้ตรวจทานกับไฟล์ <code>-moodle.xml</code> ที่ใช้นำเข้าได้</li>
+  <li>นำเข้าไฟล์ XML สู่คลังข้อสอบของ Moodle ได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="moodle_quiz.zip" target="_blank" rel="noopener"><code>moodle_quiz.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>moodle_quiz</code> ดังนี้</p>
+<pre class="tex nocopy"><code>moodle_quiz/
+├── doc.pdf      ชิ้นงานต้นแบบ (ภาพตรวจทานคำถาม 8 ข้อ 2 หน้า)
+├── warmup.tex   ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex     ไฟล์เริ่มต้นสำหรับ Part B
+└── content.txt  เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>เปิดโฟลเดอร์ <code>moodle_quiz</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน แพ็กเกจ <code>moodle</code> มากับ TeX Live และ MiKTeX อยู่แล้ว
+คำถามใน Workshop นี้เป็นภาษาอังกฤษ จึงคอมไพล์ด้วย <code>pdflatex</code> ครั้งเดียวก็พอ</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex warmup.tex</code></pre>
+<div class="callout note">
+  <strong class="label">ไฟล์ผลลัพธ์สองไฟล์</strong>
+  ทุกครั้งที่คอมไพล์จะได้ <code>warmup.pdf</code> สำหรับผู้สอนตรวจทาน (แสดงคำตอบที่ถูก คะแนน และผลป้อนกลับ) และ <code>warmup-moodle.xml</code> สำหรับนำเข้า Moodle
+  ข้อความ <code>Package ifplatform Warning ... shell escape is disabled</code> ใน log มาจากภายในแพ็กเกจ ไม่มีผลต่องานนี้
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 45 นาที</span></div>
+<p>ใช้ไฟล์ <code>warmup.tex</code> (คำถามเรื่องระบบสุริยะ) ทำทีละข้อ แล้วสั่ง <code>pdflatex warmup.tex</code> ทุกครั้งที่แก้</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> คอมไพล์ <code>warmup.tex</code> ตามที่ได้รับ เปิด <code>warmup.pdf</code> แล้วเปิด <code>warmup-moodle.xml</code> ใน Sublime Text
+    <p class="q"><code>{Solar System}</code> และ <code>{Largest planet}</code> ไปปรากฏที่ใดใน XML (ดูแท็ก <code>&lt;category&gt;</code> และ <code>&lt;name&gt;</code>) และ <code>\item*</code> กลายเป็นค่า <code>fraction</code> เท่าใด</p></li>
+
+  <li><span class="step-id">A1</span> <strong>คะแนนและผลป้อนกลับ</strong> เปลี่ยนบรรทัดแรกของคำถามเป็น <code>\begin{multi}[points=2]{Largest planet}</code>
+    และเปลี่ยนตัวเลือกแรกเป็น <code>\item[feedback={Mars is smaller than Earth.}] Mars</code>
+    <p class="q">ผลป้อนกลับแสดงใน PDF ที่ใด และนักศึกษาจะเห็นข้อความนี้เมื่อใดใน Moodle</p></li>
+
+  <li><span class="step-id">A2</span> <strong>ตอบได้หลายข้อ</strong> เพิ่มคำถามใหม่ต่อจากข้อแรก
+<pre class="tex"><code>\begin{multi}[multiple]{Rocky planets}
+Which planets are rocky? Select all that apply.
+\item* Mercury
+\item* Earth
+\item Saturn
+\item Neptune
+\end{multi}</code></pre>
+    <p class="q">PDF แสดงเปอร์เซ็นต์ของแต่ละตัวเลือกเท่าใด ถ้านักศึกษาเลือกทุกข้อจะได้คะแนนเท่าใด</p></li>
+
+  <li><span class="step-id">A3</span> <strong>ถูกหรือผิด</strong> <code>\item</code> ตัวแรกคือผลป้อนกลับเมื่อตอบ True ตัวที่สองคือเมื่อตอบ False และ <code>*</code> บอกว่าข้อใดถูก
+<pre class="tex"><code>\begin{truefalse}{Pluto}
+Pluto is still counted as a planet.
+\item[feedback={No. Pluto has been a dwarf planet since 2006.}]
+\item[feedback={Right. Pluto is a dwarf planet.}]*
+\end{truefalse}</code></pre></li>
+
+  <li><span class="step-id">A4</span> <strong>ตัวเลข</strong> เพิ่มสองคำถาม คำถามแรกตอบเป็นจำนวนเต็ม คำถามที่สองยอมให้คลาดเคลื่อนได้ 1 วัน
+<pre class="tex"><code>\begin{numerical}{Number of planets}
+How many planets are in the Solar System?
+\item 8
+\end{numerical}
+
+\begin{numerical}{Orbit}
+About how many days does Earth take to orbit the Sun?
+\item[tolerance=1] 365.25
+\end{numerical}</code></pre>
+    PDF แสดงคำตอบ 8 เป็น <code>8 (−50%)</code> ขณะที่ใน XML คำตอบนี้มี <code>fraction="100"</code> ถูกต้อง เป็นเพราะภาพตรวจทานใช้ค่าที่ค้างจากคำถาม A2 ให้เขียน <code>\item[fraction=100] 8</code> เพื่อให้ PDF แสดงเครื่องหมายถูก
+    <p class="q">ถ้าใครตอบ 364 หรือ 367 สำหรับคำถาม Orbit จะได้คะแนนหรือไม่</p></li>
+
+  <li><span class="step-id">A5</span> <strong>เติมคำสั้น</strong> <code>\blank</code> วางช่องว่างไว้กลางประโยค
+<pre class="tex"><code>\begin{shortanswer}{Closest planet}
+The planet closest to the Sun is \blank.
+\item Mercury
+\item Mercury.
+\end{shortanswer}</code></pre>
+    <p class="q">ทำไมจึงต้องใส่คำตอบ <code>Mercury.</code> ที่มีจุดด้วย ตัวพิมพ์เล็กและใหญ่มีผลหรือไม่ (ดูกรอบ Case-Insensitive ใน PDF)</p></li>
+
+  <li><span class="step-id">A6</span> <strong>จับคู่</strong> ใช้ <code>\answer</code> คั่นระหว่างคำถามย่อยกับคำตอบ
+<pre class="tex"><code>\begin{matching}{Planet features}
+Match each planet with its feature.
+\item Mars \answer the red planet
+\item Saturn \answer bright rings
+\item Venus \answer the hottest surface
+\end{matching}</code></pre></li>
+
+  <li><span class="step-id">A7</span> <strong>อัตนัยและคณิตศาสตร์</strong> เพิ่มคำถามอัตนัยที่มีสูตร แล้วเปิด XML หาประโยคนี้
+<pre class="tex"><code>\begin{essay}{Gravity on the Moon}
+Explain why gravity on the Moon is about $\frac{1}{6}$ of the gravity on Earth.
+\end{essay}</code></pre>
+    <p class="q"><code>$\frac{1}{6}$</code> ถูกแปลงเป็นอะไรใน XML และ Moodle จะแสดงสูตรนี้ได้อย่างไร</p></li>
+
+  <li><span class="step-id">A8</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> ทำทีละข้อในไฟล์ <code>warmup.tex</code> ฉบับเดิม แล้วแก้กลับ
+    <ol type="a">
+      <li>เขียนตัวเลือกด้วย <code>\verb</code> เป็น <code>\item* \verb|Jupiter|</code>
+<pre class="term nocopy"><code><span class="err">! Missing } inserted.</span>
+<span class="out">l.19 \end{multi}</span>
+<span class="err">! Extra }, or forgotten \endgroup.</span>
+<span class="err">! LaTeX Error: \verb illegal in argument.</span></code></pre></li>
+      <li>ลบ <code>{Largest planet}</code> ออกจาก <code>\begin{multi}</code></li>
+      <li>ลบ <code>*</code> ออกจาก <code>\item* Jupiter</code></li>
+    </ol>
+    <p class="q">ข้อ b และ c มีข้อความผิดพลาดหรือไม่ ชื่อคำถามและตัวอักษรตัวแรกของคำถามในข้อ b เป็นอย่างไร และคำถามในข้อ c ใน XML มีคำตอบที่ได้ 100 หรือไม่</p></li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) ไฟล์ PDF และ XML ใช้ทำอะไร (2) <code>*</code>, <code>points</code>, <code>feedback</code>, <code>multiple</code> และ <code>tolerance</code> ทำอะไร
+  และ (3) ทำไมต้องตรวจ PDF ทุกครั้ง ในเมื่อหลายความผิดพลาดไม่มีข้อความเตือน
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 40 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างชุดคำถาม 8 ข้อที่ให้ภาพตรวจทาน<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong></p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>ส่วนนำ</td><td><code>amsmath</code> และ <code>moodle</code> (ต่อจาก <code>fontenc</code> และ <code>lmodern</code> ที่มีอยู่แล้ว)</td></tr>
+    <tr><td>ชุดคำถาม</td><td><code>\begin{quiz}{09114334 Quiz 2}</code></td></tr>
+    <tr><td>ข้อ 1–2</td><td><code>multi</code>, <code>points</code>, <code>feedback</code>, <code>multiple</code></td></tr>
+    <tr><td>ข้อ 3</td><td><code>truefalse</code> พร้อมผลป้อนกลับทั้งสองแบบ</td></tr>
+    <tr><td>ข้อ 4–5</td><td><code>numerical</code>, <code>fraction=100</code>, <code>tolerance</code></td></tr>
+    <tr><td>ข้อ 6</td><td><code>shortanswer</code>, <code>\blank</code></td></tr>
+    <tr><td>ข้อ 7</td><td><code>matching</code>, <code>\answer</code>, <code>\&amp;</code> สำหรับเครื่องหมาย &amp;</td></tr>
+    <tr><td>ข้อ 8</td><td><code>essay</code>, <code>points</code>, <code>\LaTeX</code></td></tr>
+    <tr><td>ชื่อคำสั่งในคำถาม</td><td><code>\texttt{\textbackslash subsection}</code> และ <code>\texttt</code> สำหรับชื่อสภาพแวดล้อม</td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>เทียบบรรทัด <code>Total of marks</code> ท้าย PDF กับต้นแบบ ถ้าได้ 14 แสดงว่าคะแนนทุกข้อถูกต้อง</li>
+    <li>ใน <code>truefalse</code> ตำแหน่งของ <code>*</code> อยู่หลังวงเล็บเหลี่ยม เช่น <code>\item[feedback={...}]*</code></li>
+    <li>ข้อ 6 ใช้ <code>\blank\</code> (มี <code>\</code> ตามด้วยช่องว่าง) เพื่อไม่ให้ช่องว่างหลังคำสั่งหายไป</li>
+    <li>เปิด XML ตรวจว่ามีคำถามครบ 8 ข้อ ด้วยการค้นคำว่า <code>&lt;question type</code> ใน Sublime Text</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>moodle_quiz_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วสั่ง <code>pdflatex moodle_quiz_&lt;รหัสนักศึกษา&gt;.tex</code> ส่งไฟล์ <code>.tex</code>, <code>.pdf</code> และ <code>moodle_quiz_&lt;รหัสนักศึกษา&gt;-moodle.xml</code></p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> pdflatex ทำงานจบโดยไม่มีข้อผิดพลาด และได้ไฟล์ PDF และ XML</label></li>
+  <li><label><input type="checkbox" id="b2"> PDF มีคำถาม 8 ข้อ ชนิดและชื่อตรงกับต้นแบบ และ Total of marks เป็น 14</label></li>
+  <li><label><input type="checkbox" id="b3"> ทุกข้อที่มีคำตอบแสดงเครื่องหมายถูกหรือเปอร์เซ็นต์ตรงกับต้นแบบ</label></li>
+  <li><label><input type="checkbox" id="b4"> ผลป้อนกลับของข้อ 1 และข้อ 3 ครบ</label></li>
+  <li><label><input type="checkbox" id="b5"> ชื่อคำสั่ง LaTeX ในคำถามแสดงเครื่องหมาย \ ถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="import">
+  <div class="sec-head"><h2>นำเข้าสู่ Moodle</h2><span class="badge">ประมาณ 10 นาที</span></div>
+<p>ขั้นตอนนี้ต้องมีบัญชีผู้สอน (หรือผู้ที่แก้ไขคลังข้อสอบได้) ในรายวิชาบน Moodle ถ้าไม่มี ให้อ่านขั้นตอนไว้ใช้ภายหลัง ชื่อเมนูอาจต่างกันเล็กน้อยตามรุ่นของ Moodle</p>
+<ol>
+  <li>เข้ารายวิชา แล้วเปิด<strong>คลังข้อสอบ</strong> (Question bank) จากเมนู More ของรายวิชา</li>
+  <li>เลือก<strong>นำเข้า</strong> (Import) จากรายการเมนูของคลังข้อสอบ</li>
+  <li>ในส่วนรูปแบบไฟล์ เลือก <strong>Moodle XML format</strong></li>
+  <li>ลากไฟล์ <code>-moodle.xml</code> มาวาง แล้วกดปุ่ม Import</li>
+  <li>Moodle แสดงรายการคำถามที่นำเข้า กด Continue คำถามทั้งหมดจะอยู่ในหมวดชื่อเดียวกับ <code>\begin{quiz}{...}</code></li>
+  <li>สร้างแบบทดสอบ (Quiz) ในรายวิชา แล้วเพิ่มคำถามจากหมวดนั้น</li>
+</ol>
+<div class="callout warn">
+  <strong class="label">แก้ที่ไฟล์ .tex เสมอ</strong>
+  ถ้าพบคำถามผิดหลังนำเข้า ให้แก้ในไฟล์ <code>.tex</code> คอมไพล์ แล้วนำเข้าใหม่ ไม่ควรแก้ใน Moodle เพราะไฟล์ต้นฉบับจะไม่ตรงกับคำถามในระบบ
+</div>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> เพิ่มคำถามแบบเติมคำหลายช่องในประโยคเดียว (cloze) ด้วยสภาพแวดล้อม <code>cloze</code> ตามตัวอย่างในคู่มือ <code>texdoc moodle</code></li>
+  <li><span class="step-id">C2</span> ทำคำถามภาษาไทย โดยใช้ <code>thaispec</code> กับฟอนต์ Laksaman และคอมไพล์ด้วย <code>xelatex</code> เหมือน <a href="../thai_macros/" target="_blank" rel="noopener">Workshop เอกสารภาษาไทยและคำสั่งที่สร้างเอง</a> แล้วเปิด XML ตรวจว่าภาษาไทยถูกต้อง</li>
+  <li><span class="step-id">C3</span> ใช้ตัวเลือก <code>sanction</code> ของ <code>multi</code> ให้ตอบผิดแล้วถูกหักคะแนน และเปรียบเทียบเปอร์เซ็นต์ใน PDF</li>
+  <li><span class="step-id">C4</span> สร้างคำสั่ง <code>\cmd</code> ด้วย <code>\newcommand{\cmd}[1]{\texttt{\textbackslash #1}}</code> แล้วใช้ <code>\cmd{subsection}</code> แทนการพิมพ์ยาว
+    <p class="q">คำสั่งที่สร้างเองถูกแปลงลงใน XML อย่างไร</p></li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! LaTeX Error: \verb illegal in argument.</code></td>
+        <td>ใช้ <code>\verb</code> ในคำถามหรือคำตอบ ให้ใช้ <code>\texttt{\textbackslash ...}</code> แทน</td></tr>
+    <tr><td>ชื่อคำถามเป็นตัวอักษรตัวเดียว และคำถามขาดตัวอักษรตัวแรก</td>
+        <td>ลืมชื่อคำถามในวงเล็บปีกกาหลัง <code>\begin{multi}</code> หรือสภาพแวดล้อมคำถามอื่น</td></tr>
+    <tr><td>ทุกตัวเลือกได้ 0% และไม่มีเครื่องหมายถูก</td>
+        <td>ลืม <code>*</code> หลัง <code>\item</code> ของคำตอบที่ถูก</td></tr>
+    <tr><td>คำตอบของ <code>numerical</code> ใน PDF แสดงเปอร์เซ็นต์แปลก ๆ</td>
+        <td>ภาพตรวจทานใช้ค่าค้างจากคำถามก่อนหน้า เขียน <code>fraction=100</code> ที่คำตอบ ค่าใน XML ถูกต้องอยู่แล้ว</td></tr>
+    <tr><td><code>Font shape `OMS/cmtt/m/n' undefined</code></td>
+        <td>ใช้ <code>\textbackslash</code> ใน <code>\texttt</code> โดยไม่มี <code>\usepackage[T1]{fontenc}</code></td></tr>
+    <tr><td>Moodle ไม่ยอมนำเข้าไฟล์</td>
+        <td>เลือกรูปแบบผิด ต้องเป็น Moodle XML format และเลือกไฟล์ <code>-moodle.xml</code> ไม่ใช่ <code>.tex</code></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>คู่มือแพ็กเกจ moodle ในเครื่อง สั่ง <code>texdoc moodle</code> ในเทอร์มินัล (หัวข้อ 2.4 Question Types)</li>
+  <li>สไลด์บทเรียน <em>Mathematics</em> สำหรับสูตรในคำถาม</li>
+  <li><a href="../exam_paper/" target="_blank" rel="noopener">Workshop สร้างข้อสอบด้วยคลาส exam</a> สำหรับข้อสอบแบบพิมพ์บนกระดาษด้วยคลาส exam</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

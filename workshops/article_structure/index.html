@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · โครงสร้างเอกสารประเภทบทความ</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>โครงสร้างเอกสารประเภทบทความ</h1>
+    <div class="downloads">
+      <a class="primary" href="article_structure.zip" target="_blank" rel="noopener">ดาวน์โหลด article_structure.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Document Structure</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>pdflatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>article_structure_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">30′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">60′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>แบ่งเอกสารเป็นหัวข้อหลายระดับด้วย <code>\section</code>, <code>\subsection</code> และ <code>\subsubsection</code> ได้</li>
+  <li>สร้างหัวข้อที่ไม่มีหมายเลขด้วยคำสั่งแบบมีดอกจัน (เช่น <code>\section*</code>) และอธิบายได้ว่าต่างจากหัวข้อปกติอย่างไร</li>
+  <li>สร้างสารบัญด้วย <code>\tableofcontents</code> และอธิบายได้ว่าทำไมต้องคอมไพล์ 2 ครั้ง</li>
+  <li>สร้างส่วนหัวเรื่องด้วย <code>\title</code>, <code>\author</code>, <code>\date</code> และ <code>\maketitle</code> พร้อมบทคัดย่อ (<code>abstract</code>) ได้</li>
+  <li>เพิ่มเชิงอรรถด้วย <code>\footnote</code> ได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="article_structure.zip" target="_blank" rel="noopener"><code>article_structure.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>article_structure</code> ดังนี้</p>
+<pre class="tex nocopy"><code>article_structure/
+├── doc.pdf      ชิ้นงานต้นแบบ (2 หน้า)
+├── warmup.tex   ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex     ไฟล์เริ่มต้นสำหรับ Part B
+└── content.txt  เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>ใช้เครื่องมือชุดเดียวกับ <a href="../text_formatting/" target="_blank" rel="noopener">Workshop การจัดรูปแบบข้อความ</a> ได้แก่ Sublime Text เทอร์มินัล และโปรแกรมอ่าน PDF (SumatraPDF บน Windows)</p>
+<ol>
+  <li>เปิดโฟลเดอร์ <code>article_structure</code> ใน Sublime Text ด้วยเมนู File → Open Folder</li>
+  <li>เปิดเทอร์มินัลในโฟลเดอร์ <code>article_structure</code> แบบเดียวกับ <a href="../text_formatting/" target="_blank" rel="noopener">Workshop การจัดรูปแบบข้อความ</a> แล้วตรวจว่าเห็นไฟล์ทั้ง 4 ไฟล์
+<div class="os-tabs">
+  <div class="os-panel" data-os="windows"><p class="os-label">Windows</p>
+<pre class="term"><code><span class="prompt">PS&gt; </span>dir</code></pre></div>
+  <div class="os-panel" data-os="macos"><p class="os-label">macOS</p>
+<pre class="term"><code><span class="prompt">$ </span>ls</code></pre></div>
+  <div class="os-panel" data-os="linux"><p class="os-label">Linux</p>
+<pre class="term"><code><span class="prompt">$ </span>ls</code></pre></div>
+</div></li>
+</ol>
+<div class="callout note">
+  <strong class="label">สิ่งใหม่ใน Workshop นี้</strong>
+  เอกสารที่มีสารบัญต้อง<strong>คอมไพล์ 2 ครั้ง</strong> ครั้งแรก LaTeX จดชื่อหัวข้อลงไฟล์ <code>.toc</code> ครั้งที่สองจึงอ่านไฟล์นั้นมาพิมพ์เป็นสารบัญ
+  (ใช้ลูกศรขึ้น <kbd>↑</kbd> เรียกคำสั่งเดิมได้)
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 30 นาที</span></div>
+<p>ไฟล์ <code>warmup.tex</code> มีบันทึกสั้น ๆ เรื่องแม่น้ำ ซึ่งตอนนี้ชื่อหัวข้อเป็นเพียงย่อหน้าธรรมดา ทำทีละข้อ บันทึก คอมไพล์ และสังเกตผล</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> คอมไพล์ไฟล์ตามที่ได้รับ
+<pre class="term"><code><span class="prompt">$ </span>pdflatex warmup.tex</code></pre>
+    <p class="q">ผู้อ่านแยกออกหรือไม่ว่าบรรทัดใดเป็นชื่อหัวข้อ และบรรทัดใดเป็นเนื้อหา</p></li>
+
+  <li><span class="step-id">A1</span> เปลี่ยนบรรทัด <code>Where Rivers Begin</code> และ <code>Where Rivers End</code> เป็นหัวข้อระดับ 1 ด้วย <code>\section{...}</code>
+    และเปลี่ยน <code>Mountain Springs</code> กับ <code>Melting Glaciers</code> เป็นหัวข้อระดับ 2 ด้วย <code>\subsection{...}</code>
+    <p class="q">LaTeX ใส่หมายเลขหัวข้อให้อย่างไร ถ้าสลับลำดับสองหัวข้อย่อย หมายเลขเปลี่ยนตามหรือไม่</p></li>
+
+  <li><span class="step-id">A2</span> เพิ่ม <code>\subsubsection{Snow and Rain}</code> พร้อมประโยคสั้น ๆ ใต้หัวข้อ <code>Mountain Springs</code>
+    <p class="q">หัวข้อระดับ 3 ได้หมายเลขแบบใด</p></li>
+
+  <li><span class="step-id">A3</span> <strong>สารบัญ</strong> ใส่ <code>\tableofcontents</code> ไว้ใต้ <code>\begin{document}</code> แล้วคอมไพล์<strong>ครั้งเดียว</strong>
+    เปิด PDF ดู จากนั้นเปิดไฟล์ <code>warmup.toc</code> ที่เกิดขึ้นใหม่ใน Sublime Text แล้วคอมไพล์<strong>อีกครั้ง</strong>
+    <p class="q">หลังคอมไพล์ครั้งแรกสารบัญมีอะไรบ้าง ไฟล์ <code>.toc</code> เก็บข้อมูลอะไร และทำไมครั้งที่สองจึงมีรายการครบ</p></li>
+
+  <li><span class="step-id">A4</span> แก้ชื่อหัวข้อ <code>Where Rivers End</code> เป็น <code>How Rivers End</code> แล้วคอมไพล์ครั้งเดียว
+    <p class="q">ชื่อในสารบัญกับชื่อหัวข้อในเนื้อหาตรงกันหรือไม่ ต้องทำอย่างไรให้ตรงกัน</p></li>
+
+  <li><span class="step-id">A5</span> เปลี่ยน <code>Further Reading</code> เป็น <code>\section*{Further Reading}</code> แล้วคอมไพล์ 2 ครั้ง
+    <p class="q">หัวข้อแบบมีดอกจันต่างจากหัวข้อปกติอย่างไร ทั้งเรื่องหมายเลขและสารบัญ</p></li>
+
+  <li><span class="step-id">A6</span> <strong>หัวเรื่อง</strong> ลบบรรทัด <code>Notes on Rivers</code> ออกจากเนื้อหา แล้วเพิ่มในส่วนนำ (ก่อน <code>\begin{document}</code>)
+<pre class="tex"><code>\title{Notes on Rivers}
+\author{ชื่อของนักศึกษาเป็นภาษาอังกฤษ}
+\date{\today}</code></pre>
+    และใส่ <code>\maketitle</code> เป็นบรรทัดแรกหลัง <code>\begin{document}</code> จากนั้นลองเปลี่ยนเป็น <code>\date{}</code>
+    <p class="q"><code>\today</code> ให้ผลอย่างไร และ <code>\date{}</code> ที่ว่างเปล่าทำให้เกิดอะไรขึ้น</p></li>
+
+  <li><span class="step-id">A7</span> ย้ายย่อหน้าแรก (<code>Rivers carry rain ...</code>) ไปไว้ในสภาพแวดล้อม <code>abstract</code> ระหว่าง <code>\maketitle</code> กับ <code>\tableofcontents</code>
+    แล้วเพิ่มเชิงอรรถท้ายคำว่า <code>sea</code> ด้วย <code>\footnote{The longest river in Thailand is the Mun.}</code>
+    <p class="q">หมายเลขเชิงอรรถและข้อความเชิงอรรถปรากฏที่ใดของหน้า</p></li>
+
+  <li><span class="step-id">A8</span> <strong>ทำให้ผิดโดยตั้งใจ</strong>
+    <ul>
+      <li>สะกด <code>\subsection</code> ผิดเป็น <code>\subsecton</code> แล้วคอมไพล์ เทอร์มินัลจะแสดง
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+l.17 \subsecton
+               {Mountain Springs}
+?</code></pre>
+        พิมพ์ <kbd>x</kbd> แล้ว <kbd>Enter</kbd> เพื่อหยุด แล้วแก้กลับ (หมายเลขบรรทัดของแต่ละคนอาจไม่ตรงกับตัวอย่าง)</li>
+      <li>ใส่ <code>%</code> หน้าบรรทัด <code>\title{...}</code> แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: No \title given.</span>
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H &lt;return&gt;  for immediate help.
+ ...
+
+l.8 \maketitle
+
+?</code></pre></li>
+    </ul>
+    <p class="q">ข้อผิดพลาดที่สองชี้ไปที่บรรทัด <code>\maketitle</code> แต่สาเหตุจริงอยู่ที่บรรทัดใด</p>
+    อย่าลืมแก้ไฟล์กลับให้คอมไพล์ผ่านก่อนไปต่อ</li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) หัวข้อมีกี่ระดับในบทความ (2) ไฟล์ <code>.toc</code> คืออะไร และทำไมต้องคอมไพล์ 2 ครั้ง
+  (3) <code>\section*</code> ต่างจาก <code>\section</code> อย่างไร และ (4) <code>\title</code> กับ <code>\maketitle</code> ต้องอยู่ส่วนใดของไฟล์
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 60 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างบทความ 2 หน้าให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> คอมไพล์ 2 ครั้งด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex main.tex
+<span class="prompt">$ </span>pdflatex main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1 มีหัวเรื่อง บทคัดย่อ และสารบัญ" width="910" height="1287"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<p>ใน <code>content.txt</code> ป้ายในวงเล็บเหลี่ยมบอกระดับของหัวข้อแต่ละบรรทัด ตารางนี้บอกเฉพาะ<em>สิ่งที่ต้องใช้</em> ส่วนวิธีเขียนให้หาจากสไลด์หรือจาก Part A</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>ชื่อเรื่อง ผู้เขียน วันที่</td><td><code>\title</code>, <code>\author</code>, <code>\date</code> ในส่วนนำ และ <code>\maketitle</code> (วันที่เป็นข้อความคงที่ <code>May 2026</code> ไม่ใช่ <code>\today</code>)</td></tr>
+    <tr><td>Abstract</td><td>สภาพแวดล้อม <code>abstract</code></td></tr>
+    <tr><td>Contents</td><td><code>\tableofcontents</code> และคอมไพล์ 2 ครั้ง</td></tr>
+    <tr><td>หัวข้อ 1, 2, 3</td><td><code>\section</code></td></tr>
+    <tr><td>หัวข้อ 2.1, 3.1 เป็นต้น</td><td><code>\subsection</code></td></tr>
+    <tr><td>หัวข้อ 3.2.1 และ 3.2.2</td><td><code>\subsubsection</code></td></tr>
+    <tr><td>เชิงอรรถหลังคำว่า surplus</td><td><code>\footnote</code> และช่องว่างไม่ตัดบรรทัด <code>15~kg</code></td></tr>
+    <tr><td>Acknowledgements</td><td>หัวข้อระดับ 1 แบบไม่มีหมายเลขและไม่อยู่ในสารบัญ</td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>ไม่ต้องพิมพ์หมายเลขหัวข้อเอง LaTeX ใส่ให้อัตโนมัติ</li>
+    <li>ถ้าสารบัญว่างหรือไม่ตรงกับหัวข้อ ให้คอมไพล์อีกครั้ง LaTeX <strong>ไม่</strong>เตือนเรื่องนี้</li>
+    <li>ถ้าสารบัญดูแปลกหลังแก้หลายครั้ง ให้ลบไฟล์ <code>main.aux</code> และ <code>main.toc</code> แล้วคอมไพล์ใหม่ 2 ครั้ง</li>
+    <li>ชิ้นงานมี 2 หน้าพอดี โดยหน้าแรกจบที่ข้อความใต้หัวข้อ 2.1</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>article_structure_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วคอมไพล์ใหม่ 2 ครั้งด้วยชื่อนั้น ส่งทั้งไฟล์ <code>.tex</code> และ <code>.pdf</code></p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex article_structure_6512345678.tex
+<span class="prompt">$ </span>pdflatex article_structure_6512345678.tex</code></pre>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> คอมไพล์ผ่านโดยไม่มีบรรทัดที่ขึ้นต้นด้วย <code>!</code></label></li>
+  <li><label><input type="checkbox" id="b2"> มีชื่อเรื่อง ผู้เขียน วันที่ และบทคัดย่อ ตรงกับต้นแบบ</label></li>
+  <li><label><input type="checkbox" id="b3"> สารบัญแสดงหัวข้อครบทั้ง 3 ระดับ และหมายเลขหน้าถูกต้อง</label></li>
+  <li><label><input type="checkbox" id="b4"> หมายเลขหัวข้อเกิดจาก LaTeX ไม่ได้พิมพ์เอง</label></li>
+  <li><label><input type="checkbox" id="b5"> Acknowledgements ไม่มีหมายเลขและไม่อยู่ในสารบัญ</label></li>
+  <li><label><input type="checkbox" id="b6"> มีเชิงอรรถ 1 รายการที่ท้ายหน้า</label></li>
+  <li><label><input type="checkbox" id="b7"> เอกสารมี 2 หน้า และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ (คัดลอกจากงาน Part B) ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> แบ่งบทความเป็น 2 ภาค ด้วย <code>\part{Background}</code> ก่อนหัวข้อ 1 และ <code>\part{Practice}</code> ก่อนหัวข้อ 3
+    <p class="q">หมายเลขภาคเป็นรูปแบบใด และหมายเลขหัวข้อเริ่มนับใหม่หรือไม่</p></li>
+  <li><span class="step-id">C2</span> เปลี่ยน <code>\documentclass{article}</code> เป็น <code>\documentclass{report}</code> โดยไม่แก้ส่วนอื่น
+    <p class="q">หัวเรื่อง บทคัดย่อ และหมายเลขหัวข้อเปลี่ยนไปอย่างไร (เตรียมตัวสำหรับ <a href="../reports_books/" target="_blank" rel="noopener">Workshop เอกสารประเภทรายงานและหนังสือ</a>)</p></li>
+  <li><span class="step-id">C3</span> ย้าย <code>\tableofcontents</code> ไปไว้ท้ายเอกสาร แล้วคอมไพล์ 2 ครั้ง
+    <p class="q">สารบัญยังถูกต้องหรือไม่ เพราะอะไร</p></li>
+  <li><span class="step-id">C4</span> เขียนบทความ 2 หน้าของตัวเองเป็นภาษาอังกฤษ เช่น แนะนำชมรม รีวิวสถานที่ หรือวิธีดูแลต้นไม้ โดยมีหัวข้อครบ 3 ระดับ สารบัญ บทคัดย่อ และเชิงอรรถ</li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td>สารบัญว่างเปล่า มีแค่คำว่า Contents</td>
+        <td>เพิ่งคอมไพล์ครั้งแรก ให้คอมไพล์อีกครั้ง</td></tr>
+    <tr><td>สารบัญแสดงชื่อหัวข้อเก่าหรือหมายเลขหน้าผิด</td>
+        <td>แก้หัวข้อแล้วคอมไพล์ครั้งเดียว ให้คอมไพล์อีกครั้ง</td></tr>
+    <tr><td><code>! LaTeX Error: No \title given.</code></td>
+        <td>ใช้ <code>\maketitle</code> แต่ไม่มี <code>\title{...}</code> ในส่วนนำ หรือสะกดผิด</td></tr>
+    <tr><td><code>! Undefined control sequence.</code> ที่บรรทัดหัวข้อ</td>
+        <td>สะกดชื่อคำสั่งผิด เช่น <code>\subsecton</code> หรือ <code>\subsubection</code></td></tr>
+    <tr><td>หัวข้อแบบมีดอกจันหายไปจากสารบัญ</td>
+        <td>เป็นพฤติกรรมปกติ หัวข้อแบบ <code>\section*</code> ไม่มีหมายเลขและไม่เข้าสารบัญ</td></tr>
+    <tr><td>หัวเรื่องไม่ปรากฏ แม้มี <code>\title</code></td>
+        <td>ลืม <code>\maketitle</code> หลัง <code>\begin{document}</code></td></tr>
+    <tr><td>วันที่ของวันนี้ปรากฏใต้ชื่อผู้เขียนทั้งที่ไม่ได้ใส่</td>
+        <td>ถ้าไม่มี <code>\date</code> LaTeX ใช้วันที่ปัจจุบันให้เอง ใส่ <code>\date{...}</code> ตามต้องการ หรือ <code>\date{}</code> เพื่อไม่แสดง</td></tr>
+    <tr><td>หัวข้อหรือข้อความเป็นตัวหนาทั้งหน้า</td>
+        <td>ลืมปิดวงเล็บปีกกาในหัวข้อ เช่น <code>\section{Introduction</code></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Document Structure</em> (Sectioning, Table of Contents, Unnumbered Sections, Standard Document Classes)</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) บทที่ 2 หัวข้อ Title, Chapters and Sections</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

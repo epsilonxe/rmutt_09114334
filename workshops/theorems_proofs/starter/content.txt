@@ -1,0 +1,74 @@
+=====================================================================
+ Workshop theorems_proofs - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+ นิพจน์คณิตศาสตร์เขียนไว้ใน { ... } ให้เปลี่ยนเป็นคณิตศาสตร์ในบรรทัดเอง
+ หมายเลขของนิยาม ทฤษฎีบท ฯลฯ ต้องให้ LaTeX สร้างเอง ห้ามพิมพ์ตัวเลขเอง
+=====================================================================
+
+[หัวเรื่อง - จัดกึ่งกลาง]
+Lecture Note 8: Divisibility and Primes
+Foundations of Mathematics
+
+[หัวข้อระดับ 1]
+Divisibility
+
+[นิยาม - คำว่า divides เน้นด้วย \emph]
+Let {a} and {b} be integers with {a not-equal 0}. We say that {a}
+divides {b}, and write {a | b}, if there is an integer {k} such
+that {b = ak}.
+
+[ตัวอย่าง]
+We have {3 | 12} because {12 = 3 · 4}, but {5 does-not-divide 12} because no
+integer {k} satisfies {12 = 5k}.
+
+[บทตั้ง (Lemma)]
+If {a | b} and {a | c}, then {a | (b + c)}.
+
+[บทพิสูจน์]
+Write {b = ak} and {c = al} with integers {k} and {l}. Then
+{b + c = a(k + l)}, and {k + l} is an integer.
+
+[ทฤษฎีบท ชื่อ Transitivity]
+If {a | b} and {b | c}, then {a | c}.
+
+[บทพิสูจน์]
+By definition there are integers {k} and {l} with {b = ak} and {c = bl}.
+Substituting the first equation into the second gives
+[แสดงผลแยกบรรทัด] c = (ak)l = a(kl).
+Since {kl} is an integer, {a | c}.
+
+[บทแทรก (Corollary)]
+If {a | b}, then {a | bc} for every integer {c}.
+
+[บทพิสูจน์]
+Since {b | bc}, this follows from Theorem [อ้างถึงทฤษฎีบท Transitivity].
+
+[หัวข้อระดับ 1]
+Prime Numbers
+
+[นิยาม - คำว่า prime เน้นด้วย \emph]
+An integer {p > 1} is prime if its only positive divisors are {1}
+and {p}.
+
+[ตัวอย่าง]
+The first primes are {2, 3, 5, 7, 11} and {13}. The number {1} is not
+prime, and {2} is the only even prime.
+
+[ทฤษฎีบท ชื่อ Euclid]
+There are infinitely many prime numbers.
+
+[บทพิสูจน์]
+Suppose that there are only finitely many primes {p_1, p_2, ..., p_n},
+and consider
+[แสดงผลแยกบรรทัด] N = p_1 p_2 ... p_n + 1 .
+Some prime {p_i} divides {N}, and {p_i} also divides
+{p_1 p_2 ... p_n}. By Lemma [อ้างถึงบทตั้งในหัวข้อ 1] applied to {N} and
+{-p_1 p_2 ... p_n}, the prime {p_i} divides their sum, which is
+[แสดงผลแยกบรรทัด] N - p_1 p_2 ... p_n = 1 .
+This is impossible, because no prime divides {1}.
+
+[ข้อสังเกต (ไม่มีหมายเลข)]
+The proof of Theorem [อ้างถึงทฤษฎีบท Euclid] does not say that {N} itself is
+prime. For example, {2 · 3 · 5 · 7 · 11 · 13 + 1 =
+30031 = 59 · 509}.

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · ทฤษฎีบทและการพิสูจน์</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>ทฤษฎีบทและการพิสูจน์</h1>
+    <div class="downloads">
+      <a class="primary" href="theorems_proofs.zip" target="_blank" rel="noopener">ดาวน์โหลด theorems_proofs.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Theorems and Proofs</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>pdflatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>theorems_proofs_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">35′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">55′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>นิยามสภาพแวดล้อมแบบทฤษฎีบทด้วย <code>\newtheorem</code> จากแพ็กเกจ <code>amsthm</code> ได้</li>
+  <li>ควบคุมการนับเลข ได้แก่ นับตามหัวข้อ ใช้ตัวนับร่วมกัน และนับต่อจากทฤษฎีบท ได้</li>
+  <li>สร้างสภาพแวดล้อมที่ไม่มีหมายเลขด้วย <code>\newtheorem*</code> ได้</li>
+  <li>เลือกรูปแบบด้วย <code>\theoremstyle</code> ได้แก่ <code>plain</code>, <code>definition</code> และ <code>remark</code></li>
+  <li>เขียนบทพิสูจน์ด้วยสภาพแวดล้อม <code>proof</code> ได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="theorems_proofs.zip" target="_blank" rel="noopener"><code>theorems_proofs.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>theorems_proofs</code> ดังนี้</p>
+<pre class="tex nocopy"><code>theorems_proofs/
+├── doc.pdf      ชิ้นงานต้นแบบ (1 หน้า)
+├── warmup.tex   ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex     ไฟล์เริ่มต้นสำหรับ Part B
+└── content.txt  เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>ใช้เครื่องมือชุดเดียวกับ Workshop ก่อนหน้า เปิดโฟลเดอร์ <code>theorems_proofs</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน
+  ใช้แพ็กเกจ <code>mathtools</code>, <code>amssymb</code> และเพิ่ม <code>amsthm</code> คอมไพล์ 2 ครั้งเมื่อมี <code>\ref</code></p>
+<div class="callout note">
+  <strong class="label">หลักการของ Workshop นี้</strong>
+  <code>\newtheorem</code> ไม่ได้พิมพ์อะไรลงเอกสาร แต่<strong>สร้างสภาพแวดล้อมใหม่</strong> ไว้ในส่วนนำ แล้วจึงใช้สภาพแวดล้อมนั้นในเนื้อหา
+  เช่น <code>\newtheorem{theorem}{Theorem}</code> สร้าง <code>\begin{theorem}...\end{theorem}</code> ที่ขึ้นต้นด้วยคำว่า Theorem และหมายเลข
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 35 นาที</span></div>
+<p>ไฟล์ <code>warmup.tex</code> มีนิยาม ทฤษฎีบท และบทพิสูจน์ที่เขียนด้วย <code>\textbf</code> ธรรมดา ทำทีละข้อเพื่อเปลี่ยนเป็นสภาพแวดล้อมแบบทฤษฎีบท</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> ครอบทฤษฎีบทแรกด้วย <code>\begin{theorem}</code> ... <code>\end{theorem}</code> (ลบ <code>\textbf{Theorem.}</code> ออก) แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: Environment theorem undefined.</span>
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H &lt;return&gt;  for immediate help.
+ ...
+
+l.18 \begin{theorem}
+
+?</code></pre>
+    พิมพ์ <kbd>x</kbd> แล้ว <kbd>Enter</kbd> จากนั้นแทนบรรทัด <code>% A0: ...</code> ในส่วนนำด้วย
+<pre class="tex"><code>\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}</code></pre>
+    <p class="q">อาร์กิวเมนต์แรกและอาร์กิวเมนต์ที่สองของ <code>\newtheorem</code> ทำหน้าที่ต่างกันอย่างไร ข้อความในทฤษฎีบทเป็นตัวอักษรแบบใด</p></li>
+
+  <li><span class="step-id">A1</span> ทำทฤษฎีบทที่สองให้เป็น <code>theorem</code> ด้วย และใส่ชื่อทฤษฎีบทด้วย <code>\begin{theorem}[Odd times odd]</code>
+    <p class="q">ชื่อในวงเล็บเหลี่ยมแสดงตรงไหน หมายเลขของทฤษฎีบทที่สองเป็นเท่าไร</p></li>
+
+  <li><span class="step-id">A2</span> <strong>บทพิสูจน์</strong> แทน <code>\textbf{Proof.}</code> ด้วย <code>\begin{proof}</code> ... <code>\end{proof}</code>
+    <p class="q">คำว่า Proof เปลี่ยนรูปแบบอย่างไร และเครื่องหมายสี่เหลี่ยมท้ายบทพิสูจน์มาจากที่ใด</p></li>
+
+  <li><span class="step-id">A3</span> <strong>นับตามหัวข้อ</strong> เปลี่ยนเป็น <code>\newtheorem{theorem}{Theorem}[section]</code> แล้วเพิ่ม
+<pre class="tex"><code>\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[theorem]</code></pre>
+    ใส่ <code>lemma</code> สั้น ๆ หนึ่งอันก่อนทฤษฎีบทแรก และ <code>corollary</code> หลังทฤษฎีบทที่สอง
+    <p class="q">วงเล็บเหลี่ยมที่อยู่<strong>หลัง</strong>ชื่อ (<code>[section]</code>) กับวงเล็บเหลี่ยมที่อยู่<strong>ระหว่าง</strong>อาร์กิวเมนต์ (<code>[theorem]</code>) ให้ผลต่างกันอย่างไร</p></li>
+
+  <li><span class="step-id">A4</span> <strong>ไม่มีหมายเลข</strong> นิยาม <code>\newtheorem*{remark}{Remark}</code> แล้วเปลี่ยน <code>\textbf{Remark.}</code> ให้เป็นสภาพแวดล้อม <code>remark</code>
+    <p class="q">ทำไม <code>\newtheorem*</code> จึงไม่มีอาร์กิวเมนต์สำหรับตัวนับ</p></li>
+
+  <li><span class="step-id">A5</span> <strong>รูปแบบ</strong> เขียนในส่วนนำตามลำดับนี้
+<pre class="tex"><code>\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}</code></pre>
+    (ลบ <code>\newtheorem*{remark}</code> ของข้อ A4 ออก) แล้วเปลี่ยน <code>\textbf{Definition.}</code> เป็นสภาพแวดล้อม <code>definition</code>
+    <p class="q">ทฤษฎีบท นิยาม และข้อสังเกต ต่างกันที่ตัวอักษรอย่างไร ถ้าย้าย <code>\newtheorem{theorem}...</code> ไปไว้หลัง <code>\theoremstyle{remark}</code> จะเกิดอะไรขึ้น</p></li>
+
+  <li><span class="step-id">A6</span> <strong>อ้างอิง</strong> ใส่ <code>\label{thm:sum}</code> ต่อจาก <code>\begin{theorem}</code> ของทฤษฎีบทแรก และเขียน <code>By Theorem~\ref{thm:sum}, ...</code> ในข้อสังเกต คอมไพล์ 2 ครั้ง
+    <p class="q">หมายเลขที่ได้ตรงกับหมายเลขของทฤษฎีบทหรือไม่</p></li>
+
+  <li><span class="step-id">A7</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> เขียน <code>\newtheorem{theorem}...</code> ซ้ำสองครั้งในส่วนนำ
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: Command \theorem already defined.</span>
+               Or name \end... illegal, see p.192 of the manual.</code></pre>
+    <p class="q">ทำไมจึงนิยามชื่อเดิมซ้ำไม่ได้</p></li>
+
+  <li><span class="step-id">A8</span> ลบ <code>\usepackage{amsthm}</code> ออกชั่วคราวแล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: Environment proof undefined.</span></code></pre>
+    <p class="q">สภาพแวดล้อมใดมาจาก <code>amsthm</code> โดยตรง และคำสั่งใดใน LaTeX ใช้ได้แม้ไม่มี <code>amsthm</code></p>
+    แก้ไฟล์กลับให้คอมไพล์ผ่าน (หมายเลขบรรทัดของแต่ละคนอาจไม่ตรงกับตัวอย่าง)</li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) <code>\newtheorem</code> ต้องเขียนไว้ที่ใด (2) วงเล็บเหลี่ยม 2 ตำแหน่งของ <code>\newtheorem</code> ต่างกันอย่างไร
+  (3) <code>\theoremstyle</code> มีผลกับ <code>\newtheorem</code> ใดบ้าง และ (4) สภาพแวดล้อม <code>proof</code> ใส่อะไรให้โดยอัตโนมัติ
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 55 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างเอกสารประกอบการสอน 1 หน้าให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> คอมไพล์ 2 ครั้งด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex main.tex
+<span class="prompt">$ </span>pdflatex main.tex</code></pre>
+
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc.png" alt="ภาพตัวอย่างชิ้นงาน Lecture Note 8" width="910" height="1287"></a>
+  <figcaption>ชิ้นงานต้นแบบ (คลิกเพื่อเปิด PDF)</figcaption>
+</figure>
+
+<h3>คำแนะนำ</h3>
+<p>สังเกตหมายเลขในต้นแบบให้ดี เพราะเป็นตัวบอกว่าสภาพแวดล้อมใดใช้ตัวนับร่วมกัน ตารางนี้บอกเฉพาะ<em>สิ่งที่ต้องใช้</em></p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>Lemma 1.1, Theorem 1.2, Theorem 2.1</td><td>รูปแบบ <code>plain</code>, นับตาม <code>section</code>, Lemma ใช้ตัวนับร่วมกับ Theorem</td></tr>
+    <tr><td>Corollary 1.2.1</td><td>นับต่อจากหมายเลขของ Theorem</td></tr>
+    <tr><td>Definition 1.1, Example 1.2</td><td>รูปแบบ <code>definition</code>, นับตาม <code>section</code>, Example ใช้ตัวนับร่วมกับ Definition</td></tr>
+    <tr><td>Remark</td><td>รูปแบบ <code>remark</code> และไม่มีหมายเลข</td></tr>
+    <tr><td>(Transitivity), (Euclid)</td><td>อาร์กิวเมนต์เสริม <code>[...]</code> หลัง <code>\begin{theorem}</code></td></tr>
+    <tr><td>Proof</td><td>สภาพแวดล้อม <code>proof</code></td></tr>
+    <tr><td>Theorem 1.2, Lemma 1.1, Theorem 2.1 ในเนื้อความ</td><td><code>\label</code> และ <code>\ref</code></td></tr>
+    <tr><td>สัญลักษณ์</td><td><code>\mid</code>, <code>\nmid</code> (จาก <code>amssymb</code>), <code>\cdot</code>, <code>\ldots</code>, <code>\cdots</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>ต้องนิยาม <code>theorem</code> ก่อน <code>lemma</code> และ <code>corollary</code> เพราะทั้งสองอ้างถึงตัวนับ <code>theorem</code></li>
+    <li><code>\theoremstyle</code> มีผลกับ <code>\newtheorem</code> <strong>ทุกตัวที่ตามมา</strong> จนกว่าจะเปลี่ยนรูปแบบใหม่ จึงต้องจัดกลุ่มตามรูปแบบ</li>
+    <li>ใช้ <code>a \mid b</code> แทน <code>a | b</code> เพราะ <code>\mid</code> มีระยะห่างของความสัมพันธ์ที่ถูกต้อง</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>theorems_proofs_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วคอมไพล์ใหม่ 2 ครั้งด้วยชื่อนั้น ส่งทั้งไฟล์ <code>.tex</code> และ <code>.pdf</code></p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> คอมไพล์ผ่านโดยไม่มีบรรทัดที่ขึ้นต้นด้วย <code>!</code> และไม่มีคำเตือน <code>undefined references</code></label></li>
+  <li><label><input type="checkbox" id="b2"> หมายเลขของนิยาม ตัวอย่าง บทตั้ง ทฤษฎีบท และบทแทรก ตรงกับต้นแบบทุกตัว</label></li>
+  <li><label><input type="checkbox" id="b3"> ทฤษฎีบทเป็นตัวเอียง นิยามและตัวอย่างเป็นตัวตรง ข้อสังเกตไม่มีหมายเลข</label></li>
+  <li><label><input type="checkbox" id="b4"> ทุกบทพิสูจน์มีสี่เหลี่ยมท้าย และสี่เหลี่ยมของ Theorem 1.2 อยู่บรรทัดเดียวกับสมการ</label></li>
+  <li><label><input type="checkbox" id="b5"> หมายเลขที่อ้างถึงในเนื้อความมาจาก <code>\ref</code></label></li>
+  <li><label><input type="checkbox" id="b6"> เอกสารมี 1 หน้า และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> ทำให้ทุกสภาพแวดล้อมที่มีหมายเลข (นิยาม ตัวอย่าง บทตั้ง ทฤษฎีบท) ใช้ตัวนับเดียวกัน จะได้ลำดับ 1.1, 1.2, 1.3, ... ต่อเนื่องกัน
+    <p class="q">แบบใดช่วยให้ผู้อ่านหาหมายเลขที่อ้างถึงได้ง่ายกว่า</p></li>
+  <li><span class="step-id">C2</span> เปลี่ยนชื่อหัวบทพิสูจน์ด้วย <code>\begin{proof}[Proof of Theorem~\ref{thm:euclid}]</code></li>
+  <li><span class="step-id">C3</span> เปลี่ยนเอกสารเป็นคลาส <code>report</code> และนับทฤษฎีบทตาม <code>chapter</code> แทน <code>section</code></li>
+  <li><span class="step-id">C4</span> เขียนเอกสาร 1 หน้าที่มีนิยาม ทฤษฎีบท และบทพิสูจน์จากวิชาคณิตศาสตร์ที่เรียนอยู่ เช่น จำนวนคู่และคี่ เซต หรือลำดับ</li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! LaTeX Error: Environment theorem undefined.</code></td>
+        <td>ยังไม่ได้นิยามด้วย <code>\newtheorem</code> หรือสะกดชื่อไม่ตรงกัน</td></tr>
+    <tr><td><code>! LaTeX Error: Environment proof undefined.</code></td>
+        <td>ยังไม่ได้ <code>\usepackage{amsthm}</code></td></tr>
+    <tr><td><code>! LaTeX Error: Command \theorem already defined.</code></td>
+        <td>นิยามชื่อเดียวกันสองครั้ง ตรวจส่วนนำ</td></tr>
+    <tr><td><code>! LaTeX Error: No counter 'theorem' defined.</code></td>
+        <td>ใช้ <code>[theorem]</code> ใน <code>\newtheorem</code> ก่อนนิยาม <code>theorem</code> ให้ย้ายลำดับ</td></tr>
+    <tr><td>ทฤษฎีบทเป็นตัวตรงแทนตัวเอียง</td>
+        <td><code>\newtheorem{theorem}</code> อยู่หลัง <code>\theoremstyle{definition}</code> ให้จัดกลุ่มตามรูปแบบใหม่</td></tr>
+    <tr><td>หมายเลขบทแทรกเป็น 1 แทน 1.2.1</td>
+        <td>ลืม <code>[theorem]</code> ท้าย <code>\newtheorem{corollary}{Corollary}</code></td></tr>
+    <tr><td>อ้างถึงทฤษฎีบทได้หมายเลขของหัวข้อ</td>
+        <td>วาง <code>\label</code> ไว้นอกสภาพแวดล้อม ให้วางไว้หลัง <code>\begin{theorem}</code></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Theorems and Proofs</em> (amsthm, Numbered Theorems, Unnumbered Theorems, Theorem Styles, Proofs)</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) หัวข้อ 3.9 Theorems, Lemmas, …</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

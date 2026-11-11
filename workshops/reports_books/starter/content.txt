@@ -1,0 +1,98 @@
+=====================================================================
+ Workshop reports_books - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+=====================================================================
+
+[ชื่อเรื่อง]
+Campus Pond Water Survey
+
+[ผู้เขียน 2 บรรทัด]
+Environmental Science Club
+Rajamangala University of Technology Thanyaburi
+
+[วันที่]
+June 2026
+
+[บทคัดย่อ]
+The campus pond is home to fish, birds and many plants, and it collects rain water from the roofs of three faculty buildings. Over four weeks in May 2026 the club measured the temperature, acidity and oxygen level of the water at three points around the pond. This report describes how the samples were taken, presents the results, and suggests simple steps that could keep the pond healthy.
+
+[บท]
+Introduction
+
+[หัวข้อระดับ 1]
+Background
+
+The pond was dug in 1998 to hold storm water during the rainy season. Since then it has become a favourite place for students to sit between classes, and a small ecosystem has grown around it.
+
+Nobody has measured the quality of the water for several years. After a period of hot weather in April, some members noticed green water near the outlet and a few dead fish, so the club decided to run a short survey.
+
+[หัวข้อระดับ 1]
+Aims
+
+The survey had three aims.
+
+[รายการมีหมายเลข]
+- Measure basic water quality at fixed points every week.
+- Find out whether the quality differs around the pond.
+- Suggest low-cost actions for the grounds team.
+
+[บท]
+Methods
+
+[หัวข้อระดับ 1]
+Sampling Points
+
+Three sampling points were marked with wooden posts: the inlet pipe on the north side, the footbridge in the middle, and the outlet on the south side. Samples were taken every Monday at 9 a.m., about 20 cm below the surface.
+
+[หัวข้อระดับ 1]
+Measurements
+
+[หัวข้อระดับ 2]
+Temperature and pH
+
+A digital thermometer and a pocket pH meter were used at each point. The pH meter was calibrated before every visit.
+
+[หัวข้อระดับ 2]
+Dissolved Oxygen
+
+Dissolved oxygen was measured with a test kit that changes colour. Each reading was repeated twice and the average was recorded.
+
+[บท]
+Results and Discussion
+
+[หัวข้อระดับ 1]
+Temperature and pH
+
+The water temperature rose slowly from 29 to 32 degrees during the month. The pH stayed between 7.0 and 7.8 at all three points, which is a normal range for a pond with plants.
+
+[หัวข้อระดับ 1]
+Dissolved Oxygen
+
+Oxygen levels were good at the inlet and the footbridge, but they fell below 4 mg/L at the outlet in the last two weeks. Water near the outlet hardly moves, and dense algae grow there in hot weather.
+
+[หัวข้อระดับ 1]
+Suggestions
+
+[รายการไม่มีหมายเลข]
+- Remove some of the floating plants near the outlet every month.
+- Add a small solar fountain to keep the water moving.
+- Repeat the survey at the end of the rainy season.
+
+[บทที่ไม่มีหมายเลข]
+Acknowledgements
+
+We thank the Faculty of Science and Technology for lending the test equipment, and the grounds team for their help at the outlet.
+
+[ภาคผนวก - บทถัดไปเป็นภาคผนวก]
+
+[บท]
+Field Checklist
+
+Members took this checklist to the pond on every visit.
+
+[รายการมีหมายเลข]
+- Thermometer, pH meter and oxygen test kit
+- Three clean sample bottles, labelled A, B and C
+- Notebook, pencil and a watch
+- Gloves and a towel

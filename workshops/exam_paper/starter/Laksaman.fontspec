@@ -1,0 +1,10 @@
+% Tells fontspec where the Laksaman font files are (they ship with TeX Live).
+% Keep this file in the same folder as your .tex file.
+\defaultfontfeatures[Laksaman]{
+  Script         = Thai,
+  Extension      = .otf,
+  UprightFont    = *,
+  BoldFont       = *-Bold,
+  ItalicFont     = *-Italic,
+  BoldItalicFont = *-BoldItalic
+}

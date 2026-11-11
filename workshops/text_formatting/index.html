@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · การจัดรูปแบบข้อความ</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>การจัดรูปแบบข้อความ</h1>
+    <div class="downloads">
+      <a class="primary" href="text_formatting.zip" target="_blank" rel="noopener">ดาวน์โหลด text_formatting.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Formatting Text</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>pdflatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>text_formatting_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">10′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">25′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">60′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เขียนไฟล์ LaTeX ด้วยโปรแกรมแก้ไขข้อความ และคอมไพล์เป็น PDF ด้วยคำสั่ง <code>pdflatex</code> ในเทอร์มินัลได้</li>
+  <li>อ่านข้อความผิดพลาดจากเทอร์มินัลและไฟล์ <code>.log</code> แล้วหาบรรทัดที่ผิดได้</li>
+  <li>แบ่งย่อหน้า ขึ้นบรรทัดใหม่ จัดแนวข้อความ (ชิดซ้าย กึ่งกลาง ชิดขวา) และควบคุมการเยื้องย่อหน้าได้</li>
+  <li>เน้นข้อความด้วยตัวหนา ตัวเอียง ขีดเส้นใต้ small caps และเปลี่ยนขนาดและตระกูลแบบอักษรได้</li>
+  <li>สร้างรายการแบบ <code>itemize</code> และ <code>enumerate</code> รายการซ้อน และกำหนดป้ายกำกับเองได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="text_formatting.zip" target="_blank" rel="noopener"><code>text_formatting.zip</code></a> แล้วแตกไฟล์ (Extract) ไว้ในที่ที่หาง่าย เช่น Desktop จะได้โฟลเดอร์ <code>text_formatting</code> ดังนี้</p>
+<pre class="tex nocopy"><code>text_formatting/
+├── doc.pdf      ชิ้นงานต้นแบบที่ต้องทำให้เหมือน
+├── warmup.tex   ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex     ไฟล์เริ่มต้นสำหรับ Part B
+└── content.txt  เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 10 นาที</span></div>
+
+<p>ต้องติดตั้งระบบ LaTeX, Sublime Text และโปรแกรมอ่าน PDF ให้เรียบร้อยก่อน ตาม <a href="../installation/" target="_blank" rel="noopener">Workshop ติดตั้ง LaTeX และเครื่องมือ</a> ส่วนนี้เป็นเพียงการทบทวน</p>
+
+<p>Workshop นี้ <strong>ไม่ใช้โปรแกรม IDE สำหรับ LaTeX</strong> (เช่น TeXstudio หรือ Overleaf) เพื่อให้เห็นว่าการเรียงพิมพ์เกิดขึ้นอย่างไรจริง ๆ
+กล่าวคือ เราเขียนไฟล์ข้อความ <code>.tex</code> ด้วยโปรแกรมแก้ไขข้อความ แล้วสั่งโปรแกรม <code>pdflatex</code> ในเทอร์มินัลให้แปลงเป็น PDF</p>
+
+<h3>1. โปรแกรมแก้ไขข้อความ Sublime Text</h3>
+<ul>
+  <li>ใช้ <strong>Sublime Text</strong> (ใช้ได้ทั้ง Windows, macOS และ Linux) เปิดโฟลเดอร์ <code>text_formatting</code> ด้วยเมนู File → Open Folder</li>
+  <li>ยัง<strong>ไม่ต้อง</strong>ติดตั้งแพ็กเกจเสริมที่คอมไพล์ LaTeX ให้อัตโนมัติ (เช่น LaTeXTools)</li>
+  <li>เปิดการตัดบรรทัดอัตโนมัติด้วยเมนู View → Word Wrap เพื่ออ่านย่อหน้ายาว ๆ ได้ง่าย</li>
+  <li>บันทึกไฟล์ (<kbd>Ctrl</kbd>+<kbd>S</kbd> หรือ <kbd>⌘</kbd>+<kbd>S</kbd>) <strong>ทุกครั้งก่อนคอมไพล์</strong> เพราะ <code>pdflatex</code> อ่านไฟล์ที่บันทึกไว้บนดิสก์เท่านั้น</li>
+</ul>
+
+<h3>2. เปิดเทอร์มินัลในโฟลเดอร์ text_formatting</h3>
+<div class="os-tabs">
+  <div class="os-panel" data-os="windows">
+    <p class="os-label">Windows</p>
+    <p>เปิดโฟลเดอร์ <code>text_formatting</code> ใน File Explorer คลิกที่แถบที่อยู่ (address bar) พิมพ์ <code>powershell</code> แล้วกด <kbd>Enter</kbd></p>
+<pre class="term"><code><span class="prompt">PS&gt; </span>pdflatex --version
+<!-- verify on Windows: copy the real first line from MiKTeX -->
+<span class="out">MiKTeX-pdfTeX ... (MiKTeX ...)</span>
+<span class="prompt">PS&gt; </span>dir</code></pre>
+    <p>ถ้าใช้ Windows ให้เปิดการแสดงนามสกุลไฟล์ใน File Explorer ที่เมนู View → Show → File name extensions เพื่อไม่ให้เผลอบันทึกเป็น <code>main.tex.txt</code></p>
+  </div>
+  <div class="os-panel" data-os="macos">
+    <p class="os-label">macOS</p>
+    <p>เปิดแอป Terminal พิมพ์ <code>cd</code> ตามด้วยเว้นวรรค แล้วลากโฟลเดอร์ <code>text_formatting</code> จาก Finder มาวางในหน้าต่าง Terminal แล้วกด <kbd>Enter</kbd></p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex --version
+<span class="out">pdfTeX 3.141592653-2.6-1.40.29 (TeX Live 2026)</span>
+<span class="prompt">$ </span>ls</code></pre>
+  </div>
+  <div class="os-panel" data-os="linux">
+    <p class="os-label">Linux</p>
+    <p>เปิด Terminal แล้วไปที่โฟลเดอร์ด้วย <code>cd</code> เช่น <code>cd ~/Desktop/text_formatting</code></p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex --version
+<span class="out">pdfTeX 3.141592653-2.6-1.40.29 (TeX Live 2026)</span>
+<span class="prompt">$ </span>ls</code></pre>
+  </div>
+</div>
+<p>ถ้า <code>pdflatex --version</code> แสดงรุ่นของโปรแกรม แปลว่าพร้อมใช้งาน ถ้าขึ้นว่าไม่รู้จักคำสั่ง ให้ดูหัวข้อ<a href="#errors">ข้อผิดพลาดที่พบบ่อย</a>
+  ส่วน <code>ls</code> หรือ <code>dir</code> ต้องแสดงไฟล์ <code>doc.pdf</code>, <code>warmup.tex</code>, <code>main.tex</code> และ <code>content.txt</code></p>
+
+<h3>3. เปิดไฟล์ PDF</h3>
+<div class="os-tabs">
+  <div class="os-panel" data-os="windows">
+    <p class="os-label">Windows</p>
+    <p>ติดตั้ง <strong>SumatraPDF</strong> และตั้งเป็นโปรแกรมเปิด PDF ค่าเริ่มต้น (คลิกขวาที่ไฟล์ PDF → Open with → Choose another app → เลือก SumatraPDF → Always)
+      จากนั้นเปิดไฟล์ด้วยคำสั่ง</p>
+<pre class="term"><code><span class="prompt">PS&gt; </span>start warmup.pdf</code></pre>
+    <p>SumatraPDF ไม่ล็อกไฟล์และโหลดไฟล์ใหม่ให้เองทุกครั้งที่คอมไพล์ซ้ำ ส่วน Adobe Acrobat จะล็อกไฟล์ไว้ ทำให้คอมไพล์ครั้งต่อไปไม่ได้ (ดู<a href="#errors">ข้อผิดพลาด</a> <code>I can't write on file</code>)</p>
+  </div>
+  <div class="os-panel" data-os="macos">
+    <p class="os-label">macOS</p>
+    <p>ใช้โปรแกรมอ่าน PDF ค่าเริ่มต้นของเครื่อง (Preview)</p>
+<pre class="term"><code><span class="prompt">$ </span>open warmup.pdf</code></pre>
+    <p>Preview จะโหลดไฟล์ใหม่ให้เองเมื่อคอมไพล์ซ้ำ</p>
+  </div>
+  <div class="os-panel" data-os="linux">
+    <p class="os-label">Linux</p>
+    <p>ใช้โปรแกรมอ่าน PDF ค่าเริ่มต้นของระบบ</p>
+<pre class="term"><code><span class="prompt">$ </span>xdg-open warmup.pdf</code></pre>
+  </div>
+</div>
+
+<div class="callout note">
+  <strong class="label">วงจรการทำงานตลอด Workshop</strong>
+  แก้ไฟล์ใน Sublime Text → บันทึก → พิมพ์ <code>pdflatex ชื่อไฟล์.tex</code> ในเทอร์มินัล → ดู PDF
+  (กดลูกศรขึ้น <kbd>↑</kbd> ในเทอร์มินัลเพื่อเรียกคำสั่งเดิมโดยไม่ต้องพิมพ์ใหม่)
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 25 นาที</span></div>
+<p>ใช้ไฟล์ <code>warmup.tex</code> ทำทีละข้อ บันทึก คอมไพล์ และสังเกตผลทุกครั้งที่แก้ไข</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> <strong>คอมไพล์ครั้งแรก</strong> ในเทอร์มินัลพิมพ์
+<pre class="term"><code><span class="prompt">$ </span>pdflatex warmup.tex</code></pre>
+    แล้วใช้ <code>ls</code> (หรือ <code>dir</code>) ดูรายชื่อไฟล์อีกครั้ง จะมีไฟล์ใหม่ 3 ไฟล์ ได้แก่ <code>warmup.aux</code>, <code>warmup.log</code> และ <code>warmup.pdf</code>
+    เปิด <code>warmup.pdf</code> ดูผล และเปิด <code>warmup.log</code> ใน Sublime Text ดูว่ามีอะไรบันทึกไว้บ้าง
+    จากนั้นลบไฟล์ <code>.aux</code> และ <code>.log</code> แล้วคอมไพล์ใหม่
+    <div class="os-tabs">
+      <div class="os-panel" data-os="windows"><p class="os-label">Windows</p>
+<pre class="term"><code><span class="prompt">PS&gt; </span>del warmup.aux, warmup.log</code></pre></div>
+      <div class="os-panel" data-os="macos"><p class="os-label">macOS</p>
+<pre class="term"><code><span class="prompt">$ </span>rm warmup.aux warmup.log</code></pre></div>
+      <div class="os-panel" data-os="linux"><p class="os-label">Linux</p>
+<pre class="term"><code><span class="prompt">$ </span>rm warmup.aux warmup.log</code></pre></div>
+    </div>
+    <p class="q">ไฟล์ใดเป็นไฟล์ต้นฉบับที่ต้องเก็บไว้ และไฟล์ใดเป็นเพียงผลพลอยได้ที่สร้างใหม่ได้ทุกเมื่อ</p></li>
+
+  <li><span class="step-id">A1</span> ข้อความ 4 ส่วนในไฟล์แสดงผลเป็นกี่ย่อหน้า
+    <p class="q">บรรทัดใดในไฟล์ที่ทำให้เกิดย่อหน้าใหม่ และการเว้นวรรคหลายช่องใน <code>Spaces&nbsp;&nbsp;&nbsp;&nbsp;and</code> ให้ผลอย่างไร</p></li>
+
+  <li><span class="step-id">A2</span> ในย่อหน้าแรก ใส่ <code>\\</code> ไว้ท้ายประโยคแรก แล้วเปรียบเทียบกับการเว้นบรรทัดว่างหนึ่งบรรทัดแทน
+    <p class="q">ทั้งสองวิธีให้ผลต่างกันอย่างไร (สังเกตการเยื้องของบรรทัดถัดไป)</p></li>
+
+  <li><span class="step-id">A3</span> ใส่ <code>%</code> หน้าบรรทัด <code>LaTeX then decides how the page should look.</code> แล้วคอมไพล์
+    <p class="q">บรรทัดนั้นหายไปเพราะอะไร</p></li>
+
+  <li><span class="step-id">A4</span> นำบรรทัด <code>A short line for alignment practice.</code> ไปใส่ในสภาพแวดล้อม <code>center</code> จากนั้นเปลี่ยนเป็น <code>flushright</code> และ <code>flushleft</code></li>
+
+  <li><span class="step-id">A5</span> ใส่ <code>\noindent</code> หน้าย่อหน้าที่สอง แล้วลองลบออก จากนั้นเพิ่ม <code>\setlength{\parindent}{0pt}</code> ในส่วนนำ (ก่อน <code>\begin{document}</code>)
+    <p class="q">คำสั่งทั้งสองต่างกันอย่างไร</p></li>
+
+  <li><span class="step-id">A6</span> ในประโยค <code>My favourite drinks are ...</code> ทำคำว่า <code>coffee</code> เป็นตัวหนา <code>tea</code> เป็นตัวเอียง และ <code>cocoa</code> ขีดเส้นใต้
+    จากนั้นลองขนาด <code>{\tiny ...}</code>, <code>{\Large ...}</code>, <code>{\Huge ...}</code> และตระกูลอักษร <code>{\sffamily ...}</code>, <code>{\ttfamily ...}</code></li>
+
+  <li><span class="step-id">A7</span> เปลี่ยนประโยคเดียวกันเป็นรายการ <code>itemize</code> 3 ข้อ แล้วเปลี่ยนเป็น <code>enumerate</code> และกำหนดป้ายของข้อสุดท้ายเป็น <code>!</code> ด้วย <code>\item[!]</code></li>
+
+  <li><span class="step-id">A8</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> เปลี่ยน <code>\textbf</code> เป็น <code>\textbff</code> แล้วคอมไพล์ เทอร์มินัลจะหยุดและแสดง
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+l.18 My favourite drinks are \textbff
+                                     {coffee}, tea, and cocoa.
+?</code></pre>
+    <ul>
+      <li>บรรทัดที่ขึ้นต้นด้วย <code>!</code> คือ<strong>ชนิดของข้อผิดพลาด</strong></li>
+      <li><code>l.18</code> คือ<strong>หมายเลขบรรทัด</strong>ในไฟล์ และข้อความถูกตัดตรงตำแหน่งที่ LaTeX อ่านถึงพอดี (หมายเลขบรรทัดของแต่ละคนอาจไม่ตรงกับตัวอย่าง)</li>
+      <li>ที่เครื่องหมาย <code>?</code> ให้พิมพ์ <kbd>x</kbd> แล้วกด <kbd>Enter</kbd> เพื่อหยุดการคอมไพล์</li>
+    </ul>
+    แก้กลับให้ถูก แล้วลองลบวงเล็บปิด <code>}</code> หลัง <code>coffee</code> ออกแทน คอมไพล์อีกครั้งโดยสั่งให้ LaTeX ไม่หยุดถาม และเลิกทำงานทันทีเมื่อพบข้อผิดพลาดแรก
+<pre class="term"><code><span class="prompt">$ </span>pdflatex -interaction=nonstopmode -halt-on-error warmup.tex</code></pre>
+    <p class="q">ข้อความผิดพลาดที่ได้คืออะไร และทำไมจึงไม่บอกหมายเลขบรรทัดที่ลืมวงเล็บ (เปิดดูใน <code>warmup.log</code> ได้)</p>
+    อย่าลืมแก้ไฟล์กลับให้คอมไพล์ผ่านก่อนไปต่อ</li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) <code>pdflatex</code> สร้างไฟล์อะไรบ้าง (2) บรรทัดว่างกับ <code>\\</code> ต่างกันอย่างไร
+  (3) <code>\noindent</code> กับ <code>\parindent</code> ต่างกันอย่างไร และ (4) เมื่อเจอ <code>?</code> ในเทอร์มินัลต้องทำอย่างไร
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 60 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างเอกสารให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> คอมไพล์ด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex main.tex</code></pre>
+
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc.png" alt="ภาพตัวอย่างชิ้นงาน Pour-Over Coffee" width="910" height="1287"></a>
+  <figcaption>ชิ้นงานต้นแบบ (คลิกเพื่อเปิด PDF)</figcaption>
+</figure>
+
+<h3>คำแนะนำ</h3>
+<p>ทำทีละส่วนจากบนลงล่าง และคอมไพล์ทุกครั้งที่ทำเสร็จหนึ่งส่วน ข้อผิดพลาดจะได้อยู่ในส่วนที่เพิ่งเขียนเสมอ
+  ตารางนี้บอกเฉพาะ<em>สิ่งที่ต้องใช้</em> ส่วนวิธีเขียนให้หาจากสไลด์ของบทเรียนหรือจากที่ทดลองใน Part A</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>ชื่อเรื่อง <code>Pour-Over Coffee</code></td><td>จัดกึ่งกลาง, ขนาดใหญ่ที่สุด, ตัวหนา</td></tr>
+    <tr><td>คำบรรยาย <code>A beginner's brewing guide</code></td><td>ขนาดใหญ่, ตัวเอียง, ขึ้นบรรทัดใหม่ใต้ชื่อเรื่อง</td></tr>
+    <tr><td><code>Campus Coffee Club</code> / <code>Issue No. 1</code></td><td>จัดชิดขวา, ขนาดเล็ก</td></tr>
+    <tr><td>ย่อหน้าที่ 1</td><td>ไม่มีการเยื้อง, คำว่า <em>clean</em> และ <em>bright</em> เน้นด้วย <code>\emph</code></td></tr>
+    <tr><td>ย่อหน้าที่ 2</td><td>เยื้องตามปกติ, <code>Specialty Coffee Association</code> เป็น small caps, <code>four minutes</code> ตัวหนา</td></tr>
+    <tr><td>หัวข้อ <code>What you need</code>, <code>Brewing steps</code>, <code>Troubleshooting</code></td><td>ไม่มีการเยื้อง, ขนาดใหญ่, ตัวหนา (ยังไม่ใช้ <code>\section</code> ซึ่งจะเรียนใน <a href="../article_structure/" target="_blank" rel="noopener">Workshop โครงสร้างเอกสารประเภทบทความ</a>)</td></tr>
+    <tr><td>รายการอุปกรณ์</td><td><code>itemize</code>, ปริมาณเป็นตัวหนา</td></tr>
+    <tr><td>ขั้นตอนการชง</td><td><code>enumerate</code> ที่มี <code>itemize</code> ซ้อนอยู่ในข้อ 3</td></tr>
+    <tr><td>Troubleshooting</td><td><code>itemize</code> ที่ใช้ป้ายกำกับเอง <code>?</code>, <code>?</code>, <code>!</code></td></tr>
+    <tr><td><code>Tip: ...</code></td><td>จัดกึ่งกลาง, แบบอักษรไม่มีเชิง (sans serif)</td></tr>
+    <tr><td><code>Prepared for the workshop text_formatting.</code></td><td>จัดชิดขวา, ขนาดเล็กมาก, <code>text_formatting</code> เป็นแบบอักษรพิมพ์ดีด (ขีดล่างเป็นอักขระพิเศษ เขียนเป็น <code>\_</code>)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>ระยะห่างก่อนหัวข้อแรกสร้างได้ด้วย <code>\vspace{1em}</code></li>
+    <li>เมื่อเปลี่ยนขนาดหรือตระกูลอักษรด้วยคำสั่งแบบ "สวิตช์" (เช่น <code>\Large</code>, <code>\sffamily</code>) ให้ครอบด้วยวงเล็บปีกกา <code>{...}</code> เพื่อไม่ให้ผลกระทบข้อความส่วนอื่น</li>
+    <li>ชิ้นงานต้องมี <strong>1 หน้า</strong> ถ้าล้นไปหน้าที่ 2 ให้ตรวจว่ามีการเว้นบรรทัดหรือระยะห่างเกินมาหรือไม่</li>
+    <li>บรรทัดสุดท้ายของผลลัพธ์ในเทอร์มินัลบอกจำนวนหน้า เช่น <code>Output written on main.pdf (1 page, ...)</code></li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>text_formatting_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วคอมไพล์ใหม่ด้วยชื่อนั้น จะได้ PDF ชื่อเดียวกันโดยอัตโนมัติ ส่งทั้งไฟล์ <code>.tex</code> และ <code>.pdf</code></p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex text_formatting_6512345678.tex</code></pre>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> คอมไพล์ผ่านโดยไม่มีบรรทัดที่ขึ้นต้นด้วย <code>!</code> ในเทอร์มินัลหรือใน <code>.log</code></label></li>
+  <li><label><input type="checkbox" id="b2"> ชื่อเรื่องและคำบรรยายจัดกึ่งกลาง ขนาดและรูปแบบตรงกับต้นแบบ</label></li>
+  <li><label><input type="checkbox" id="b3"> ย่อหน้าที่ 1 ไม่เยื้อง ย่อหน้าที่ 2 เยื้อง</label></li>
+  <li><label><input type="checkbox" id="b4"> มีตัวหนา ตัวเอียง (<code>\emph</code>) small caps และแบบอักษรพิมพ์ดีด ในตำแหน่งที่ถูกต้อง</label></li>
+  <li><label><input type="checkbox" id="b5"> มีรายการครบ 3 ชุด รายการซ้อนอยู่ใต้ข้อ 3 และป้ายกำกับ <code>? ? !</code> ถูกต้อง</label></li>
+  <li><label><input type="checkbox" id="b6"> บรรทัด Tip เป็นแบบอักษรไม่มีเชิงและจัดกึ่งกลาง</label></li>
+  <li><label><input type="checkbox" id="b7"> เอกสารมี 1 หน้า และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ (คัดลอกจากงาน Part B) ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> ทำชิ้นงานอีกฉบับให้ทั้งเอกสารเป็นแบบอักษรไม่มีเชิง และไม่มีการเยื้องย่อหน้าเลยทุกย่อหน้า โดยแก้เพียง 2 บรรทัดในส่วนนำหรือต้นเอกสาร</li>
+  <li><span class="step-id">C2</span> ในขั้นตอนที่ 5 เพิ่มรายการย่อยแบบ <code>enumerate</code> 2 ข้อ
+    <p class="q">ตัวเลขของรายการระดับที่สองแสดงเป็นรูปแบบใด</p></li>
+  <li><span class="step-id">C3</span> ลองเปลี่ยนป้ายกำกับใน Troubleshooting เป็นคำยาว ๆ เช่น <code>\item[Sour?]</code>
+    <p class="q">ผลลัพธ์ผิดปกติอย่างไร และเหตุใดต้นแบบจึงเลือกใช้ป้ายสั้น</p></li>
+  <li><span class="step-id">C4</span> สร้างเอกสาร 1 หน้าของตัวเองเป็นภาษาอังกฤษ เช่น สูตรอาหาร คู่มือเกม หรือประกาศของชมรม โดยใช้ทุกเทคนิคใน Workshop นี้อย่างน้อยอย่างละ 1 ครั้ง</li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>'pdflatex' is not recognized ...</code> (Windows) หรือ <code>command not found: pdflatex</code></td>
+        <td>ยังไม่ได้ติดตั้งระบบ LaTeX (ดู <a href="../installation/" target="_blank" rel="noopener">Workshop ติดตั้ง LaTeX และเครื่องมือ</a>) หรือเปิดเทอร์มินัลไว้ก่อนติดตั้งเสร็จ ให้ปิดแล้วเปิดเทอร์มินัลใหม่ ถ้ายังไม่ได้ให้รีสตาร์ตเครื่อง</td></tr>
+    <tr><td><code>! I can't find file `main.tex'.</code></td>
+        <td>เทอร์มินัลไม่ได้อยู่ในโฟลเดอร์ของไฟล์ (ตรวจด้วย <code>ls</code> หรือ <code>dir</code> แล้ว <code>cd</code> ให้ถูก) หรือไฟล์ถูกบันทึกเป็น <code>main.tex.txt</code></td></tr>
+    <tr><td><code>! I can't write on file `main.pdf'.</code></td>
+        <td>ไฟล์ PDF เปิดค้างอยู่ในโปรแกรมที่ล็อกไฟล์ (เช่น Adobe Acrobat) ให้ปิดไฟล์ก่อน แล้วใช้ SumatraPDF ตามที่ตั้งไว้ในขั้นเตรียมเครื่อง</td></tr>
+    <tr><td>เทอร์มินัลค้างที่ <code>?</code></td>
+        <td>LaTeX พบข้อผิดพลาดและรอคำสั่ง พิมพ์ <kbd>x</kbd> แล้ว <kbd>Enter</kbd> เพื่อหยุด</td></tr>
+    <tr><td>เทอร์มินัลค้างที่ <code>*</code></td>
+        <td>ไฟล์จบโดยไม่มี <code>\end{document}</code> LaTeX จึงรอให้พิมพ์ต่อ พิมพ์ <code>\stop</code> แล้วกด <kbd>Enter</kbd> จากนั้นเพิ่ม <code>\end{document}</code> ท้ายไฟล์</td></tr>
+    <tr><td><code>No pages of output.</code></td>
+        <td>ในไฟล์ยังไม่มีเนื้อหาที่พิมพ์ได้ (เช่น <code>main.tex</code> ก่อนเริ่มงาน) จึงไม่มี PDF ไม่ใช่ข้อผิดพลาด</td></tr>
+    <tr><td>ผลลัพธ์ไม่เปลี่ยนตามที่แก้</td>
+        <td>ลืมบันทึกไฟล์ก่อนคอมไพล์ หรือคอมไพล์ไฟล์ผิดชื่อ</td></tr>
+    <tr><td><code>! Undefined control sequence.</code></td>
+        <td>สะกดชื่อคำสั่งผิด เช่น <code>\textbff</code> หรือ <code>\nonindent</code> ดูหมายเลขบรรทัดหลัง <code>l.</code></td></tr>
+    <tr><td><code>! File ended while scanning use of \textbf .</code> หรือข้อความทั้งหน้ากลายเป็นตัวหนา</td>
+        <td>ลืมปิดวงเล็บปีกกา <code>}</code></td></tr>
+    <tr><td><code>! LaTeX Error: \begin{itemize} on input line 12 ended by \end{document}.</code></td>
+        <td>ลืม <code>\end{itemize}</code> หรือสะกดชื่อสภาพแวดล้อมไม่ตรงกัน</td></tr>
+    <tr><td><code>Underfull \hbox (badness 10000)</code></td>
+        <td>ใช้ <code>\\</code> ท้ายย่อหน้าหรือก่อนบรรทัดว่าง ให้ใช้บรรทัดว่างแทน (เป็นคำเตือน ไม่ใช่ข้อผิดพลาด)</td></tr>
+    <tr><td>ข้อความบางส่วนหายไป หรือเกิดข้อผิดพลาดแปลก ๆ</td>
+        <td>ในข้อความมีอักขระพิเศษ <code>% $ &amp; # _ { } ~ ^ \</code> ต้องเขียนเป็น <code>\%</code>, <code>\$</code>, <code>\&amp;</code>, <code>\#</code>, <code>\_</code> เป็นต้น</td></tr>
+    <tr><td>เครื่องหมายคำพูดกลับด้าน (”...”)</td>
+        <td>ใน LaTeX ให้เปิดด้วย <code>``</code> (ปุ่มเดียวกับ <kbd>~</kbd>) และปิดด้วย <code>''</code> เช่น <code>``coffee''</code></td></tr>
+    <tr><td>การเปลี่ยนขนาดอักษรลามไปทั้งเอกสาร</td>
+        <td>ใช้ <code>\Large</code> โดยไม่ครอบด้วย <code>{...}</code></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Formatting Text</em></li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) บทที่ 2 (Typesetting Text)</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

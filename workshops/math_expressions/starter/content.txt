@@ -1,0 +1,57 @@
+=====================================================================
+ Workshop math_expressions - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+ นิพจน์คณิตศาสตร์เขียนแบบข้อความธรรมดาไว้ใน { ... } เช่น {x^2} ให้เปลี่ยนเป็นคำสั่ง LaTeX เอง
+ [แสดงผลแยกบรรทัด] = สมการที่จัดกึ่งกลางในบรรทัดของตัวเอง
+=====================================================================
+
+[หัวเรื่อง - จัดกึ่งกลาง]
+Calculus Formula Sheet
+Mathematics for Science, Week 6
+
+[หัวข้อไม่มีหมายเลข]
+Numbers, Sets and Powers
+
+We write {N} for the natural numbers, {Z} for the integers and {R} for the real numbers, so that {N subset Z subset R}. An interval such as {[a, b] = { x in R | a <= x <= b }} contains its end points, while {(a, b)} does not.
+
+[ตัว N, Z, R เป็นอักษรตัวทึบแบบ blackboard bold]
+
+For {a > 0} and any real numbers {m} and {n},
+
+[แสดงผลแยกบรรทัด - 4 สูตรเว้นระยะด้วย \qquad]
+a^m a^n = a^(m+n),   (a^m)^n = a^(mn),   nth-root(a) = a^(1/n),   a^(-n) = 1/(a^n).
+
+[หัวข้อไม่มีหมายเลข]
+Limits and Derivatives
+
+With the Greek letter {theta} for an angle, two limits appear again and again:
+
+[แสดงผลแยกบรรทัด]
+lim (theta -> 0) sin(theta)/theta = 1   and   lim (n -> infinity) (1 + 1/n)^n = e.
+
+If {f(x) = x^n} then {f'(x) = n x^(n-1)}. The quotient rule says
+
+[แสดงผลแยกบรรทัด]
+(u/v)' = (u'v - uv')/(v^2),   v not-equal 0.
+
+[หัวข้อไม่มีหมายเลข]
+Integrals
+
+For {n not-equal -1},
+
+[แสดงผลแยกบรรทัด]
+integral x^n dx = x^(n+1)/(n+1) + C,   integral from 0 to pi of sin(theta) d(theta) = 2,   integral from -infinity to infinity of e^(-x^2) dx = sqrt(pi).
+
+[หัวข้อไม่มีหมายเลข]
+Sums and Series
+
+The sum of the first {n} natural numbers and the geometric series with ratio {|r| < 1} are
+
+[แสดงผลแยกบรรทัด]
+sum (k=1 to n) k = n(n+1)/2   and   sum (k=0 to infinity) r^k = 1 + r + r^2 + ... = 1/(1-r).
+
+In a sentence a sum is kept small, {sum (k=1 to n) k}, and {sum (k=1 to n) k in display size} forces display size. The binomial theorem expands a power of a sum:
+
+[แสดงผลแยกบรรทัด]
+(a + b)^n = sum (k=0 to n) binomial(n, k) a^(n-k) b^k.

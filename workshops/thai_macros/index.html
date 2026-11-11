@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · เอกสารภาษาไทยและคำสั่งที่สร้างเอง</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>เอกสารภาษาไทยและคำสั่งที่สร้างเอง</h1>
+    <div class="downloads">
+      <a class="primary" href="thai_macros.zip" target="_blank" rel="noopener">ดาวน์โหลด thai_macros.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Thai, Macros and Large Documents</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>latexmk -xelatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>thai_macros_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.zip</span></code><br>(.tex ทั้ง 3 ไฟล์และ .pdf)</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">10′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">40′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">50′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เขียนเอกสารภาษาไทยด้วยแพ็กเกจ <code>thaispec</code> และคอมไพล์ด้วย XeLaTeX ได้</li>
+  <li>เลือกฟอนต์ภาษาไทยด้วยตัวเลือก <code>thaifont</code> ได้</li>
+  <li>สร้างคำสั่งใหม่ด้วย <code>\newcommand</code> ทั้งแบบไม่มีและมีอาร์กิวเมนต์ และเขียนทับคำสั่งเดิมด้วย <code>\renewcommand</code> ได้</li>
+  <li>สร้างสภาพแวดล้อมใหม่ด้วย <code>\newenvironment</code> รวมถึงอาร์กิวเมนต์ที่มีค่าเริ่มต้นได้</li>
+  <li>แบ่งเอกสารเป็นหลายไฟล์ด้วย <code>\input</code> และ <code>\include</code> และบอกความแตกต่างของทั้งสองคำสั่งได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="thai_macros.zip" target="_blank" rel="noopener"><code>thai_macros.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>thai_macros</code> ดังนี้</p>
+<pre class="tex nocopy"><code>thai_macros/
+├── doc.pdf            ชิ้นงานต้นแบบ (3 หน้า)
+├── warmup.tex         ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex           ไฟล์เริ่มต้นสำหรับ Part B
+├── content.txt        เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่
+└── Laksaman.fontspec  บอก XeLaTeX ว่าไฟล์ฟอนต์ Laksaman อยู่ที่ใด (ห้ามลบ)</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a>,
+  <a href="starter/Laksaman.fontspec" target="_blank" rel="noopener"><code>Laksaman.fontspec</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 10 นาที</span></div>
+<p>เปิดโฟลเดอร์ <code>thai_macros</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน
+เอกสารภาษาไทยต้องใช้ตัวแปลภาษา <strong>XeLaTeX</strong> แทน pdfLaTeX ตรวจว่ามีโปรแกรมนี้</p>
+<div class="os-tabs">
+  <div class="os-panel" data-os="windows"><p class="os-label">Windows</p>
+<pre class="term"><code><span class="prompt">PS&gt; </span>xelatex --version</code></pre></div>
+  <div class="os-panel" data-os="macos"><p class="os-label">macOS</p>
+<pre class="term"><code><span class="prompt">$ </span>xelatex --version</code></pre></div>
+  <div class="os-panel" data-os="linux"><p class="os-label">Linux</p>
+<pre class="term"><code><span class="prompt">$ </span>xelatex --version</code></pre>
+    <p>ถ้าไม่พบคำสั่ง ให้ติดตั้งแพ็กเกจ <code>texlive-xetex</code> ของระบบ</p></div>
+</div>
+<div class="callout note">
+  <strong class="label">เรื่องฟอนต์ภาษาไทย</strong>
+  <code>thaispec</code> ใช้ฟอนต์ TH Sarabun New เป็นค่าเริ่มต้น ซึ่งเป็นฟอนต์มาตรฐานของเอกสารราชการ แต่ไม่ได้มากับ TeX และหลายเครื่องไม่ได้ติดตั้งไว้
+  Workshop นี้จึงใช้ฟอนต์ <strong>Laksaman</strong> ที่มีหน้าตาคล้าย Sarabun และมากับ TeX Live อยู่แล้ว
+  ไฟล์ <code>Laksaman.fontspec</code> บอก XeLaTeX ว่าไฟล์ฟอนต์อยู่ที่ใดและไฟล์ใดเป็นตัวหนาหรือตัวเอียง ต้องวางไว้ในโฟลเดอร์เดียวกับไฟล์ <code>.tex</code> เสมอ
+  ถ้าเครื่องติดตั้ง TH Sarabun New ไว้แล้ว ใช้ <code>\usepackage{thaispec}</code> เฉย ๆ ได้
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 40 นาที</span></div>
+<p>ใช้ไฟล์ <code>warmup.tex</code> (ประกาศเวลาเปิดห้องสมุด) ทำทีละข้อ</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> คอมไพล์ <code>warmup.tex</code> ตามที่ได้รับด้วย <code>pdflatex warmup.tex</code>
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: Unicode character ห (U+0E2B)</span>
+<span class="err">               not set up for use with LaTeX.</span></code></pre>
+    พิมพ์ <kbd>X</kbd> แล้วกด <kbd>Enter</kbd> เพื่อหยุด จากนั้นลองคอมไพล์ด้วย <code>xelatex warmup.tex</code> แล้วเปิด PDF และเปิดไฟล์ <code>warmup.log</code> หาคำว่า <code>Missing character</code>
+    <p class="q">XeLaTeX หยุดเพราะข้อผิดพลาดหรือไม่ ข้อความภาษาไทยใน PDF เป็นอย่างไร และทำไม</p></li>
+
+  <li><span class="step-id">A1</span> เพิ่ม <code>\usepackage{thaispec}</code> ต่อจาก <code>\documentclass</code> แล้วลองคอมไพล์ด้วย <code>pdflatex</code> อีกครั้ง
+<pre class="term nocopy"><code><span class="err">! Fatal Package fontspec Error: The fontspec package requires either XeTeX or</span>
+<span class="err">(fontspec)                      LuaTeX.</span></code></pre>
+    จากนั้นลองด้วย <code>xelatex warmup.tex</code>
+    <p class="q">ถ้าเครื่องไม่มีฟอนต์ TH Sarabun New ข้อความผิดพลาดบอกว่าหาฟอนต์ชื่อใดไม่พบ</p></li>
+
+  <li><span class="step-id">A2</span> <strong>ใช้ฟอนต์ Laksaman</strong> เปลี่ยนเป็น <code>\usepackage[thaifont=Laksaman]{thaispec}</code> แล้วคอมไพล์ด้วย latexmk
+<pre class="term"><code><span class="prompt">$ </span>latexmk -xelatex warmup.tex</code></pre>
+    ลองย้ายไฟล์ <code>Laksaman.fontspec</code> ไปไว้ที่อื่นชั่วคราวแล้วคอมไพล์ใหม่
+<pre class="term nocopy"><code><span class="err">! Package fontspec Error: </span>
+<span class="err">(fontspec)                The font "Laksaman" cannot be found; this may be</span>
+<span class="err">(fontspec)                but usually is not a fontspec bug. Either there is</span>
+<span class="err">(fontspec)                a typo in the font name/file, the font is not</span></code></pre>
+    แล้วย้ายไฟล์กลับมาที่เดิม
+    <p class="q">ข้อความภาษาอังกฤษบรรทัดแรกใช้ฟอนต์เดียวกับภาษาไทยหรือไม่</p></li>
+
+  <li><span class="step-id">A3</span> ลองครอบคำว่า <code>ห้องสมุด</code> ด้วย <code>\textbf{...}</code> แล้วครอบคำว่า <code>ค่าปรับ</code> ด้วย <code>\textit{...}</code>
+    <p class="q">ตัวเอียงภาษาไทยอ่านง่ายหรือไม่ ถ้าต้องเน้นข้อความภาษาไทย ควรใช้รูปแบบใด</p></li>
+
+  <li><span class="step-id">A4</span> <strong>คำสั่งไม่มีอาร์กิวเมนต์</strong> เพิ่มในส่วนนำ
+<pre class="tex"><code>\newcommand{\rmutt}{มหาวิทยาลัยเทคโนโลยีราชมงคลธัญบุรี}</code></pre>
+    แล้วแทนชื่อมหาวิทยาลัยในเนื้อความด้วย <code>ของ\rmutt{}เปิดบริการ</code> จากนั้นลองลบ <code>{}</code> ออกให้เป็น <code>ของ\rmuttเปิดบริการ</code>
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+<span class="out">l.13 ห้องสมุดของ\rmuttเปิดบริการทุกวัน</span></code></pre>
+    <p class="q">ทำไม LaTeX จึงคิดว่า <code>\rmuttเปิดบริการทุกวัน</code> เป็นคำสั่งเดียว และ <code>{}</code> ช่วยได้อย่างไร</p></li>
+
+  <li><span class="step-id">A5</span> <strong>คำสั่งมีอาร์กิวเมนต์</strong> เพิ่ม <code>\newcommand{\baht}[1]{#1~บาท}</code> แล้วเปลี่ยน <code>วันละ 5 บาท</code> เป็น <code>วันละ \baht{5}</code>
+    <p class="q"><code>#1</code> ถูกแทนด้วยอะไร และ <code>~</code> ช่วยอะไรเมื่อตัวเลขอยู่ท้ายบรรทัด</p></li>
+
+  <li><span class="step-id">A6</span> <strong>เขียนทับคำสั่งเดิม</strong> เพิ่ม <code>\renewcommand{\emph}[1]{\textbf{#1}}</code> ในส่วนนำ แล้วใช้ <code>\emph{...}</code> เน้นคำในเนื้อความ
+    จากนั้นเพิ่ม <code>\begin{abstract}</code> ... <code>\end{abstract}</code> สั้น ๆ ต่อจาก <code>\begin{document}</code> และลองเปลี่ยนหัวบทคัดย่อด้วย <code>\renewcommand{\abstractname}{บทคัดย่อ}</code> สองตำแหน่ง ได้แก่ ในส่วนนำ และต่อจาก <code>\begin{document}</code>
+    <p class="q">ตำแหน่งใดได้ผล (<code>thaispec</code> ตั้งชื่อหัวข้อต่าง ๆ ใหม่ตอนเริ่มเอกสาร จึงทับค่าที่ตั้งไว้ในส่วนนำ)</p></li>
+
+  <li><span class="step-id">A7</span> <strong>สภาพแวดล้อมใหม่</strong> สร้างกรอบข้อความตามแบบในสไลด์ แต่ให้มีหัวกรอบเป็นอาร์กิวเมนต์ที่ไม่บังคับ
+<pre class="tex"><code>\newenvironment{note}[1][ข้อสังเกต]
+  {\begin{center}
+   \begin{tabular}{|p{0.9\textwidth}|}
+   \hline
+   \textbf{#1}\\}
+  {\\
+   \hline
+   \end{tabular}
+   \end{center}}</code></pre>
+    ลองใช้ทั้ง <code>\begin{note}</code> และ <code>\begin{note}[โปรดทราบ]</code>
+    <p class="q">ค่าในวงเล็บเหลี่ยม <code>[ข้อสังเกต]</code> ของบรรทัดแรกใช้เมื่อใด</p></li>
+
+  <li><span class="step-id">A8</span> <strong>แบ่งไฟล์</strong> ย้ายย่อหน้าภาษาไทยทั้งย่อหน้าไปไว้ในไฟล์ใหม่ชื่อ <code>hours.tex</code> แล้วเขียน <code>\input{hours}</code> แทนที่ คอมไพล์ จากนั้นเปลี่ยนเป็น <code>\include{hours}</code>
+    <p class="q"><code>\include</code> ทำอะไรเพิ่มจาก <code>\input</code> และเหมาะกับเอกสารแบบใด</p>
+    <strong>ทำให้ผิดโดยตั้งใจ</strong> ทำทีละข้อแล้วแก้กลับ
+    <ol type="a">
+      <li>เพิ่ม <code>\newcommand{\emph}[1]{\textbf{#1}}</code> (ใช้ <code>\newcommand</code> แทน <code>\renewcommand</code>)
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: Command \emph already defined.</span>
+<span class="err">               Or name \end... illegal, see p.192 of the manual.</span></code></pre></li>
+      <li>ลบ <code>[1]</code> ออกจาก <code>\newcommand{\baht}[1]{#1~บาท}</code>
+<pre class="term nocopy"><code><span class="err">! Illegal parameter number in definition of \baht.</span>
+<span class="out">&lt;to be read again&gt; </span>
+<span class="out">                   1</span>
+<span class="out">l.7 \newcommand{\baht}{#1~บาท}</span></code></pre></li>
+      <li>สะกดชื่อไฟล์ผิดเป็น <code>\input{hourz}</code>
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: File `hourz.tex' not found.</span></code></pre></li>
+    </ol></li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) ทำไมเอกสารภาษาไทยต้องใช้ XeLaTeX (2) <code>\newcommand</code> กับ <code>\renewcommand</code> ต่างกันอย่างไร
+  (3) <code>#1</code> และค่าเริ่มต้นในวงเล็บเหลี่ยมทำงานอย่างไร และ (4) ควรเลือก <code>\input</code> หรือ <code>\include</code> เมื่อใด
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 50 นาที</span></div>
+<p>สร้างรายงานโครงการธนาคารขยะภาษาไทยให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> โดยแบ่งเป็น 3 ไฟล์ ได้แก่
+<code>main.tex</code> (ส่วนนำ บทนำ และสรุป) <code>method.tex</code> (วิธีดำเนินงาน) และ <code>results.tex</code> (ผลการดำเนินงาน)
+เนื้อหาทั้งหมดอยู่ใน <code>content.txt</code> แยกตามไฟล์ไว้แล้ว คอมไพล์เฉพาะไฟล์หลัก</p>
+<pre class="term"><code><span class="prompt">$ </span>latexmk -xelatex main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-3.png" alt="ชิ้นงานต้นแบบหน้า 3" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 3</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>ภาษาไทยและขนาดตัวอักษร</td><td><code>\documentclass[12pt]{article}</code>, <code>thaispec</code> กับ <code>thaifont=Laksaman</code></td></tr>
+    <tr><td>ชื่อมหาวิทยาลัย ชื่อชมรม จำนวนเงิน</td><td><code>\newcommand</code> สร้าง <code>\rmutt</code>, <code>\club</code> และ <code>\baht</code> ตามที่ระบุใน <code>content.txt</code></td></tr>
+    <tr><td>คำเน้นเป็นตัวหนา</td><td><code>\renewcommand</code> ของ <code>\emph</code></td></tr>
+    <tr><td>หัวข้อ บทคัดย่อ</td><td><code>\renewcommand</code> ของ <code>\abstractname</code> (ระวังตำแหน่ง)</td></tr>
+    <tr><td>ชื่อเรื่องสองบรรทัด</td><td><code>\\</code> ใน <code>\title</code></td></tr>
+    <tr><td>กรอบข้อสังเกต</td><td><code>\newenvironment</code> ที่มีอาร์กิวเมนต์ไม่บังคับ</td></tr>
+    <tr><td>วิธีดำเนินงานและผลการดำเนินงาน</td><td>ไฟล์แยก นำเข้าด้วย <code>\input</code></td></tr>
+    <tr><td>ตาราง</td><td><code>table</code>, <code>tabular</code>, <code>\caption</code> ใต้ตาราง, <code>\label</code> และ <code>\ref</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>ไฟล์ <code>method.tex</code> และ <code>results.tex</code> ไม่มี <code>\documentclass</code> หรือ <code>\begin{document}</code> มีเฉพาะเนื้อหา</li>
+    <li>ใช้ <code>\input</code> ไม่ใช่ <code>\include</code> เพราะ <code>\include</code> ขึ้นหน้าใหม่ทุกครั้ง ทำให้จำนวนหน้าไม่ตรงกับต้นแบบ</li>
+    <li>ถ้าคำสั่งที่สร้างเองตามด้วยอักษรไทยทันที ให้ใส่ <code>{}</code> ต่อท้าย เช่น <code>\club{}เปิด</code></li>
+    <li>ใน log อาจมีข้อความ <code>Underfull \hbox</code> หลายบรรทัด เป็นเรื่องปกติของการตัดคำภาษาไทย ไม่ต้องแก้</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>บีบอัดไฟล์ <code>main.tex</code>, <code>method.tex</code>, <code>results.tex</code> และ PDF ที่ได้รวมเป็นไฟล์เดียวชื่อ <code>thai_macros_&lt;รหัสนักศึกษา&gt;.zip</code> แล้วส่งไฟล์นั้น</p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> <code>latexmk -xelatex main.tex</code> ทำงานจบโดยไม่มีข้อผิดพลาด และ PDF มี 3 หน้า</label></li>
+  <li><label><input type="checkbox" id="b2"> ข้อความภาษาไทยแสดงครบ ไม่มีช่องว่างหรือสี่เหลี่ยมแทนตัวอักษร</label></li>
+  <li><label><input type="checkbox" id="b3"> ชื่อมหาวิทยาลัย ชื่อชมรม และจำนวนเงินทุกแห่งมาจากคำสั่งที่สร้างเอง</label></li>
+  <li><label><input type="checkbox" id="b4"> หัวบทคัดย่อเป็นภาษาไทย และคำเน้นเป็นตัวหนา</label></li>
+  <li><label><input type="checkbox" id="b5"> กรอบข้อสังเกตทั้งสองกรอบมีหัวกรอบตามต้นแบบ</label></li>
+  <li><label><input type="checkbox" id="b6"> <code>main.tex</code> นำเข้า <code>method.tex</code> และ <code>results.tex</code> และตารางอ้างอิงด้วย <code>\ref</code></label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> สร้างคำสั่ง <code>\amount</code> ที่มีอาร์กิวเมนต์ไม่บังคับเป็นหน่วย ค่าเริ่มต้นคือ <code>กิโลกรัม</code> เช่น <code>\amount{620}</code> ได้ 620 กิโลกรัม และ <code>\amount[คน]{412}</code> ได้ 412 คน
+    <p class="q">รูปแบบ <code>\newcommand{\amount}[2][กิโลกรัม]{...}</code> นับอาร์กิวเมนต์ไม่บังคับเป็น <code>#1</code> หรือ <code>#2</code></p></li>
+  <li><span class="step-id">C2</span> ใช้ตัวเลือก <code>thainum</code> ของ <code>thaispec</code> ให้เลขหัวข้อเป็นเลขไทย</li>
+  <li><span class="step-id">C3</span> ลองฟอนต์ไทยอื่นที่มากับ TeX Live เช่น Kinnari, Garuda หรือ Norasi โดยสร้างไฟล์ <code>Kinnari.fontspec</code> ตามแบบ <code>Laksaman.fontspec</code> (ดูชื่อไฟล์ฟอนต์ได้ด้วยคำสั่ง <code>kpsewhich Kinnari-Bold.otf</code>)</li>
+  <li><span class="step-id">C4</span> เปลี่ยนรายงานเป็นคลาส <code>report</code> ให้แต่ละส่วนเป็น <code>\chapter</code> แล้วนำเข้าด้วย <code>\include</code> ลองใส่ <code>\includeonly{results}</code> ในส่วนนำ
+    <p class="q">เลขหน้าและเลขบทของส่วนที่ไม่ได้คอมไพล์ยังถูกต้องหรือไม่</p></li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! LaTeX Error: Unicode character ... not set up for use with LaTeX.</code></td>
+        <td>คอมไพล์ภาษาไทยด้วย pdflatex ให้ใช้ <code>xelatex</code> หรือ <code>latexmk -xelatex</code></td></tr>
+    <tr><td><code>! Fatal Package fontspec Error: The fontspec package requires either XeTeX or LuaTeX.</code></td>
+        <td>มี <code>thaispec</code> แต่คอมไพล์ด้วย pdflatex แก้เหมือนข้อบน</td></tr>
+    <tr><td>ข้อความไทยหายไปทั้งหมด และ log มี <code>Missing character</code></td>
+        <td>ลืม <code>\usepackage{thaispec}</code> ฟอนต์ภาษาอังกฤษไม่มีตัวอักษรไทย</td></tr>
+    <tr><td><code>The font "Laksaman" cannot be found</code></td>
+        <td>ไม่มีไฟล์ <code>Laksaman.fontspec</code> ในโฟลเดอร์เดียวกับไฟล์ <code>.tex</code></td></tr>
+    <tr><td><code>The font "THSarabunNew" cannot be found</code></td>
+        <td>เครื่องไม่มีฟอนต์ TH Sarabun New ใช้ <code>thaifont=Laksaman</code> แทน</td></tr>
+    <tr><td><code>! Undefined control sequence.</code> ที่คำสั่งที่สร้างเอง</td>
+        <td>คำสั่งติดกับอักษรไทยจนชื่อยาวขึ้น ใส่ <code>{}</code> ต่อท้ายคำสั่ง</td></tr>
+    <tr><td><code>! LaTeX Error: Command \xxx already defined.</code></td>
+        <td>ชื่อนี้มีอยู่แล้ว เปลี่ยนชื่อ หรือใช้ <code>\renewcommand</code> ถ้าตั้งใจเขียนทับ</td></tr>
+    <tr><td><code>! Illegal parameter number in definition of \xxx.</code></td>
+        <td>ใช้ <code>#1</code> แต่ไม่ได้ระบุจำนวนอาร์กิวเมนต์ <code>[1]</code></td></tr>
+    <tr><td>หัวบทคัดย่อยังเป็น Abstract</td>
+        <td>ย้าย <code>\renewcommand{\abstractname}{...}</code> ไปไว้ต่อจาก <code>\begin{document}</code></td></tr>
+    <tr><td><code>! LaTeX Error: File `xxx.tex' not found.</code></td>
+        <td>ชื่อไฟล์ใน <code>\input</code> หรือ <code>\include</code> ผิด หรือไฟล์อยู่คนละโฟลเดอร์</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Thai, Macros and Large Documents</em> (Thai Documents, Defining New Commands, Overwriting existing commands, Defining new environments, Large Documents)</li>
+  <li>เอกสารของ thaispec และ fontspec ในเครื่อง สั่ง <code>texdoc thaispec</code> หรือ <code>texdoc fontspec</code> ในเทอร์มินัล</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) หัวข้อ 4.7 Working with XeLaTeX and PDF และหัวข้อ 6.1 New Commands, Environments and Packages</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · รูปภาพและสี</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>รูปภาพและสี</h1>
+    <div class="downloads">
+      <a class="primary" href="images_colours.zip" target="_blank" rel="noopener">ดาวน์โหลด images_colours.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Figures and Tables<br>(ส่วนภาพและสี)</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>pdflatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>images_colours_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">35′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">55′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เรียกใช้แพ็กเกจด้วย <code>\usepackage</code> และแทรกภาพด้วย <code>\includegraphics</code> พร้อมกำหนดขนาดและการหมุนได้</li>
+  <li>สร้างรูปแบบลอยตัวด้วยสภาพแวดล้อม <code>figure</code> และอธิบายตัวเลือกตำแหน่ง <code>[htbp]</code> ได้</li>
+  <li>ใส่คำบรรยายรูปด้วย <code>\caption</code> อ้างอิงข้ามด้วย <code>\label</code> และ <code>\ref</code> และสร้างรายการรูปภาพด้วย <code>\listoffigures</code> ได้</li>
+  <li>วางภาพให้ข้อความล้อมรอบด้วย <code>wrapfigure</code> ได้</li>
+  <li>ใช้สีด้วยแพ็กเกจ <code>xcolor</code> ทั้งสีที่มีชื่อ สีที่นิยามเอง และการผสมสีได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="images_colours.zip" target="_blank" rel="noopener"><code>images_colours.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>images_colours</code> ดังนี้</p>
+<pre class="tex nocopy"><code>images_colours/
+├── doc.pdf        ชิ้นงานต้นแบบ (2 หน้า)
+├── warmup.tex     ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex       ไฟล์เริ่มต้นสำหรับ Part B
+├── content.txt    เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่
+├── bern.jpg       ภาพถ่าย (JPG)
+├── sunflower.jpg  ภาพถ่าย (JPG)
+└── map.pdf        แผนที่ (PDF ภาพแบบเวกเตอร์)</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a>,
+  <a href="starter/bern.jpg" target="_blank" rel="noopener"><code>bern.jpg</code></a>,
+  <a href="starter/sunflower.jpg" target="_blank" rel="noopener"><code>sunflower.jpg</code></a>,
+  <a href="starter/map.pdf" target="_blank" rel="noopener"><code>map.pdf</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>ใช้เครื่องมือชุดเดียวกับ Workshop ก่อนหน้า เปิดโฟลเดอร์ <code>images_colours</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน</p>
+<div class="callout warn">
+  <strong class="label">ไฟล์ภาพต้องอยู่ที่เดียวกับไฟล์ .tex</strong>
+  <code>pdflatex</code> หาไฟล์ภาพจากโฟลเดอร์ที่เปิดเทอร์มินัลไว้ ถ้าย้ายไฟล์ <code>.tex</code> ไปที่อื่น ต้องย้ายภาพตามไปด้วย
+  ภาพที่ใช้กับ <code>pdflatex</code> ได้ ได้แก่ <code>.jpg</code>, <code>.png</code> และ <code>.pdf</code>
+</div>
+<div class="callout note">
+  <strong class="label">สิ่งใหม่ใน Workshop นี้</strong>
+  เป็นครั้งแรกที่ต้องเรียก<strong>แพ็กเกจ</strong>ด้วย <code>\usepackage{...}</code> ในส่วนนำ แพ็กเกจที่ใช้ ได้แก่ <code>graphicx</code>, <code>xcolor</code> และ <code>wrapfig</code> ซึ่งติดตั้งมาพร้อม TeX Live และ MiKTeX แล้ว
+  และเอกสารที่มี <code>\ref</code> ต้องคอมไพล์ 2 ครั้งเช่นเดียวกับสารบัญ
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 35 นาที</span></div>
+<p>ใช้ไฟล์ <code>warmup.tex</code> ทำทีละข้อ บันทึก คอมไพล์ และสังเกตผลทุกครั้งที่แก้ไข</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> แทนบรรทัด <code>% A1: put the picture here</code> ด้วย <code>\includegraphics{bern.jpg}</code> แล้วคอมไพล์ เทอร์มินัลจะหยุดและแสดง
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+l.16 \includegraphics
+                     {bern.jpg}
+?</code></pre>
+    พิมพ์ <kbd>x</kbd> แล้ว <kbd>Enter</kbd> จากนั้นเพิ่ม <code>\usepackage{graphicx}</code> ในส่วนนำ แล้วคอมไพล์อีกครั้ง
+    <p class="q">ทำไม LaTeX จึงไม่รู้จัก <code>\includegraphics</code> ก่อนเรียกแพ็กเกจ</p></li>
+
+  <li><span class="step-id">A1</span> ดู PDF และบรรทัดในเทอร์มินัลที่ขึ้นต้นด้วย <code>Overfull \hbox (697.8375pt too wide)</code>
+    แล้วลองกำหนดขนาดภาพทีละแบบ ได้แก่ <code>[width=0.5\textwidth]</code>, <code>[height=3cm]</code>, <code>[scale=0.2]</code> และ <code>[width=4cm, height=2cm]</code>
+    <p class="q">ภาพที่ไม่กำหนดขนาดมีขนาดเท่าไร แบบใดทำให้ภาพผิดสัดส่วน และทำไมหน่วย <code>\textwidth</code> จึงสะดวกกว่า <code>cm</code></p></li>
+
+  <li><span class="step-id">A2</span> ใช้ <code>[width=5cm, angle=45]</code> แล้วเปลี่ยนเป็น <code>[angle=45, width=5cm]</code>
+    <p class="q">ลำดับของตัวเลือกมีผลต่อขนาดสุดท้ายของภาพหรือไม่</p></li>
+
+  <li><span class="step-id">A3</span> ทำภาพให้เป็นรูปลอยตัว
+<pre class="tex"><code>\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=5cm]{bern.jpg}
+  \caption{The Old Town of Bern.}
+  \label{fig:bern}
+\end{figure}</code></pre>
+    แล้วลองเปลี่ยน <code>[htbp]</code> เป็น <code>[b]</code> และ <code>[p]</code>
+    <p class="q">รูปย้ายไปอยู่ตรงไหนในแต่ละแบบ ย่อหน้าหลังรูปยังอยู่หลังรูปหรือไม่</p></li>
+
+  <li><span class="step-id">A4</span> <strong>อ้างอิงข้าม</strong> เพิ่มประโยค <code>Figure~\ref{fig:bern} shows Bern.</code> ในย่อหน้าแรก แล้วคอมไพล์ครั้งเดียว
+<pre class="term nocopy"><code><span class="out">LaTeX Warning: Reference `fig:bern' on page 1 undefined on input line 23.</span>
+<span class="out">LaTeX Warning: There were undefined references.</span>
+<span class="out">LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.</span></code></pre>
+    จากนั้นคอมไพล์อีกครั้ง และเพิ่ม <code>\listoffigures</code> ท้ายเอกสาร
+    <p class="q">ครั้งแรกเห็นอะไรแทนหมายเลขรูป ข้อความ <code>Rerun</code> บอกอะไร และทำไม <code>~</code> จึงเหมาะกว่าช่องว่างปกติ</p></li>
+
+  <li><span class="step-id">A5</span> <strong>สี</strong> เพิ่ม <code>\usepackage{xcolor}</code> แล้วเปลี่ยนคำว่า <code>Roses are red</code> เป็น <code>{\color{red}Roses are red}</code>
+    จากนั้นทำให้ <code>sky is blue</code> เป็นสี <code>blue!60</code> และ <code>river is green</code> เป็นสี <code>green!50!black</code>
+    <p class="q">ตัวเลขหลังเครื่องหมาย <code>!</code> หมายถึงอะไร</p></li>
+
+  <li><span class="step-id">A6</span> เปลี่ยนเป็น <code>\usepackage[dvipsnames]{xcolor}</code> แล้วลองสี <code>ForestGreen</code> และ <code>Brown</code>
+    จากนั้นนิยามสีเองในส่วนนำด้วย <code>\definecolor{aare}{HTML}{1B8A9A}</code> และ <code>\colorlet{lightaare}{aare!40}</code> แล้วนำไปใช้
+    ลองใส่ <code>\pagecolor{yellow!10}</code> ใต้ <code>\begin{document}</code> แล้วลบออก</li>
+
+  <li><span class="step-id">A7</span> <strong>ข้อความล้อมรูป</strong> เพิ่ม <code>\usepackage{wrapfig}</code> แล้ววางภาพ <code>map.pdf</code> ไว้ก่อนย่อหน้าแรก
+<pre class="tex"><code>\begin{wrapfigure}{r}{5cm}
+  \centering
+  \includegraphics[width=5cm]{map.pdf}
+  \caption{A map of the Old Town.}
+\end{wrapfigure}</code></pre>
+    <p class="q">เปลี่ยน <code>{r}</code> เป็น <code>{l}</code> แล้วเกิดอะไรขึ้น ภาพ PDF ต่างจาก JPG อย่างไรเมื่อซูมใกล้ ๆ</p></li>
+
+  <li><span class="step-id">A8</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> เปลี่ยนชื่อไฟล์ภาพเป็น <code>bern.png</code> (ไฟล์ที่ไม่มีอยู่จริง) แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! Package pdftex.def Error: File `bern.png' not found: using draft setting.</span>
+
+See the pdftex.def package documentation for explanation.
+Type  H &lt;return&gt;  for immediate help.
+ ...
+
+l.16 \includegraphics[width=5cm]{bern.png}
+
+?</code></pre>
+    <p class="q">ถ้ากด <kbd>Enter</kbd> แทน <kbd>x</kbd> PDF ที่ได้แสดงอะไรในตำแหน่งของภาพ</p>
+    แก้ชื่อไฟล์กลับให้ถูกก่อนไปต่อ (หมายเลขบรรทัดของแต่ละคนอาจไม่ตรงกับตัวอย่าง)</li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) แพ็กเกจใดใช้กับภาพ สี และข้อความล้อมรูป (2) <code>[htbp]</code> แต่ละตัวอักษรหมายถึงอะไร
+  (3) ทำไม <code>\label</code> ต้องอยู่หลัง <code>\caption</code> และ (4) ต้องคอมไพล์กี่ครั้งเมื่อใช้ <code>\ref</code>
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 55 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างคู่มือท่องเที่ยว 2 หน้าให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> คอมไพล์ 2 ครั้งด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex main.tex
+<span class="prompt">$ </span>pdflatex main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<p>ใน <code>content.txt</code> ป้ายในวงเล็บเหลี่ยมบอกตำแหน่งและขนาดของรูป สี และรูปแบบตัวอักษร ตารางนี้บอกเฉพาะ<em>สิ่งที่ต้องใช้</em></p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>ส่วนนำ</td><td><code>graphicx</code>, <code>xcolor</code> พร้อมตัวเลือก <code>dvipsnames</code>, <code>wrapfig</code>, <code>\definecolor</code> (HTML <code>1B8A9A</code>) และ <code>\colorlet</code></td></tr>
+    <tr><td>ชื่อเรื่อง 2 บรรทัด</td><td>สี ขนาดอักษร และ <code>\\[6pt]</code> ภายใน <code>\title{...}</code></td></tr>
+    <tr><td>Figure 1 (แผนที่)</td><td><code>wrapfigure</code> ชิดขวา กว้าง 5.5 cm วางก่อนย่อหน้าแรกของหัวข้อ 1</td></tr>
+    <tr><td>Figure 2 (ภาพเมือง)</td><td><code>figure</code> ตำแหน่ง <code>[htbp]</code>, <code>\centering</code>, กว้าง <code>0.6\textwidth</code></td></tr>
+    <tr><td>Figure 3 (ดอกทานตะวัน 2 ภาพ)</td><td><code>figure</code> เดียวมีสองภาพ ภาพซ้ายใช้ <code>angle=90</code> คั่นด้วย <code>\hspace{1cm}</code></td></tr>
+    <tr><td>Figure 1, 2, 3 ในเนื้อความ</td><td><code>\label</code> และ <code>\ref</code> (ห้ามพิมพ์ตัวเลขเอง)</td></tr>
+    <tr><td>Bear Park, River Aare, Remember</td><td><code>{\color{...}...}</code> ด้วยสี <code>Brown</code>, <code>aare</code> และ <code>red!70!black</code></td></tr>
+    <tr><td>List of Figures</td><td><code>\listoffigures</code> ท้ายเอกสาร</td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>Figure 2 ในต้นแบบลอยไปอยู่บนสุดของหน้า 2 เพราะหน้า 1 ไม่มีที่ว่างพอ ไม่ต้องบังคับให้อยู่หน้า 1</li>
+    <li>ถ้าข้อความล้อมรูปยังบีบหัวข้อถัดไป ให้ตรวจว่าวาง <code>wrapfigure</code> ไว้<strong>ก่อน</strong>ย่อหน้าแรก ไม่ใช่กลางย่อหน้า</li>
+    <li>ชื่อสีในชุด <code>dvipsnames</code> ขึ้นต้นด้วยตัวพิมพ์ใหญ่ เช่น <code>Brown</code> ไม่ใช่ <code>brown</code> ซึ่งเป็นสีพื้นฐานอีกสีหนึ่ง</li>
+    <li>ถ้าเห็น <code>??</code> แทนหมายเลขรูป ให้คอมไพล์อีกครั้ง</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>images_colours_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วคอมไพล์ใหม่ 2 ครั้งด้วยชื่อนั้น ส่งทั้งไฟล์ <code>.tex</code> และ <code>.pdf</code> (ไม่ต้องส่งไฟล์ภาพ)</p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> คอมไพล์ผ่านโดยไม่มีบรรทัดที่ขึ้นต้นด้วย <code>!</code> และไม่มีคำเตือน <code>undefined references</code></label></li>
+  <li><label><input type="checkbox" id="b2"> ชื่อเรื่องและบรรทัดรองเป็นสีตามต้นแบบ</label></li>
+  <li><label><input type="checkbox" id="b3"> แผนที่อยู่ทางขวาและมีข้อความล้อม</label></li>
+  <li><label><input type="checkbox" id="b4"> รูปทั้ง 3 มีคำบรรยายและหมายเลข และข้อความอ้างถึงรูปด้วย <code>\ref</code></label></li>
+  <li><label><input type="checkbox" id="b5"> ภาพดอกทานตะวันภาพหนึ่งหมุน 90 องศา</label></li>
+  <li><label><input type="checkbox" id="b6"> มี List of Figures ครบ 3 รายการ</label></li>
+  <li><label><input type="checkbox" id="b7"> เอกสารมี 2 หน้า และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ (คัดลอกจากงาน Part B) ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> ย้ายไฟล์ภาพทั้งหมดไปไว้ในโฟลเดอร์ย่อย <code>images/</code> แล้วใช้ <code>\graphicspath{{./images/}}</code> ในส่วนนำ โดยไม่แก้คำสั่ง <code>\includegraphics</code></li>
+  <li><span class="step-id">C2</span> ใส่ <code>[h]</code> แทน <code>[htbp]</code> ใน Figure 2
+    <p class="q">LaTeX ทำตามได้หรือไม่ มีคำเตือนอะไรในเทอร์มินัล และเหตุใดการให้ตัวเลือกหลายตัวจึงปลอดภัยกว่า</p></li>
+  <li><span class="step-id">C3</span> นิยามสีด้วยรูปแบบสีอื่นอีก 2 แบบ ได้แก่ <code>{rgb}{0.11,0.54,0.6}</code> และ <code>{RGB}{27,138,154}</code>
+    <p class="q">ทั้งสามแบบให้สีเดียวกันหรือไม่ เพราะอะไร</p></li>
+  <li><span class="step-id">C4</span> ทำโปสเตอร์ 1 หน้าแนะนำสถานที่ในมหาวิทยาลัย ใช้ภาพถ่ายของตัวเองอย่างน้อย 2 ภาพ สีที่นิยามเอง และข้อความล้อมรูป</li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! Undefined control sequence.</code> ที่ <code>\includegraphics</code></td>
+        <td>ยังไม่ได้ <code>\usepackage{graphicx}</code></td></tr>
+    <tr><td><code>! Undefined control sequence.</code> ที่ <code>\color</code> หรือ <code>\definecolor</code></td>
+        <td>ยังไม่ได้ <code>\usepackage{xcolor}</code></td></tr>
+    <tr><td><code>! Package pdftex.def Error: File `...' not found</code></td>
+        <td>ชื่อไฟล์หรือนามสกุลไม่ตรง (เช่น <code>.JPG</code> กับ <code>.jpg</code>) หรือภาพไม่ได้อยู่ในโฟลเดอร์เดียวกับไฟล์ <code>.tex</code></td></tr>
+    <tr><td><code>! LaTeX Error: Environment wrapfigure undefined.</code></td>
+        <td>ยังไม่ได้ <code>\usepackage{wrapfig}</code></td></tr>
+    <tr><td><code>! Package xcolor Error: Undefined color `Brown'.</code></td>
+        <td>ลืมตัวเลือก <code>dvipsnames</code> หรือสะกดชื่อสีผิด</td></tr>
+    <tr><td><code>Overfull \hbox (...pt too wide)</code> และภาพล้นขอบ</td>
+        <td>ภาพใหญ่กว่าความกว้างข้อความ กำหนด <code>width</code> ไม่เกิน <code>\textwidth</code></td></tr>
+    <tr><td>เห็น <code>??</code> แทนหมายเลขรูป</td>
+        <td>คอมไพล์อีกครั้ง ถ้ายังเห็นอยู่ แปลว่าชื่อใน <code>\ref</code> ไม่ตรงกับ <code>\label</code></td></tr>
+    <tr><td>หมายเลขรูปผิด (ได้หมายเลขของหัวข้อ)</td>
+        <td>วาง <code>\label</code> ไว้ก่อน <code>\caption</code> ต้องวางหลัง</td></tr>
+    <tr><td>รูปไม่อยู่ตรงที่เขียนไว้</td>
+        <td>เป็นธรรมชาติของรูปลอยตัว LaTeX เลือกตำแหน่งที่เหมาะที่สุดตาม <code>[htbp]</code> ให้อ้างถึงรูปด้วย <code>\ref</code> แทนคำว่า "รูปด้านล่าง"</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Figures and Tables</em> ส่วน Basic Graphics, Coloring, Figures และ Cross-References</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) หัวข้อ 2.12 Including Graphics and Images และ 2.13 Floating Bodies</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

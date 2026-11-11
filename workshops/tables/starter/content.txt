@@ -1,0 +1,67 @@
+=====================================================================
+ Workshop tables - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+ ข้อมูลในตารางคั่นแต่ละช่องด้วยเครื่องหมาย |
+=====================================================================
+
+[หัวเรื่อง - จัดกึ่งกลาง ใหญ่ ตัวหนา]
+The Corner Café
+
+[บรรทัดรอง - ขนาดใหญ่]
+Opening hours, prices and allergy notes
+
+[รายการตาราง (List of Tables)]
+
+[หัวข้อระดับ 1]
+When We Are Open
+
+The café is run by students of the Faculty of Home Economics. Opening hours change during the examination period, as shown in Table 1.
+
+[ตาราง 1 - คำบรรยาย]
+Opening hours.
+
+[หัวตาราง - ตัวหนา]
+Day | Normal weeks | Exam weeks
+[ข้อมูล]
+Monday–Friday | 07:30–18:00 | 07:00–21:00
+Saturday | 09:00–15:00 | 08:00–18:00
+Sunday | closed | 10:00–16:00
+
+[หัวข้อระดับ 1]
+Drinks
+
+All drinks come in three sizes. Prices in Table 2 are in Thai baht and include a paper cup; bring your own cup and we take off 5 baht.
+
+[ตาราง 2 - คำบรรยาย]
+Drink prices in baht.
+
+[หัวตารางแถวที่ 1 - คำว่า Size คร่อม 3 คอลัมน์ทางขวา ตัวหนา]
+ | Size
+[หัวตารางแถวที่ 2 - ตัวหนา]
+Drink | Small | Medium | Large
+[ข้อมูล - ตัวเลขชิดขวา ช่องว่างใช้ขีดยาว ---]
+Espresso | 40 | 50 | ---
+Latte | 45 | 55 | 65
+Thai tea | 35 | 45 | 55
+Lemon soda | 30 | 40 | 50
+
+[หัวข้อระดับ 1]
+Allergy Notes
+
+Please tell the staff about any allergy before you order. Table 3 lists the most common questions.
+
+[ตาราง 3 - คำบรรยาย]
+Common allergy questions.
+
+[หัวตาราง - ตัวหนา]
+Ingredient | What you should know
+[ข้อมูล - คอลัมน์ขวาเป็นย่อหน้า]
+Milk | Every milk drink can be made with oat milk or soy milk at no extra cost.
+Nuts | The almond cookies and the banana cake contain nuts. All cakes are baked in the same kitchen.
+Gluten | Only the coconut jelly and the fruit cup are gluten free.
+
+[หัวข้อระดับ 1]
+Orders for Groups
+
+Clubs and classes can order drinks and snacks for meetings of up to forty people. Please order at the counter at least two days in advance and pay half of the total when you order. We deliver to any building on campus free of charge between 08:00 and 16:00.

@@ -1,0 +1,94 @@
+% Workshop debugging_with_ai - ไฟล์สำหรับ Part B (มีจุดผิด 6 จุดโดยตั้งใจ)
+% คอมไพล์ด้วย  latexmk -pdf main.tex  แล้วแก้ทีละจุดตามลำดับที่ข้อความผิดพลาดปรากฏ
+% แก้ในบรรทัดเดิม อย่าเพิ่มหรือลบบรรทัด (หมายเลขบรรทัดจะตรงกับหน้า Workshop) และไม่ต้องแก้ refs.bib
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmaths}
+\usepackage{amssymb}
+\usepackage[backend=biber, style=authoryear]{biblatex}
+\addbibresource{refs.bib}
+\setlength{\emergencystretch}{1em} % lets long words in the bibliography fit
+\title{The Birthday Problem}
+\author{Typesetting Club}
+\date{November 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{The Question}
+How many people must be in a room before it is more likely than not
+that two of them share a birthday? Most people guess a number close to
+half of 365, but the answer is only 23. The question goes back to
+\textcite{mises1939} and is now a standard example in probability
+textbooks \parencite{feller1968}. We computed every number in this note
+with a short script called birthday_table.py.
+
+\section{Computing the Probability}
+Ignore leap years and assume that all 365 birthdays are equally likely.
+Let $p_n$ be the probability that $n$ people all have different
+birthdays. The second person must avoid one day, the third must avoid
+two days, and so on, so
+\begin{align}
+  p_n &= \frac{365}{365}\cdot\frac{364}{365}\cdots\frac{365-n+1}{365}
+         \label{eq:product}\\
+      &= \prod_{k=0}^{n-1}\Bigl(1-\frac{k}{365}\Bigr).
+\end{equation}
+Since $1-x \le e^{-x}$ for every $x \in \R$, equation~\eqref{eq:product}
+gives the estimate
+\begin{equation}
+  p_n \le \exp\Bigl(-\frac{n(n-1)}{730}\Bigr).
+  \label{eq:estimate}
+\end{equation}
+The right-hand side falls below $\frac{1}{2}$ when $n \ge 23$.
+
+\section{Results}
+Table~\ref{tab:value} lists the probability $1-p_n$ that at least two
+of $n$ people share a birthday. With 70 people a shared birthday is
+almost certain.
+
+\begin{table}[ht]
+  \centering
+  \caption{Probability of a shared birthday}
+  \label{tab:values}
+  \begin{tabular}{rc}
+    \hline
+    $n$ & $1-p_n$ \\
+    \hline
+    10 & 0.117 \\
+    20 & 0.411 \\
+    23 & 0.507 \\
+    30 & 0.706 \\
+    50 & 0.970 \\
+    70 & 0.999 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+The result surprises us because we compare ourselves with the others,
+while the problem counts every pair of people. With 23 people there are
+already 253 pairs \parencite{diaconis1989}.
+
+\printbibliography
+
+\section*{Verification Log}
+% Part B: เติมแถว B2-B6 ของตารางนี้ (แถว B1 เป็นตัวอย่าง)
+\begin{tabular}{|l|p{4cm}|p{1.6cm}|p{4cm}|}
+  \hline
+  \textbf{Bug} & \textbf{What the AI said} & \textbf{Correct?} & \textbf{What I did} \\
+  \hline
+  B1 & The package name is misspelled. & Yes & Wrote amsmath on line 6. \\
+  \hline
+  B2 & & & \\
+  \hline
+  B3 & & & \\
+  \hline
+  B4 & & & \\
+  \hline
+  B5 & & & \\
+  \hline
+  B6 & & & \\
+  \hline
+\end{tabular}
+
+\end{document}

@@ -1,0 +1,59 @@
+=====================================================================
+ Workshop images_colours - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+=====================================================================
+
+[ชื่อเรื่อง - สี aare ขนาดใหญ่ที่สุด ตัวหนา]
+Two Days in Bern
+
+[บรรทัดที่สองของชื่อเรื่อง - ขนาดใหญ่ สีอ่อนของ aare]
+A short guide for first-time visitors
+
+[ผู้เขียน]
+Travel Club
+
+[วันที่]
+Spring 2026
+
+[หัวข้อระดับ 1]
+Welcome to Bern
+
+[รูปที่ 1 - map.pdf ข้อความล้อมรูปทางขวา กว้าง 5.5 cm]
+[คำบรรยายรูป]
+The Old Town inside the loop of the river.
+
+Bern is the federal city of Switzerland, but it feels more like a large village than a capital. Its medieval Old Town sits on a narrow hill inside a tight loop of the River Aare, as the map in Figure 1 shows, and it has been a UNESCO World Heritage Site since 1983.
+
+Everything in the centre is within walking distance, and the trams are included in the free guest card that most hotels give to their visitors. Two days are enough to see the main sights at a relaxed pace, with time left for a long lunch and an afternoon by the water. Spring and early autumn are the best seasons, because the city is quieter and the weather is mild enough for walking all day.
+
+[หัวข้อระดับ 1]
+Day One: The Old Town
+
+Start at the railway station and walk east along the main street. The street is lined with six kilometres of covered arcades, so you can explore even on a rainy day. Figure 2 shows the Old Town from the river.
+
+[รูปที่ 2 - bern.jpg กว้าง 0.6 ของความกว้างข้อความ จัดกึ่งกลาง]
+[คำบรรยายรูป]
+The Old Town of Bern seen from the bank of the River Aare.
+
+At the Zytglogge clock tower, arrive a few minutes before the hour to watch the mechanical figures move. Continue to the Minster, whose tower is the tallest in the country, and finish the day at the Bear Park on the other side of the bridge.
+
+[คำว่า Bear Park เป็นสี Brown จากชุดสี dvipsnames]
+
+[หัวข้อระดับ 1]
+Day Two: Gardens and the River
+
+In summer, local people swim in the River Aare. The water is clean but cold and fast, so only strong swimmers should try it, and only at the official places.
+
+[คำว่า River Aare ตัวหนา สี aare]
+
+[รูปที่ 3 - sunflower.jpg 2 ภาพ ภาพซ้ายหมุน 90 องศา กว้าง 3.5 cm ภาพขวาสูง 3.5 cm เว้นระหว่างภาพ 1 cm]
+[คำบรรยายรูป]
+Sunflowers at the botanical garden, rotated and at their natural orientation.
+
+If you prefer to stay dry, the botanical garden near the river is free to enter and very quiet in the morning. The flowers in Figure 3 bloom there from July to September.
+
+[คำว่า Remember: ตัวหนา สีแดงผสมดำ 30%]
+Remember: most shops close early on Saturday and stay closed on Sunday.
+
+[รายการรูปภาพ (List of Figures) ท้ายเอกสาร]

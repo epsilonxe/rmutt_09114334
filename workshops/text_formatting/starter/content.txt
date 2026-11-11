@@ -1,0 +1,55 @@
+=====================================================================
+ Workshop text_formatting - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+=====================================================================
+
+[หัวเรื่อง - จัดกึ่งกลาง]
+Pour-Over Coffee
+A beginner's brewing guide
+
+[ชิดขวา]
+Campus Coffee Club
+Issue No. 1
+
+[ย่อหน้าที่ 1 - ไม่มีการเยื้อง]
+Pour-over is one of the simplest ways to brew clean and bright coffee at home. You pour hot water slowly over ground coffee in a paper filter, and gravity does the rest. The method is cheap, quiet, and gives you full control over every variable.
+
+[ย่อหน้าที่ 2]
+This guide follows the brewing recommendations of the Specialty Coffee Association. Read it once before you start; the whole process takes about four minutes.
+
+[หัวข้อ]
+What you need
+
+[รายการ]
+A dripper and a paper filter
+15 g of medium-fine ground coffee
+250 g of water, just off the boil
+A kettle, a scale, and a timer
+
+[หัวข้อ]
+Brewing steps
+
+[รายการแบบมีลำดับ]
+Rinse the paper filter with hot water and throw that water away.
+Add the coffee and shake the dripper gently to level the bed.
+Pour about 40 g of water and wait 30 seconds.
+    [รายการย่อยของข้อ 3]
+    This step is called the bloom.
+    Fresh coffee will bubble as it releases gas.
+Pour the rest of the water slowly in small circles.
+Remove the dripper when the water has drained, and enjoy.
+
+[หัวข้อ]
+Troubleshooting
+
+[รายการ - ป้ายกำกับ ? ? !]
+Sour: grind finer, or use hotter water.
+Bitter: grind coarser, or pour faster.
+Never reuse a filter or old grounds.
+
+[จัดกึ่งกลาง]
+Tip: change only one thing at a time.
+
+[ชิดขวา]
+Prepared for the workshop text_formatting.

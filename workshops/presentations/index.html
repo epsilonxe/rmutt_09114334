@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · สร้างสไลด์นำเสนอด้วย Beamer</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>สร้างสไลด์นำเสนอด้วย Beamer</h1>
+    <div class="downloads">
+      <a class="primary" href="presentations.zip" target="_blank" rel="noopener">ดาวน์โหลด presentations.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Presentations with Beamer</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>latexmk</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>presentations_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">40′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">50′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>สร้างเอกสารคลาส <code>beamer</code> ที่มีหน้าชื่อเรื่อง สารบัญ และสไลด์ (<code>frame</code>) หลายหน้าได้</li>
+  <li>ใช้ <code>\section</code> แบ่งการนำเสนอเป็นหัวข้อ และสร้างสไลด์สารบัญด้วย <code>\tableofcontents</code> ได้</li>
+  <li>ทำให้เนื้อหาปรากฏทีละส่วนด้วย <code>\pause</code>, <code>\item&lt;n-&gt;</code> และ <code>\onslide</code> ได้</li>
+  <li>จัดสไลด์สองคอลัมน์ด้วย <code>columns</code> และเน้นเนื้อหาด้วย <code>\alert</code>, <code>block</code>, <code>alertblock</code>, <code>examples</code> ได้</li>
+  <li>เปลี่ยนรูปลักษณ์ทั้งชุดด้วย <code>\usetheme</code> และ <code>\usecolortheme</code> ได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="presentations.zip" target="_blank" rel="noopener"><code>presentations.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>presentations</code> ดังนี้</p>
+<pre class="tex nocopy"><code>presentations/
+├── doc.pdf        สไลด์ต้นแบบ (8 สไลด์ รวมหน้าที่ค่อย ๆ ปรากฏเป็น 13 หน้า)
+├── warmup.tex     ไฟล์สั้น ๆ สำหรับ Part A
+├── honeycomb.pdf  รูปรวงผึ้งสำหรับ Part A
+├── main.tex       ไฟล์เริ่มต้นสำหรับ Part B
+├── content.txt    เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่
+└── sites.pdf      แผนที่จุดเก็บตัวอย่างสำหรับ Part B</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a>,
+  <a href="starter/honeycomb.pdf" target="_blank" rel="noopener"><code>honeycomb.pdf</code></a>,
+  <a href="starter/sites.pdf" target="_blank" rel="noopener"><code>sites.pdf</code></a></p>
+<div class="callout note">
+  <strong class="label">เนื้อหาคุ้นตา</strong>
+  สไลด์ใน Part B นำเสนอผลการสำรวจบ่อน้ำจากรายงานใน <a href="../reports_books/" target="_blank" rel="noopener">Workshop เอกสารประเภทรายงานและหนังสือ</a> การทำสไลด์จากรายงานที่มีอยู่แล้วเป็นงานที่พบบ่อยในชีวิตจริง
+</div>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>เปิดโฟลเดอร์ <code>presentations</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน คลาส <code>beamer</code> มากับ TeX Live และ MiKTeX อยู่แล้ว ไม่ต้องติดตั้งเพิ่ม
+ตั้งแต่ Workshop นี้ไปใช้ <code>latexmk</code> เสมอ เพราะสารบัญและแถบนำทางของ Beamer ต้องคอมไพล์มากกว่าหนึ่งครั้ง</p>
+<pre class="term"><code><span class="prompt">$ </span>latexmk -pdf warmup.tex</code></pre>
+<div class="callout note">
+  <strong class="label">ดูสไลด์ให้เต็มจอ</strong>
+  สไลด์แต่ละหน้าของ Beamer มีขนาด 128 × 96 มม. (สัดส่วน 4 ต่อ 3) ใน SumatraPDF กด <kbd>F5</kbd> เพื่อนำเสนอเต็มจอ และกด <kbd>Esc</kbd> เพื่อออก
+  บน macOS ใน Preview ใช้เมนู View แล้วเลือก Slideshow
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 40 นาที</span></div>
+<p>ใช้ไฟล์ <code>warmup.tex</code> (สไลด์เรื่องการเลี้ยงผึ้งในเมือง) ทำทีละข้อ แล้วสั่ง <code>latexmk -pdf warmup.tex</code> ทุกครั้งที่แก้</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> คอมไพล์ <code>warmup.tex</code> ตามที่ได้รับ แล้วเปิด PDF
+    <p class="q">PDF มีกี่หน้า ขนาดหน้าต่างจากเอกสาร <code>article</code> อย่างไร latexmk เรียก pdflatex กี่ครั้ง (ดูบรรทัด <code>Run number</code>)</p></li>
+
+  <li><span class="step-id">A1</span> <strong>ชื่อสไลด์และรายการ</strong> ในสไลด์ที่สอง เพิ่ม <code>\frametitle{What Bees Need}</code> ใต้ <code>\begin{frame}</code> แล้วเปลี่ยนประโยคเป็นรายการ
+<pre class="tex"><code>\begin{itemize}
+  \item Flowers within 3 km
+  \item Clean water nearby
+  \item A safe place for the hive
+\end{itemize}</code></pre>
+    จากนั้นเพิ่มสไลด์ที่สามโดยเขียนชื่อสไลด์แบบสั้น <code>\begin{frame}{A Hive on a Rooftop}</code> พร้อมข้อความสั้น ๆ หนึ่งย่อหน้า
+    <p class="q">การเขียนชื่อสไลด์สองแบบให้ผลต่างกันหรือไม่</p></li>
+
+  <li><span class="step-id">A2</span> <strong>หัวข้อและสารบัญ</strong> เพิ่ม <code>\section{Why Bees}</code> ก่อนสไลด์ที่สอง และ <code>\section{Getting Started}</code> ก่อนสไลด์ที่สาม
+    แล้วแทรกสไลด์ใหม่ต่อจากหน้าชื่อเรื่อง
+<pre class="tex"><code>\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}</code></pre>
+    <p class="q">ชื่อหัวข้อปรากฏบนสไลด์ของ <code>\section</code> เองหรือไม่ หรือปรากฏที่ใด</p></li>
+
+  <li><span class="step-id">A3</span> <strong>ทีละข้อด้วย <code>\pause</code></strong> ใส่ <code>\pause</code> ท้ายรายการข้อที่ 1 และข้อที่ 2 ใน What Bees Need
+    <p class="q">PDF มีกี่หน้า และหมายเลขสไลด์ที่มุมล่างขวาของหน้าเหล่านั้นเหมือนหรือต่างกัน (ถ้ายังไม่เห็นหมายเลข ให้ทำ A7 ก่อนแล้วกลับมาดู)</p></li>
+
+  <li><span class="step-id">A4</span> <strong>กำหนดหน้าที่ปรากฏ</strong> ลบ <code>\pause</code> ออก แล้วเปลี่ยนเป็น <code>\item&lt;1-&gt;</code>, <code>\item&lt;2-3&gt;</code> และ <code>\item&lt;3&gt;</code>
+    จากนั้นเพิ่ม <code>\onslide&lt;4-&gt;{Bees also need you.}</code> ท้ายสไลด์
+    <p class="q"><code>&lt;2-&gt;</code>, <code>&lt;2-3&gt;</code> และ <code>&lt;3&gt;</code> ต่างกันอย่างไร และสไลด์นี้แยกเป็นกี่หน้า</p></li>
+
+  <li><span class="step-id">A5</span> <strong>สองคอลัมน์และรูป</strong> ในสไลด์ A Hive on a Rooftop แบ่งเป็นสองคอลัมน์ ซ้ายเป็นข้อความ ขวาเป็นรูป
+<pre class="tex"><code>\begin{columns}
+\column{0.6\textwidth}
+A small hive fits on a flat roof ...
+\column{0.4\textwidth}
+\includegraphics[width=\textwidth]{honeycomb.pdf}
+\end{columns}</code></pre>
+    <p class="q">ต้องโหลด <code>graphicx</code> เองหรือไม่ และถ้าเปลี่ยนเป็น <code>0.7\textwidth</code> ทั้งสองคอลัมน์จะเกิดอะไรขึ้น</p></li>
+
+  <li><span class="step-id">A6</span> <strong>เน้นเนื้อหา</strong> เพิ่มสไลด์ใหม่ชื่อ Before You Start ที่มี
+    <code>\alert{...}</code> ในประโยคหนึ่ง กล่อง <code>\begin{block}{Ask first}</code> กล่อง <code>\begin{alertblock}{Stings}</code> และกล่อง <code>\begin{examples}</code>
+    <p class="q">กล่องทั้งสามต่างกันอย่างไร และกล่อง <code>examples</code> ได้ชื่อจากไหน</p></li>
+
+  <li><span class="step-id">A7</span> <strong>ธีม</strong> เพิ่ม <code>\usetheme{Madrid}</code> ต่อจาก <code>\documentclass</code> แล้วลอง <code>Berkeley</code> และ <code>Copenhagen</code>
+    จากนั้นเพิ่ม <code>\usecolortheme{beaver}</code> แล้วลอง <code>wolverine</code>
+    <p class="q">แถบด้านล่างของ Madrid แสดงข้อมูลใดบ้าง และแต่ละส่วนมาจากคำสั่งใด</p></li>
+
+  <li><span class="step-id">A8</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> ทำทีละข้อแล้วแก้กลับ
+    <ol type="a">
+      <li>ลบ <code>\end{frame}</code> ของสไลด์สุดท้าย
+<pre class="term nocopy"><code><span class="out">Runaway argument?</span>
+<span class="out">\@kernel@before@enddocument \UseOneTimeHook {enddocument}\@kernel@after@enddocu</span>
+<span class="out">ment \ETC.</span>
+<span class="err">! File ended while scanning use of \beamer@collect@@body.</span></code></pre></li>
+      <li>สะกดชื่อธีมผิดเป็น <code>\usetheme{Madird}</code>
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: File `beamerthemeMadird.sty' not found.</span></code></pre></li>
+      <li>พิมพ์ <code>Thank you for listening.</code> ไว้ก่อน <code>\end{document}</code> โดยไม่อยู่ใน <code>frame</code></li>
+      <li>ใส่รายการ 15 ข้อในสไลด์เดียว</li>
+    </ol>
+    <p class="q">ข้อความ <code>\beamer@collect@@body</code> บอกอะไรเกี่ยวกับตำแหน่งที่ผิด ข้อ c และ d มีข้อความผิดพลาดหรือไม่ และผลใน PDF เป็นอย่างไร</p></li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) ทำไมสไลด์หนึ่งจึงกลายเป็น PDF หลายหน้า (2) <code>\pause</code> กับ <code>&lt;n-&gt;</code> เลือกใช้เมื่อใด
+  (3) แถบล่างของ Madrid นำข้อมูลจากคำสั่งใดมาแสดง และ (4) Beamer ไม่เตือนเมื่อเนื้อหาล้นสไลด์
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 50 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างสไลด์ 8 หน้าให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong>
+ภาพด้านล่างแสดงแต่ละสไลด์เมื่อปรากฏครบ ส่วน <code>doc.pdf</code> มี 13 หน้าเพราะสไลด์ 3, 6 และ 7 ค่อย ๆ ปรากฏ ให้เปิดดูทีละหน้าว่าเนื้อหาส่วนใดปรากฏเมื่อใด</p>
+<pre class="term"><code><span class="prompt">$ </span>latexmk -pdf main.tex</code></pre>
+
+<div class="preview-grid slides">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="สไลด์ต้นแบบหน้า 1" width="1008" height="756" loading="lazy"></a>
+  <figcaption>สไลด์ 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="สไลด์ต้นแบบหน้า 2" width="1008" height="756" loading="lazy"></a>
+  <figcaption>สไลด์ 2</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-3.png" alt="สไลด์ต้นแบบหน้า 3" width="1008" height="756" loading="lazy"></a>
+  <figcaption>สไลด์ 3</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-4.png" alt="สไลด์ต้นแบบหน้า 4" width="1008" height="756" loading="lazy"></a>
+  <figcaption>สไลด์ 4</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-5.png" alt="สไลด์ต้นแบบหน้า 5" width="1008" height="756" loading="lazy"></a>
+  <figcaption>สไลด์ 5</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-6.png" alt="สไลด์ต้นแบบหน้า 6" width="1008" height="756" loading="lazy"></a>
+  <figcaption>สไลด์ 6</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-7.png" alt="สไลด์ต้นแบบหน้า 7" width="1008" height="756" loading="lazy"></a>
+  <figcaption>สไลด์ 7</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-8.png" alt="สไลด์ต้นแบบหน้า 8" width="1008" height="756" loading="lazy"></a>
+  <figcaption>สไลด์ 8</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>รูปลักษณ์</td><td><code>\usetheme</code> และ <code>\usecolortheme</code></td></tr>
+    <tr><td>หน้าชื่อเรื่อง</td><td><code>\title</code>, <code>\subtitle</code>, <code>\author</code>, <code>\institute</code>, <code>\date</code> และ <code>\maketitle</code> ใน <code>frame</code></td></tr>
+    <tr><td>Outline</td><td><code>\tableofcontents</code></td></tr>
+    <tr><td>หัวข้อ 4 หัวข้อ</td><td><code>\section</code> นอก <code>frame</code></td></tr>
+    <tr><td>Why Survey the Pond?</td><td><code>itemize</code> กับ <code>\pause</code></td></tr>
+    <tr><td>Sampling Points</td><td><code>columns</code>, <code>enumerate</code>, <code>\includegraphics</code>, <code>\centering</code></td></tr>
+    <tr><td>Measurements</td><td><code>block</code></td></tr>
+    <tr><td>Dissolved Oxygen</td><td><code>center</code>, <code>tabular</code>, <code>\alert</code>, <code>\pause</code>, <code>alertblock</code></td></tr>
+    <tr><td>Suggestions</td><td><code>\item&lt;n-&gt;</code>, <code>\vspace</code>, <code>\onslide</code>, <code>examples</code></td></tr>
+    <tr><td>Thank You</td><td><code>center</code>, <code>\Large</code>, <code>\normalsize</code>, <code>\vspace</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li><code>\section</code> ไม่สร้างสไลด์ ให้วางไว้ระหว่าง <code>\end{frame}</code> กับ <code>\begin{frame}</code> ถัดไป</li>
+    <li><code>\onslide&lt;3-&gt;{...}</code> ครอบกล่องทั้งกล่องได้ ทำให้กล่องปรากฏพร้อมรายการข้อที่ 3</li>
+    <li>เปรียบเทียบจำนวนหน้ากับ doc.pdf ถ้าได้ 13 หน้าเท่ากัน แสดงว่าจังหวะการปรากฏถูกต้อง</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>presentations_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วสั่ง <code>latexmk -pdf presentations_&lt;รหัสนักศึกษา&gt;.tex</code> ส่งไฟล์ <code>.tex</code> และ <code>.pdf</code></p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> latexmk ทำงานจบโดยไม่มีข้อผิดพลาด และ PDF มี 13 หน้า</label></li>
+  <li><label><input type="checkbox" id="b2"> ใช้ธีม Madrid กับธีมสี beaver</label></li>
+  <li><label><input type="checkbox" id="b3"> สไลด์ Outline แสดงหัวข้อครบ 4 หัวข้อ</label></li>
+  <li><label><input type="checkbox" id="b4"> แผนที่อยู่คอลัมน์ขวาของ Sampling Points</label></li>
+  <li><label><input type="checkbox" id="b5"> ค่า 3.8 และ 3.4 ในตารางเน้นสี และกล่องเตือนปรากฏหลังตาราง</label></li>
+  <li><label><input type="checkbox" id="b6"> Suggestions ปรากฏทีละข้อ และกล่องสีเขียวปรากฏพร้อมข้อสุดท้าย</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> เปลี่ยนสัดส่วนสไลด์เป็นจอกว้างด้วย <code>\documentclass[aspectratio=169]{beamer}</code> แล้วปรับขนาดรูปและคอลัมน์ให้พอดี</li>
+  <li><span class="step-id">C2</span> สร้างเอกสารแจกผู้ฟังด้วย <code>\documentclass[handout]{beamer}</code>
+    <p class="q">PDF เหลือกี่หน้า และเนื้อหาที่ค่อย ๆ ปรากฏหายไปหรือแสดงครบ</p></li>
+  <li><span class="step-id">C3</span> ใส่โลโก้ที่มุมสไลด์ทุกหน้าด้วย <code>\logo{\includegraphics[height=0.8cm]{honeycomb.pdf}}</code> แล้วลองกับธีมอื่นอีก 2 ธีม</li>
+  <li><span class="step-id">C4</span> ทำสไลด์ 5–6 หน้าจากงาน Workshop ก่อนหน้าที่นักศึกษาชอบ (เช่น ร้านกาแฟใน <a href="../tables/" target="_blank" rel="noopener">Workshop ตาราง</a> หรือเมืองเบิร์นใน <a href="../images_colours/" target="_blank" rel="noopener">Workshop รูปภาพและสี</a>) ให้มีตาราง รูป และเนื้อหาที่ค่อย ๆ ปรากฏ</li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! File ended while scanning use of \beamer@collect@@body.</code></td>
+        <td>ลืม <code>\end{frame}</code> หรือสะกดผิด Beamer อ่านต่อไปจนจบไฟล์ ให้ไล่ดูว่า <code>frame</code> ใดไม่มีคำสั่งปิด</td></tr>
+    <tr><td><code>! LaTeX Error: File `beamerthemeXxx.sty' not found.</code></td>
+        <td>ชื่อธีมผิด ชื่อธีมขึ้นต้นด้วยตัวพิมพ์ใหญ่ เช่น <code>Madrid</code> ส่วนธีมสีเป็นตัวพิมพ์เล็ก เช่น <code>beaver</code></td></tr>
+    <tr><td>มีหน้าว่างที่ไม่มีแถบและชื่อสไลด์</td>
+        <td>มีข้อความอยู่นอก <code>frame</code> ทุกอย่างที่จะแสดงต้องอยู่ระหว่าง <code>\begin{frame}</code> กับ <code>\end{frame}</code></td></tr>
+    <tr><td>เนื้อหาหายไปที่ขอบล่างของสไลด์ แต่ไม่มีคำเตือน</td>
+        <td>เนื้อหาล้นสไลด์ ให้แบ่งเป็นสองสไลด์หรือตัดข้อความ</td></tr>
+    <tr><td>สารบัญว่างหรือไม่ตรงกับหัวข้อ</td>
+        <td>คอมไพล์ด้วย pdflatex ครั้งเดียว ให้ใช้ <code>latexmk -pdf</code> ซึ่งรันซ้ำให้เอง</td></tr>
+    <tr><td>PDF มีจำนวนหน้ามากกว่าที่คิด</td>
+        <td>แต่ละ <code>\pause</code> หรือ <code>&lt;n&gt;</code> สร้างหน้าใหม่ ตรวจหมายเลขใน <code>&lt;...&gt;</code> ว่าเรียงกันถูกต้อง</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Presentations with Beamer</em> (The title page, Creating a table of contents, Adding effects, Columns, Highlighting important stuffs, Using Themes)</li>
+  <li>เอกสารของ Beamer ในเครื่อง สั่ง <code>texdoc beamer</code> ในเทอร์มินัล</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) หัวข้อ 4.8 Creating Presentations</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

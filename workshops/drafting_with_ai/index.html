@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · ร่างเอกสารโดยมี AI ช่วย</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>ร่างเอกสารโดยมี AI ช่วย</h1>
+    <div class="downloads">
+      <a class="primary" href="drafting_with_ai.zip" target="_blank" rel="noopener">ดาวน์โหลด drafting_with_ai.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Typesetting with AI Assistance</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>latexmk</code><br>แชตบอต AI บนเว็บ</dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>drafting_with_ai_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">10′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">25′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">65′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เขียนพรอมต์ขอโค้ด LaTeX จาก AI ที่ระบุโปรแกรมที่ใช้คอมไพล์ แพ็กเกจที่อนุญาต และรูปแบบผลลัพธ์ที่ต้องการได้ชัดเจน</li>
+  <li>ประกอบเอกสารทีละชิ้นจากคำตอบของ AI และคอมไพล์ตรวจทุกครั้งที่เพิ่มชิ้นใหม่</li>
+  <li>ตรวจคำตอบของ AI ทั้งสามด้าน ได้แก่ คอมไพล์ผ่านหรือไม่ ผลตรงกับที่สั่งหรือไม่ และเนื้อหา (รวมคณิตศาสตร์) ถูกต้องหรือไม่</li>
+  <li>รู้จักจุดผิดที่พบบ่อยในโค้ดจาก AI ได้แก่ แพ็กเกจที่ไม่มีอยู่จริง คำสั่งที่เลิกใช้แล้ว ป้ายอ้างอิงที่ไม่ตรงกัน และคำอธิบายที่มั่นใจแต่ผิด</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="drafting_with_ai.zip" target="_blank" rel="noopener"><code>drafting_with_ai.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>drafting_with_ai</code> ดังนี้</p>
+<pre class="tex nocopy"><code>drafting_with_ai/
+├── doc.pdf         ชิ้นงานต้นแบบ (2 หน้า)
+├── warmup.tex      ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex        ไฟล์เริ่มต้นสำหรับ Part B
+├── content.txt     เนื้อหาทั้งหมดของ Part B ไม่ต้องพิมพ์ใหม่
+├── prompts.txt     พรอมต์สำหรับคัดลอกไปถาม AI (A1–A2 และ P1–P5)
+├── ai_answers.txt  ตัวอย่างคำตอบจาก AI ของทุกพรอมต์
+└── triangle.pdf    รูปสามเหลี่ยมมุมฉากสำหรับ Part B</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a>,
+  <a href="starter/prompts.txt" target="_blank" rel="noopener"><code>prompts.txt</code></a>,
+  <a href="starter/ai_answers.txt" target="_blank" rel="noopener"><code>ai_answers.txt</code></a>,
+  <a href="starter/triangle.pdf" target="_blank" rel="noopener"><code>triangle.pdf</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 10 นาที</span></div>
+<div class="callout note">
+  <strong class="label">Workshop นี้ใช้ AI ได้</strong>
+  Workshop นี้และ <a href="../debugging_with_ai/" target="_blank" rel="noopener">Workshop แก้ข้อผิดพลาดโดยมี AI ช่วย</a> เป็นสอง Workshop เดียวในรายวิชาที่ให้ใช้แชตบอต AI ได้ ใช้แชตบอตฟรีบนเว็บตัวใดก็ได้ ทุกขั้นตอนเขียนไว้ให้ใช้ได้กับทุกตัว
+</div>
+<ol>
+  <li>เปิดโฟลเดอร์ <code>drafting_with_ai</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน</li>
+  <li>เปิดแชตบอต AI ในเบราว์เซอร์ แล้วเริ่มแชตใหม่สำหรับ Workshop นี้</li>
+  <li>เปิด <code>prompts.txt</code> และ <code>ai_answers.txt</code> ไว้ใน Sublime Text คำตอบตัวอย่างเป็นชุดเดียวกันทั้งชั้น จึงใช้คุยกันในชั้นเรียนได้ แม้แชตบอตของแต่ละคนจะตอบไม่เหมือนกัน</li>
+</ol>
+<div class="callout warn">
+  <strong class="label">ข้อมูลส่วนตัว</strong>
+  ห้ามวางรหัสนักศึกษา ชื่อ-นามสกุล หรือข้อมูลส่วนตัวใด ๆ ลงในแชต ทำงานในไฟล์ชื่อ <code>main.tex</code> ตลอด และเปลี่ยนชื่อไฟล์เป็นรหัสนักศึกษาเฉพาะตอนส่งงานเท่านั้น
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 25 นาที</span></div>
+<p>ใช้ไฟล์ <code>warmup.tex</code> ขอตารางจำนวนเฉพาะ 5 ตัวแรกและกำลังสองจาก AI สองแบบ แล้วเทียบกัน</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> คอมไพล์ <code>warmup.tex</code> โดยยังไม่แก้อะไร เพื่อให้แน่ใจว่าไฟล์เริ่มต้นไม่มีปัญหา
+<pre class="term"><code><span class="prompt">$ </span>latexmk -pdf warmup.tex</code></pre></li>
+
+  <li><span class="step-id">A1</span> <strong>ถามแบบไม่ดี</strong> คัดลอกพรอมต์ <code>[A1]</code> จาก <code>prompts.txt</code> ไปถาม AI แล้ววางโค้ดจากคำตอบตัวอย่าง <code>[A1]</code> ใน <code>ai_answers.txt</code> (ตั้งแต่ <code>\documentclass</code> ถึง <code>\end{document}</code>) ใต้บรรทัด <code>% A1-A4: ...</code> แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: Can be used only in preamble.</span></code></pre>
+    พิมพ์ <kbd>x</kbd> แล้วกด <kbd>Enter</kbd> เพื่อหยุด
+    <p class="q">ทำไมจึงเกิดข้อผิดพลาดนี้ คำตอบใช้แพ็กเกจหรือคำสั่งใดที่ยังไม่ได้เรียน คำบรรยายตารางอยู่ด้านบนหรือด้านล่าง</p></li>
+
+  <li><span class="step-id">A2</span> <strong>ถามแบบดี</strong> ลบสิ่งที่วางไว้ใน A1 แล้วคัดลอกพรอมต์ <code>[A2]</code> ไปถาม AI ในแชตใหม่ วางคำตอบตัวอย่าง <code>[A2]</code> แล้วคอมไพล์
+    <p class="q">พรอมต์ A2 บอกอะไรเพิ่มจาก A1 บ้าง ข้อใดทำให้คำตอบวางลงในไฟล์ได้ทันที</p></li>
+
+  <li><span class="step-id">A3</span> <strong>เทียบกับคำตอบของตนเอง</strong> วางคำตอบจากแชตบอตของนักศึกษาต่อท้ายตารางแรก แล้วคอมไพล์
+    <p class="q">คำตอบทั้งสองเหมือนกันทุกบรรทัดหรือไม่ ทำตามทุกข้อในพรอมต์หรือไม่ (เส้น หัวคอลัมน์ ไม่มีแพ็กเกจเพิ่ม)</p></li>
+
+  <li><span class="step-id">A4</span> <strong>ตรวจเนื้อหา</strong> คำนวณเองว่าจำนวนเฉพาะ 5 ตัวแรกและกำลังสองถูกต้องหรือไม่
+    <p class="q">ถ้า AI ใส่ 1 หรือ 9 เป็นจำนวนเฉพาะ คอมไพเลอร์จะเตือนหรือไม่ ใครต้องตรวจเรื่องนี้</p></li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) พรอมต์ที่ดีต้องบอกอะไรบ้าง (2) ทำไมต้องขอเฉพาะโค้ดส่วนที่จะวาง ไม่ใช่เอกสารทั้งไฟล์
+  และ (3) การตรวจคำตอบของ AI มีสามด้าน ได้แก่ คอมไพล์ ผลลัพธ์ และเนื้อหา
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 65 นาที</span></div>
+<p>สร้างบทความ 2 หน้าใน <code>main.tex</code> ให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> โดยให้ AI ร่างทีละชิ้น (P1–P5) และเขียนข้อความที่เหลือจาก <code>content.txt</code> เอง ทำไปตามลำดับของเอกสาร กล่าวคือ ใส่ข้อความของแต่ละหัวข้อก่อนวางชิ้นที่อยู่ในหัวข้อนั้น คอมไพล์ด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>latexmk -pdf main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+</div>
+
+<h3>ขั้นตอนสำหรับแต่ละชิ้น</h3>
+<ol>
+  <li>คัดลอกพรอมต์ของชิ้นนั้นจาก <code>prompts.txt</code> ไปถามแชตบอตของตนเอง</li>
+  <li>เทียบคำตอบที่ได้กับคำตอบตัวอย่างใน <code>ai_answers.txt</code> คำตอบตัวอย่าง<strong>ทุกชิ้นมีจุดผิด</strong> คำตอบของนักศึกษาเองอาจมีหรือไม่มีก็ได้</li>
+  <li>วางโค้ดชิ้นนั้นลงใน <code>main.tex</code> คอมไพล์ แล้วเทียบกับ <code>doc.pdf</code></li>
+  <li>แก้จนผลตรงกับ <code>doc.pdf</code> แล้วบันทึกจุดผิดของคำตอบตัวอย่างและวิธีที่ตรวจพบลงในตาราง Verification Log หนึ่งแถว</li>
+</ol>
+
+<ol class="steps">
+  <li><span class="step-id">P1</span> <strong>ส่วนนำและหัวเรื่อง</strong> คำตอบตัวอย่างมีบรรทัด <code>\documentclass</code> อยู่แล้ว ถ้าวางใต้บรรทัด <code>\documentclass</code> เดิมของ <code>main.tex</code> จะได้
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: Two \documentclass or \documentstyle commands.</span></code></pre>
+    เมื่อแก้แล้ว จะพบข้อความนี้ (ที่ <code>Enter file name:</code> พิมพ์ <kbd>x</kbd> แล้วกด <kbd>Enter</kbd> เพื่อหยุด)
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: File `amsproof.sty' not found.</span></code></pre>
+    แถว P1 ของตารางเติมไว้ให้เป็นตัวอย่างแล้ว
+    <p class="q">วันที่บนหัวเรื่องตรงกับ <code>doc.pdf</code> หรือไม่ พรอมต์สั่งไว้อย่างไร</p></li>
+
+  <li><span class="step-id">P2</span> <strong>รูปภาพ</strong> วางหลังย่อหน้าแรกของหัวข้อ 1
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: Unknown float option `H'.</span></code></pre>
+    <p class="q">คำอธิบายใต้โค้ดตัวอย่างบอกว่า <code>[H]</code> ทำอะไร ทำไมจึงใช้ไม่ได้ในเอกสารนี้ ขนาดรูปตรงกับที่สั่งหรือไม่</p></li>
+
+  <li><span class="step-id">P3</span> <strong>ตาราง</strong> วางต่อจากรูป คอมไพล์ผ่าน แต่ latexmk สรุปว่า
+<pre class="term nocopy"><code><span class="out">Latexmk: Summary of warnings from last run of *latex:</span>
+<span class="out">  Latex failed to resolve 1 reference(s)</span></code></pre>
+    <p class="q">เทียบคำตอบกับพรอมต์ทีละข้อ (ตำแหน่งคำบรรยาย เส้นแนวตั้ง ชื่อป้าย) มีกี่ข้อที่ AI ไม่ได้ทำตาม</p></li>
+
+  <li><span class="step-id">P4</span> <strong>ทฤษฎีบท</strong> วางหลังย่อหน้าแรกของหัวข้อ 2
+<pre class="term nocopy"><code><span class="err">! LaTeX Error: Environment theorem undefined.</span></code></pre>
+    <p class="q">คำตอบตัวอย่างบอกว่าไม่ต้องเพิ่มอะไรในส่วนนำ จริงหรือไม่ ทบทวนจากบทเรียน Theorems and Proofs และสังเกตการแสดงสมการด้วย <code>$$</code></p></li>
+
+  <li><span class="step-id">P5</span> <strong>บทพิสูจน์</strong> วางต่อจากทฤษฎีบท ชิ้นนี้คอมไพล์ผ่านโดยไม่มีข้อความเตือนเลย
+    <p class="q">คำนวณ <code>(2mn)^2</code> เองแล้วตรวจทุกบรรทัดของการคำนวณ บรรทัดใดผิด ระยะรอบเครื่องหมาย = และตำแหน่งสี่เหลี่ยมท้ายบทพิสูจน์ตรงกับ <code>doc.pdf</code> หรือไม่</p></li>
+</ol>
+
+<h3>คำแนะนำ</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>ข้อความในหัวข้อ 1 และ 2</td><td>เขียนเองจาก <code>content.txt</code> ด้วย <code>\section</code>, <code>\emph</code> และ <code>\ref</code> ไม่ต้องถาม AI</td></tr>
+    <tr><td>รูปและตาราง</td><td><code>figure</code> และ <code>table</code> ที่ตัวเลือก <code>[ht]</code>, <code>\caption</code> ก่อน <code>\label</code></td></tr>
+    <tr><td>ทฤษฎีบท</td><td><code>\newtheorem</code> ในส่วนนำ, สมการแสดงผลแบบไม่มีหมายเลขด้วย <code>\[ ... \]</code></td></tr>
+    <tr><td>บทพิสูจน์</td><td><code>proof</code>, <code>align*</code> และ <code>\qedhere</code> ท้ายบรรทัดสุดท้าย (คำสั่งใหม่ของ <code>amsthm</code> ย้ายสี่เหลี่ยมท้ายบทพิสูจน์มาไว้ในบรรทัดนั้น แทนที่จะขึ้นบรรทัดใหม่)</td></tr>
+    <tr><td>Verification Log</td><td><code>\section*</code> และ <code>tabular</code> ที่มีคอลัมน์ <code>p{...}</code> สำหรับข้อความยาว</td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>ถ้า latexmk แจ้งว่าหา reference ไม่พบ ให้เทียบชื่อใน <code>\ref</code> กับ <code>\label</code> ทีละตัวอักษร</li>
+    <li>ถ้าไม่แน่ใจว่าแพ็กเกจมีอยู่จริงหรือไม่ ลองสั่ง <code>texdoc &lt;ชื่อแพ็กเกจ&gt;</code> ในเทอร์มินัล</li>
+    <li>ถ้าคำตอบของแชตบอตตนเองไม่มีจุดผิดเลย ให้บันทึกในตารางจากคำตอบตัวอย่าง และเขียนว่าแชตบอตของตนตอบถูก</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>drafting_with_ai_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วสั่ง <code>latexmk -pdf drafting_with_ai_&lt;รหัสนักศึกษา&gt;.tex</code> ส่งไฟล์ <code>.tex</code> และ <code>.pdf</code> (ไม่ต้องส่ง <code>triangle.pdf</code>)</p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> latexmk ทำงานจบโดยไม่มีข้อผิดพลาด และไม่มีสรุปคำเตือนเรื่อง reference</label></li>
+  <li><label><input type="checkbox" id="b2"> ส่วนนำไม่มีแพ็กเกจอื่นนอกจากที่พรอมต์ P1 กำหนด และวันที่เป็น November 2026</label></li>
+  <li><label><input type="checkbox" id="b3"> รูปกว้างประมาณหนึ่งในสามของบรรทัด และตารางมีคำบรรยายด้านบน เส้นแนวตั้งเส้นเดียว</label></li>
+  <li><label><input type="checkbox" id="b4"> ทุกบรรทัดของการคำนวณในบทพิสูจน์ถูกต้อง และสี่เหลี่ยมท้ายบทพิสูจน์อยู่บรรทัดสุดท้าย</label></li>
+  <li><label><input type="checkbox" id="b5"> ไม่มี <code>$$</code> หรือ <code>eqnarray</code> ในไฟล์</label></li>
+  <li><label><input type="checkbox" id="b6"> ตาราง Verification Log มีครบ 5 แถว (P1–P5) และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> ถ่ายภาพหน้าจอสมการในหน้า 2 ของ <code>doc.pdf</code> แล้วขอให้ AI แปลงเป็นโค้ด LaTeX (ถ้าแชตบอตรับรูปภาพได้)
+    <p class="q">โค้ดที่ได้ตรงกับต้นฉบับทุกตัวอักษรหรือไม่ จุดใดที่ต้องแก้</p></li>
+  <li><span class="step-id">C2</span> เขียนพรอมต์เองเพื่อขอบทพิสูจน์ว่า<em>k</em> เท่าของ Pythagorean triple ใด ๆ ยังเป็น Pythagorean triple แล้วตรวจคณิตศาสตร์ทุกบรรทัด</li>
+  <li><span class="step-id">C3</span> ขอให้ AI ช่วยเขียนตาราง triples เป็นภาษาไทยด้วย <code>thaispec</code>
+    <p class="q">AI บอกให้คอมไพล์ด้วยโปรแกรมใด ตรงกับที่เรียนใน <a href="../thai_macros/" target="_blank" rel="noopener">Workshop เอกสารภาษาไทยและคำสั่งที่สร้างเอง</a> หรือไม่</p></li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! LaTeX Error: Can be used only in preamble.</code></td>
+        <td>วางเอกสารทั้งไฟล์จาก AI ลงกลางเนื้อหา ขอเฉพาะโค้ดส่วนที่จะวาง หรือคัดลอกเฉพาะส่วนระหว่าง <code>\begin{document}</code> และ <code>\end{document}</code></td></tr>
+    <tr><td><code>! LaTeX Error: Two \documentclass ...</code></td>
+        <td>มี <code>\documentclass</code> สองบรรทัด ลบบรรทัดหนึ่งออก</td></tr>
+    <tr><td><code>! LaTeX Error: File `....sty' not found.</code></td>
+        <td>AI อาจแต่งชื่อแพ็กเกจขึ้นเอง ตรวจด้วย <code>texdoc</code> หรือค้นที่ CTAN ถ้าไม่มีอยู่จริงให้ลบบรรทัดนั้น</td></tr>
+    <tr><td><code>! LaTeX Error: Unknown float option `H'.</code></td>
+        <td><code>[H]</code> ต้องใช้แพ็กเกจ <code>float</code> ใช้ <code>[ht]</code> ตามที่เรียนในบทเรียน Figures and Tables แทน</td></tr>
+    <tr><td><code>! LaTeX Error: Environment theorem undefined.</code></td>
+        <td><code>amsthm</code> ไม่ได้สร้าง <code>theorem</code> ให้เอง ต้องประกาศด้วย <code>\newtheorem</code> ในส่วนนำ</td></tr>
+    <tr><td>Table หรือ Figure แสดงเป็น <code>??</code></td>
+        <td>ชื่อใน <code>\ref</code> กับ <code>\label</code> ไม่ตรงกัน เทียบทีละตัวอักษร</td></tr>
+    <tr><td>คอมไพล์ผ่านแต่คณิตศาสตร์ผิด</td>
+        <td>คอมไพเลอร์ไม่ตรวจความถูกต้องของคณิตศาสตร์ ต้องคำนวณตรวจเองทุกบรรทัด</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Typesetting with AI Assistance</em> (Prompting for LaTeX, Typical AI Failures, The Verify Loop)</li>
+  <li>สไลด์บทเรียน <em>Figures and Tables</em>, <em>Mathematics</em> และ <em>Theorems and Proofs</em></li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>)</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

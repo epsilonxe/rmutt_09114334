@@ -1,0 +1,89 @@
+=====================================================================
+ Workshop presentations - เนื้อหาสำหรับคัดลอก (Content to copy)
+ คัดลอกข้อความด้านล่างไปวางใน main.tex แล้วเติมคำสั่ง LaTeX เอง
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+ ธีม Madrid กับธีมสี beaver
+ ข้อมูลในตารางคั่นแต่ละช่องด้วยเครื่องหมาย |
+=====================================================================
+
+[ชื่อเรื่อง]
+Campus Pond Water Survey
+
+[ชื่อรอง]
+Results from May 2026
+
+[ผู้นำเสนอ]
+Environmental Science Club
+
+[สถาบัน]
+RMUTT
+
+[วันที่]
+June 2026
+
+---------------------------------------------------------------------
+[สไลด์ 1 - หน้าชื่อเรื่อง]
+
+---------------------------------------------------------------------
+[สไลด์ 2 - Outline - สารบัญ]
+
+---------------------------------------------------------------------
+[หัวข้อ (section)]
+Introduction
+
+[สไลด์ 3 - Why Survey the Pond? - รายการแสดงทีละข้อ]
+- The pond collects rain water from three faculty buildings.
+- Nobody has measured the water for several years.
+- In April we saw green water and a few dead fish near the outlet.
+
+---------------------------------------------------------------------
+[หัวข้อ (section)]
+Methods
+
+[สไลด์ 4 - Sampling Points - สองคอลัมน์ ครึ่งต่อครึ่ง]
+[คอลัมน์ซ้าย]
+Three points were marked with wooden posts.
+1. Inlet pipe (north)
+2. Footbridge (middle)
+3. Outlet (south)
+Samples were taken every Monday at 9 a.m., about 20 cm below the surface.
+[คอลัมน์ขวา - รูป sites.pdf จัดกึ่งกลาง กว้าง 0.85 ของคอลัมน์]
+
+[สไลด์ 5 - Measurements - กล่องสองกล่อง]
+[กล่อง] Temperature and pH
+A digital thermometer and a pocket pH meter, calibrated before every visit.
+[กล่อง] Dissolved Oxygen
+A colour test kit. Each reading was repeated twice and the average was recorded.
+
+---------------------------------------------------------------------
+[หัวข้อ (section)]
+Results
+
+[สไลด์ 6 - Dissolved Oxygen (mg/L) - ตารางกึ่งกลาง ค่า 3.8 และ 3.4 เน้นสี]
+Week | Inlet | Footbridge | Outlet
+1 | 7.2 | 6.8 | 5.1
+2 | 7.0 | 6.5 | 4.6
+3 | 6.9 | 6.3 | 3.8
+4 | 6.7 | 6.1 | 3.4
+
+Temperature rose from 29 to 32 degrees, and the pH stayed between 7.0 and 7.8.
+
+[กล่องเตือน ปรากฏหลังจากกดถัดไป] Problem at the outlet
+Oxygen fell below 4 mg/L in weeks 3 and 4, where the water hardly moves and dense algae grow.
+
+---------------------------------------------------------------------
+[หัวข้อ (section)]
+Next Steps
+
+[สไลด์ 7 - Suggestions - รายการปรากฏทีละข้อ ข้อก่อนหน้ายังอยู่]
+- Remove some floating plants near the outlet every month.
+- Add a small solar fountain to keep the water moving.
+- Repeat the survey at the end of the rainy season.
+
+[กล่องสีเขียว ปรากฏพร้อมข้อที่ 3 เว้นระยะจากรายการ 1em]
+The grounds team has agreed to help with the first two steps.
+
+---------------------------------------------------------------------
+[สไลด์ 8 - Thank You - จัดกึ่งกลาง]
+Questions?                               [ขนาดใหญ่]
+Environmental Science Club, RMUTT        [ขนาดปกติ เว้นระยะ 1em]

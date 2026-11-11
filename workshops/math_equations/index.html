@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · คณิตศาสตร์ 2 · สมการ เมทริกซ์ และการอ้างอิง</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>คณิตศาสตร์ 2 · สมการ เมทริกซ์ และการอ้างอิง</h1>
+    <div class="downloads">
+      <a class="primary" href="math_equations.zip" target="_blank" rel="noopener">ดาวน์โหลด math_equations.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Mathematics<br>(ส่วนสมการและเมทริกซ์)</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>pdflatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>math_equations_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">35′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">55′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เขียนสมการที่มีหมายเลขด้วย <code>equation</code> และอ้างถึงด้วย <code>\label</code> กับ <code>\eqref</code> ได้</li>
+  <li>เขียนสมการหลายบรรทัดที่จัดตรงกันด้วย <code>align</code> และ <code>align*</code> และเลือกเอาหมายเลขออกบางบรรทัดด้วย <code>\nonumber</code> ได้</li>
+  <li>เขียนเมทริกซ์และดีเทอร์มิแนนต์ด้วย <code>pmatrix</code>, <code>bmatrix</code> และ <code>vmatrix</code> ได้</li>
+  <li>เขียนฟังก์ชันแบ่งกรณีด้วย <code>cases</code> ได้</li>
+  <li>อ่านข้อความผิดพลาดที่เกิดจากสมการหลายบรรทัดได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="math_equations.zip" target="_blank" rel="noopener"><code>math_equations.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>math_equations</code> ดังนี้</p>
+<pre class="tex nocopy"><code>math_equations/
+├── doc.pdf      ชิ้นงานต้นแบบ (2 หน้า)
+├── warmup.tex   ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex     ไฟล์เริ่มต้นสำหรับ Part B
+└── content.txt  เนื้อหาของ Part B (สูตรเขียนแบบข้อความธรรมดา)</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>ใช้เครื่องมือชุดเดียวกับ Workshop ก่อนหน้า เปิดโฟลเดอร์ <code>math_equations</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน
+  ใช้แพ็กเกจ <code>mathtools</code> และ <code>amssymb</code> เหมือน <a href="../math_expressions/" target="_blank" rel="noopener">Workshop คณิตศาสตร์ 1 · นิพจน์</a> และคอมไพล์ 2 ครั้งทุกครั้งที่เพิ่มหรือย้ายสมการที่มีหมายเลข</p>
+<div class="callout note">
+  <strong class="label">สิ่งใหม่ใน Workshop นี้</strong>
+  <code>\eqref{...}</code> (สไลด์ Referring to Equations ในบทเรียน Mathematics) ทำงานเหมือน <code>\ref</code> ที่เรียนใน <a href="../images_colours/" target="_blank" rel="noopener">Workshop รูปภาพและสี</a> แต่ใส่วงเล็บรอบหมายเลขสมการให้เอง เช่น (2)
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 35 นาที</span></div>
+<p>ใช้ไฟล์ <code>warmup.tex</code> ทำทีละข้อ บันทึก คอมไพล์ 2 ครั้ง และสังเกตผล</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> <strong>สมการมีหมายเลข</strong> เปลี่ยน <code>\[ A = \pi r^2 . \]</code> เป็น
+<pre class="tex"><code>\begin{equation}
+  A = \pi r^2 .
+  \label{eq:area}
+\end{equation}</code></pre>
+    แล้วเพิ่มประโยค <code>Equation~\ref{eq:area} gives the area.</code> จากนั้นเปลี่ยน <code>\ref</code> เป็น <code>\eqref</code>
+    <p class="q">หมายเลขสมการอยู่ตำแหน่งใด <code>\ref</code> กับ <code>\eqref</code> แสดงผลต่างกันอย่างไร</p></li>
+
+  <li><span class="step-id">A1</span> เปลี่ยน <code>equation</code> เป็น <code>equation*</code>
+    <p class="q">ผลต่างจาก <code>\[...\]</code> หรือไม่ และ <code>\eqref</code> ที่อ้างถึงสมการนี้แสดงอะไร</p></li>
+
+  <li><span class="step-id">A2</span> <strong>หลายบรรทัด</strong> แทน <code>\[...\]</code> 3 ชุดของการแก้สมการ <code>2x + 3 = 11</code> ด้วย
+<pre class="tex"><code>\begin{align}
+  2x + 3 &amp;= 11 \\
+  2x     &amp;= 8  \\
+  x      &amp;= 4
+\end{align}</code></pre>
+    แล้วลองย้าย <code>&amp;</code> ไปไว้หลัง <code>=</code> และเปลี่ยนเป็น <code>align*</code>
+    <p class="q"><code>&amp;</code> กำหนดอะไร ทุกบรรทัดได้หมายเลขหรือไม่ และ <code>align*</code> ต่างอย่างไร</p></li>
+
+  <li><span class="step-id">A3</span> ใช้ <code>align</code> (ไม่มีดอกจัน) แล้วใส่ <code>\nonumber</code> ท้ายสองบรรทัดแรก ก่อน <code>\\</code>
+    <p class="q">เมื่อใดควรมีหมายเลขเฉพาะบางบรรทัด</p></li>
+
+  <li><span class="step-id">A4</span> <strong>เมทริกซ์</strong> แทนบรรทัด <code>% A3: write the matrix here</code> ด้วย
+<pre class="tex"><code>\[
+  M = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix},
+  \qquad
+  \det M = \begin{vmatrix} a &amp; b \\ c &amp; d \end{vmatrix} = ad - bc .
+\]</code></pre>
+    แล้วลองเปลี่ยน <code>pmatrix</code> เป็น <code>bmatrix</code> และเขียนเมทริกซ์ <code>n \times n</code> ทั่วไปด้วย <code>\cdots</code>, <code>\vdots</code> และ <code>\ddots</code>
+    <p class="q">ภายในเมทริกซ์ <code>&amp;</code> และ <code>\\</code> ทำหน้าที่เหมือนในตารางของ <a href="../tables/" target="_blank" rel="noopener">Workshop ตาราง</a> อย่างไร</p></li>
+
+  <li><span class="step-id">A5</span> <strong>ฟังก์ชันแบ่งกรณี</strong> เขียนค่าสัมบูรณ์ในหัวข้อสุดท้ายเป็นสมการแยกบรรทัด
+<pre class="tex"><code>\[
+  |x| =
+  \begin{cases}
+    x  &amp; \text{if } x \geq 0, \\
+    -x &amp; \text{if } x &lt; 0.
+  \end{cases}
+\]</code></pre>
+    <p class="q">ถ้าลืมเว้นวรรคใน <code>\text{if }</code> จะเกิดอะไรขึ้น</p></li>
+
+  <li><span class="step-id">A6</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> ใส่ <code>&amp;</code> ในสมการ <code>equation</code> ของข้อ A0 เช่น <code>A &amp;= \pi r^2 .</code>
+<pre class="term nocopy"><code><span class="err">! Misplaced alignment tab character &amp;.</span>
+l.14   A &amp;
+          = \pi r^2 .
+?</code></pre>
+    <p class="q">ทำไม <code>&amp;</code> ใช้ได้ใน <code>align</code> แต่ใช้ไม่ได้ใน <code>equation</code></p></li>
+
+  <li><span class="step-id">A7</span> เว้นบรรทัดว่างหนึ่งบรรทัดระหว่างบรรทัดใน <code>align</code> แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! Paragraph ended before \align was complete.</span>
+&lt;to be read again&gt;
+                   \par
+l.20
+
+?</code></pre>
+    <p class="q">บรรทัดว่างมีความหมายอะไรใน LaTeX (ย้อนไปดู <a href="../text_formatting/" target="_blank" rel="noopener">Workshop การจัดรูปแบบข้อความ</a>) และทำไมจึงห้ามมีในสมการ</p></li>
+
+  <li><span class="step-id">A8</span> ใส่ <code>\\</code> ท้ายบรรทัดสุดท้ายของ <code>align</code> (หลัง <code>x &amp;= 4</code>) แล้วคอมไพล์ 2 ครั้ง
+    <p class="q">ไม่มีข้อผิดพลาด แต่ผลลัพธ์ผิดปกติอย่างไร (สังเกตหมายเลขสมการและช่องว่างใต้สมการ)</p>
+    แก้ไฟล์กลับให้ถูกต้อง (หมายเลขบรรทัดของแต่ละคนอาจไม่ตรงกับตัวอย่าง)</li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) <code>equation</code>, <code>align</code> และแบบมีดอกจันต่างกันอย่างไร (2) <code>\label</code> ในสมการวางไว้ตรงไหน
+  (3) เมทริกซ์วงเล็บโค้ง เหลี่ยม และเส้นตรงใช้สภาพแวดล้อมใด และ (4) ทำไมห้ามมีบรรทัดว่างในสมการ
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 55 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง เพื่อสร้างตัวอย่างการแก้ระบบสมการ 2 หน้าให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong> คอมไพล์ 2 ครั้งด้วย</p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex main.tex
+<span class="prompt">$ </span>pdflatex main.tex</code></pre>
+
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ชิ้นงานต้นแบบหน้า 1" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-2.png" alt="ชิ้นงานต้นแบบหน้า 2" width="910" height="1287" loading="lazy"></a>
+  <figcaption>หน้า 2</figcaption>
+</figure>
+</div>
+
+<h3>คำแนะนำ</h3>
+<p>ใน <code>content.txt</code> เมทริกซ์เขียนแบบ <code>[1 1; 400 250]</code> กล่าวคือ เว้นวรรคคั่นช่อง และ <code>;</code> คั่นแถว ตารางนี้บอกเฉพาะ<em>สิ่งที่ต้องใช้</em></p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>สมการ (1) และ (2)</td><td><code>align</code> จัดตรงที่ <code>=</code> และ <code>\label</code> ทั้งสองบรรทัด</td></tr>
+    <tr><td>การแทนค่าหัวข้อ 2</td><td><code>align*</code></td></tr>
+    <tr><td>สมการ (3)</td><td><code>equation</code> และ <code>bmatrix</code> 3 ตัว เวกเตอร์ <code>\mathbf{v}</code> และ <code>\mathbf{b}</code></td></tr>
+    <tr><td>ดีเทอร์มิแนนต์</td><td><code>\[...\]</code>, <code>vmatrix</code>, <code>\det</code>, <code>\neq</code></td></tr>
+    <tr><td>สมการ (4)</td><td><code>align</code> สองบรรทัด บรรทัดแรกใช้ <code>\nonumber</code></td></tr>
+    <tr><td>ท้ายหัวข้อ 3</td><td><code>\ref</code> ไปยังหัวข้อ 2 และ <code>pmatrix</code> ในบรรทัด</td></tr>
+    <tr><td>สมการ (5)</td><td><code>equation</code> กับ <code>cases</code> และ <code>\text{if }</code></td></tr>
+    <tr><td>(1), (2), (3) ในเนื้อความ</td><td><code>\eqref</code> (ห้ามพิมพ์ตัวเลขเอง)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li>ตัวเลข 3,400 ในเนื้อความเขียนเป็น <code>3{,}400</code> ในโหมดคณิตศาสตร์หรือพิมพ์ <code>3,400</code> เป็นข้อความธรรมดาก็ได้</li>
+    <li>ใน <code>align</code> ให้ใส่ <code>\label</code> ก่อน <code>\\</code> ของบรรทัดนั้น</li>
+    <li>ถ้าหมายเลขสมการข้ามไปหนึ่งเลข ตรวจว่ามี <code>\\</code> เกินท้ายบรรทัดสุดท้ายหรือไม่</li>
+    <li>เส้นของดีเทอร์มิแนนต์ต้องใช้ <code>vmatrix</code> ไม่ใช่ <code>|</code> พิมพ์เอง เพราะ <code>|</code> ไม่ปรับความสูงตามเมทริกซ์</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>math_equations_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วคอมไพล์ใหม่ 2 ครั้งด้วยชื่อนั้น ส่งทั้งไฟล์ <code>.tex</code> และ <code>.pdf</code></p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> คอมไพล์ผ่านโดยไม่มีบรรทัดที่ขึ้นต้นด้วย <code>!</code> และไม่มีคำเตือน <code>undefined references</code></label></li>
+  <li><label><input type="checkbox" id="b2"> สมการมีหมายเลข (1) ถึง (5) ครบและตรงตำแหน่งกับต้นแบบ</label></li>
+  <li><label><input type="checkbox" id="b3"> สมการหลายบรรทัดจัดตรงกันที่เครื่องหมาย <code>=</code></label></li>
+  <li><label><input type="checkbox" id="b4"> เมทริกซ์ใช้วงเล็บเหลี่ยม เส้นตรง และวงเล็บโค้งตามต้นแบบ</label></li>
+  <li><label><input type="checkbox" id="b5"> หมายเลขสมการและหัวข้อในเนื้อความมาจาก <code>\eqref</code> และ <code>\ref</code></label></li>
+  <li><label><input type="checkbox" id="b6"> เอกสารมี 2 หน้า และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> เขียนการแทนค่าในหัวข้อ 2 ใหม่ให้ทั้งชุดมี<strong>หมายเลขเดียว</strong> โดยใช้ <code>aligned</code> ภายใน <code>equation</code></li>
+  <li><span class="step-id">C2</span> แก้ระบบสมการ 3 ตัวแปร <code>x + y + z = 6</code>, <code>2x - y + z = 3</code>, <code>x + 2y - z = 2</code> ด้วยกฎของคราเมอร์ แสดงเมทริกซ์ <code>3 \times 3</code> และดีเทอร์มิแนนต์ทุกตัว</li>
+  <li><span class="step-id">C3</span> เขียนสมการยาวที่ต้องตัดบรรทัด เช่น การกระจาย <code>(a+b)^5</code> ทุกพจน์ ด้วย <code>align</code> โดยวาง <code>&amp;</code> ไว้หลัง <code>=</code> ในบรรทัดแรก และขึ้นบรรทัดต่อด้วย <code>&amp;\quad +</code></li>
+  <li><span class="step-id">C4</span> เขียนเฉลยการบ้านคณิตศาสตร์ข้อหนึ่งของตัวเอง ที่มีสมการอ้างอิงด้วย <code>\eqref</code> อย่างน้อย 3 ครั้ง</li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! Paragraph ended before \align was complete.</code></td>
+        <td>มีบรรทัดว่างภายใน <code>align</code> หรือลืม <code>\end{align}</code> ลบบรรทัดว่างออก (ใช้ <code>%</code> ถ้าต้องการเว้นให้อ่านง่าย)</td></tr>
+    <tr><td><code>! Misplaced alignment tab character &amp;.</code></td>
+        <td>ใช้ <code>&amp;</code> ใน <code>equation</code> หรือ <code>\[...\]</code> ซึ่งไม่มีการจัดแนว</td></tr>
+    <tr><td><code>! Extra alignment tab has been changed to \cr.</code></td>
+        <td>ใน <code>align</code> หรือเมทริกซ์มี <code>&amp;</code> มากเกินในแถวเดียว</td></tr>
+    <tr><td><code>! Environment pmatrix undefined.</code></td>
+        <td>ยังไม่ได้ <code>\usepackage{mathtools}</code></td></tr>
+    <tr><td>หมายเลขสมการข้ามไป 1 เลข และมีช่องว่างเกิน</td>
+        <td>มี <code>\\</code> เกินท้ายบรรทัดสุดท้ายของ <code>align</code></td></tr>
+    <tr><td>เห็น <code>(??)</code> แทนหมายเลขสมการ</td>
+        <td>คอมไพล์อีกครั้ง หรือชื่อใน <code>\eqref</code> ไม่ตรงกับ <code>\label</code></td></tr>
+    <tr><td>หมายเลขที่ได้จาก <code>\eqref</code> เป็นของสมการผิดตัว</td>
+        <td>ใน <code>align</code> วาง <code>\label</code> ไว้ในบรรทัดที่ผิด หรือบรรทัดนั้นมี <code>\nonumber</code></td></tr>
+    <tr><td>คำว่า if ในฟังก์ชันแบ่งกรณีติดกับตัวแปรและเป็นตัวเอียง</td>
+        <td>ใช้ <code>\text{if }</code> พร้อมเว้นวรรคท้ายคำ</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Mathematics</em> ส่วน Equations, Numbering Equations, Referring to Equations, Align Equations, An Aligned Equation, Matrices</li>
+  <li>สไลด์บทเรียน <em>Figures and Tables</em> ส่วน Labels and Cross-references (ทบทวน <code>\label</code> และ <code>\ref</code>)</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) หัวข้อ 3.5 Multiple Equations และ 3.6 Arrays and Matrices</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

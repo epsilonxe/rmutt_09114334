@@ -1,0 +1,57 @@
+=====================================================================
+ Workshop drafting_with_ai - เนื้อหาสำหรับคัดลอก (Content to copy)
+ ข้อความของบทความทั้งหมด ไม่ต้องพิมพ์ใหม่ วางลงใน main.tex หรือแนบไปกับพรอมต์
+ บรรทัดที่ขึ้นต้นด้วย [ ... ] เป็นคำอธิบาย ไม่ต้องคัดลอก
+=====================================================================
+
+[ชื่อเรื่อง]
+Pythagorean Triples
+
+[ผู้เขียน]
+Typesetting Club
+
+[วันที่]
+November 2026
+
+[หัวข้อระดับ 1]
+Right Triangles with Whole Sides
+
+A Pythagorean triple (ตัวเอียง) is a list of three positive integers (a, b, c) with a^2 + b^2 = c^2. By the theorem of Pythagoras, such numbers are the side lengths of a right triangle, as in Figure <<ref fig:triangle>>. Table <<ref tab:triples>> lists the five triples with the smallest hypotenuse c.
+
+[รูปภาพ P2: ไฟล์ triangle.pdf]
+Caption: A right triangle with legs a, b and hypotenuse c
+Label: fig:triangle
+
+[ตาราง P3]
+Caption: The five Pythagorean triples with the smallest c
+Label: tab:triples
+a  b   c   a^2 + b^2
+3  4   5   25
+6  8   10  100
+5  12  13  169
+9  12  15  225
+8  15  17  289
+
+[หัวข้อระดับ 1]
+Euclid's Formula
+
+Most triples in Table <<ref tab:triples>> come from one formula, which was already known to Euclid.
+
+[ทฤษฎีบท P4: หมายเลข 1 ชื่อ Euclid, Label: thm:euclid]
+Let m and n be integers with m > n > 0. Then
+    a = m^2 - n^2,   b = 2mn,   c = m^2 + n^2
+form a Pythagorean triple.
+
+[บทพิสูจน์ P5]
+Since m > n > 0, all three numbers are positive. Expanding gives
+    a^2 + b^2 = (m^2 - n^2)^2 + (2mn)^2
+              = m^4 - 2m^2 n^2 + n^4 + 4m^2 n^2
+              = m^4 + 2m^2 n^2 + n^4
+              = (m^2 + n^2)^2 = c^2.
+
+[ย่อหน้าธรรมดา]
+For example, m = 2, n = 1 gives (3, 4, 5) and m = 3, n = 2 gives (5, 12, 13). The triple (9, 12, 15) does not come from Theorem <<ref thm:euclid>> directly: it is three times (3, 4, 5).
+
+[หัวข้อไม่มีหมายเลข]
+Verification Log
+[ตารางบันทึกการตรวจสอบ 3 คอลัมน์ Piece / What the AI got wrong / How I checked and fixed it ดูรูปแบบจาก doc.pdf]

@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop · คณิตศาสตร์ 1 · นิพจน์</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Workshop</div></div>
+    <h1>คณิตศาสตร์ 1 · นิพจน์</h1>
+    <div class="downloads">
+      <a class="primary" href="math_expressions.zip" target="_blank" rel="noopener">ดาวน์โหลด math_expressions.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ชิ้นงานต้นแบบ (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>เวลา</dt><dd>90–120 นาที</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>Mathematics<br>(ส่วนนิพจน์และสัญลักษณ์)</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>pdflatex</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>math_expressions_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.tex</span></code><br>และ <code>.pdf</code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#objectives"><span>วัตถุประสงค์</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#setup"><span>เตรียมเครื่อง</span><span class="t">5′</span></a></li>
+    <li><a href="#part-a"><span>Part A · อุ่นเครื่อง</span><span class="t">35′</span></a></li>
+    <li><a href="#part-b"><span>Part B · งานหลัก</span><span class="t">55′</span></a></li>
+    <li><a href="#part-c"><span>Part C · ท้าทาย</span><span class="t">เสริม</span></a></li>
+    <li><a href="#errors"><span>ข้อผิดพลาดที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="objectives">
+  <div class="sec-head"><h2>วัตถุประสงค์</h2></div>
+<p>เมื่อจบ Workshop นี้ นักศึกษาจะสามารถ</p>
+<ol>
+  <li>เขียนคณิตศาสตร์ในบรรทัด (<code>$...$</code>) และแบบแยกบรรทัด (<code>\[...\]</code>) และบอกความต่างของทั้งสองแบบได้</li>
+  <li>เขียนเลขชี้กำลัง ตัวห้อย เศษส่วน ราก และสัมประสิทธิ์ทวินามได้</li>
+  <li>เขียนผลรวม อินทิกรัล และลิมิตพร้อมขอบเขตได้</li>
+  <li>ใช้อักษรกรีก สัญลักษณ์ความสัมพันธ์ เซต และวงเล็บที่ปรับขนาดตามเนื้อหาด้วย <code>\left</code> และ <code>\right</code> ได้</li>
+  <li>เพิ่มข้อความและช่องว่างในโหมดคณิตศาสตร์ด้วย <code>\text</code>, <code>\quad</code> และ <code>\,</code> ได้</li>
+</ol>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="math_expressions.zip" target="_blank" rel="noopener"><code>math_expressions.zip</code></a> แล้วแตกไฟล์ไว้ในที่ที่หาง่าย จะได้โฟลเดอร์ <code>math_expressions</code> ดังนี้</p>
+<pre class="tex nocopy"><code>math_expressions/
+├── doc.pdf      ชิ้นงานต้นแบบ (1 หน้า)
+├── warmup.tex   ไฟล์สั้น ๆ สำหรับ Part A
+├── main.tex     ไฟล์เริ่มต้นสำหรับ Part B
+└── content.txt  เนื้อหาของ Part B (สูตรเขียนแบบข้อความธรรมดา)</code></pre>
+<p>ดูไฟล์แยกทีละไฟล์ได้ที่
+  <a href="starter/warmup.tex" target="_blank" rel="noopener"><code>warmup.tex</code></a>,
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/content.txt" target="_blank" rel="noopener"><code>content.txt</code></a></p>
+</section>
+
+<section class="card" id="setup">
+  <div class="sec-head"><h2>เตรียมเครื่อง</h2><span class="badge">ประมาณ 5 นาที</span></div>
+<p>ใช้เครื่องมือชุดเดียวกับ Workshop ก่อนหน้า เปิดโฟลเดอร์ <code>math_expressions</code> ใน Sublime Text และเปิดเทอร์มินัลในโฟลเดอร์เดียวกัน</p>
+<div class="callout note">
+  <strong class="label">แพ็กเกจของ Workshop นี้</strong>
+  <code>mathtools</code> (โหลด <code>amsmath</code> ให้ด้วย มีสภาพแวดล้อมและคำสั่งคณิตศาสตร์เพิ่มเติม เช่น <code>\text</code> และ <code>\binom</code>) และ <code>amssymb</code> (สัญลักษณ์เพิ่มเติม เช่น <code>\mathbb</code>)
+  ทั้งสองติดตั้งมาพร้อม TeX Live และ MiKTeX แล้ว
+</div>
+<div class="callout warn">
+  <strong class="label">ช่องว่างในโหมดคณิตศาสตร์</strong>
+  ระหว่าง <code>$...$</code> LaTeX ไม่สนใจช่องว่างที่พิมพ์ และจัดระยะเองตามชนิดของสัญลักษณ์ จึงเขียน <code>$a+b$</code> หรือ <code>$a + b$</code> ก็ได้ผลเหมือนกัน
+</div>
+</section>
+
+<section class="card" id="part-a">
+  <div class="eyebrow">Part A</div>
+  <div class="sec-head"><h2>อุ่นเครื่อง</h2><span class="badge">ประมาณ 35 นาที</span></div>
+<p>ไฟล์ <code>warmup.tex</code> มีสูตรที่เขียนเป็นข้อความธรรมดา ทำทีละข้อเพื่อเปลี่ยนให้เป็นคณิตศาสตร์ที่ถูกต้อง บันทึก คอมไพล์ และสังเกตผล</p>
+
+<ol class="steps">
+  <li><span class="step-id">A0</span> <strong>ทำให้ผิดโดยตั้งใจ</strong> เปลี่ยน <code>pi r2</code> เป็น <code>pi r^2</code> (ยังไม่ใส่ <code>$</code>) แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! Missing $ inserted.</span>
+&lt;inserted text&gt;
+                $
+l.12 The area of a circle is pi r^
+                                  2, where r is the radius.
+?</code></pre>
+    พิมพ์ <kbd>x</kbd> แล้ว <kbd>Enter</kbd> จากนั้นเขียนใหม่เป็น <code>$\pi r^2$</code>
+    <p class="q">ทำไม <code>^</code> จึงใช้ได้เฉพาะในโหมดคณิตศาสตร์ และตัว <code>r</code> ในโหมดคณิตศาสตร์ต่างจากตัว r ในข้อความอย่างไร</p></li>
+
+  <li><span class="step-id">A1</span> <strong>เลขชี้กำลังและตัวห้อย</strong> ลองเขียน <code>$x^10$</code> เทียบกับ <code>$x^{10}$</code> และ <code>$a_ij$</code> เทียบกับ <code>$a_{ij}$</code>
+    <p class="q">วงเล็บปีกกาบอกอะไรกับ LaTeX</p></li>
+
+  <li><span class="step-id">A2</span> <strong>เศษส่วนและราก</strong> เขียนคำตอบของสมการกำลังสองในย่อหน้าที่สองใหม่ด้วย <code>\frac{...}{...}</code>, <code>\sqrt{...}</code> และ <code>\pm</code>
+    เขียนในบรรทัดด้วย <code>$...$</code> ก่อน แล้วเปลี่ยนเป็น <code>\[...\]</code>
+    <p class="q">เศษส่วนในบรรทัดกับแบบแยกบรรทัดมีขนาดต่างกันอย่างไร ลอง <code>\sqrt[3]{x}</code> ด้วย</p></li>
+
+  <li><span class="step-id">A3</span> <strong>อักษรกรีก</strong> เปลี่ยน <code>alpha</code> เป็น <code>$\alpha$</code> และเขียน 0 กับ 90 องศาด้วย <code>$0^\circ$</code> และ <code>$90^\circ$</code>
+    จากนั้นลองตัวใหญ่ <code>$\Delta$</code>, <code>$\Sigma$</code>, <code>$\Omega$</code> แล้วลอง <code>$\Alpha$</code>
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+&lt;recently read&gt; \Alpha
+
+l.18 The angle $\Alpha
+                      $ is between 0 and 90 degrees.
+?</code></pre>
+    <p class="q">ทำไมจึงไม่มีคำสั่ง <code>\Alpha</code> (เปรียบเทียบรูปร่างของอัลฟาตัวใหญ่กับตัว A)</p></li>
+
+  <li><span class="step-id">A4</span> <strong>ผลรวม อินทิกรัล ลิมิต</strong> เขียนประโยคที่สามใหม่เป็น <code>$\sum_{k=1}^{n} k = \frac{n(n+1)}{2}$</code>
+    แล้วเขียนซ้ำแบบแยกบรรทัด และลองใส่ <code>\displaystyle</code> หน้า <code>\sum</code> ในแบบในบรรทัด
+    จากนั้นเขียน <code>\int_0^1 x^2 \, dx</code> และ <code>\lim_{x \to 0}</code> ทั้งสองแบบ
+    <p class="q">ขอบเขตของ <code>\sum</code> อยู่ตำแหน่งใดในแต่ละแบบ <code>\,</code> ก่อน <code>dx</code> ทำอะไร</p></li>
+
+  <li><span class="step-id">A5</span> <strong>วงเล็บปรับขนาด</strong> เขียน <code>\[ (1 + \frac{1}{n})^n \]</code> แล้วเปลี่ยนเป็น <code>\[ \left(1 + \frac{1}{n}\right)^n \]</code>
+    <p class="q">วงเล็บแบบใดสูงพอกับเศษส่วน</p></li>
+
+  <li><span class="step-id">A6</span> <strong>ข้อความในสูตร</strong> เขียน <code>\[ x = 1 if y > 0 \]</code> แล้วดูผล
+    จากนั้นแก้เป็น <code>\[ x = 1 \quad \text{if } y &gt; 0 \]</code> (ต้องเรียก <code>\usepackage{mathtools}</code> ก่อน)
+    <p class="q">คำว่า if ในแบบแรกผิดอย่างไร</p></li>
+
+  <li><span class="step-id">A7</span> <strong>สัญลักษณ์และเซต</strong> เขียน <code>$\mathbb{R}$</code> ก่อนเรียกแพ็กเกจ <code>amssymb</code> แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! Undefined control sequence.</span>
+&lt;recently read&gt; \mathbb
+
+l.18 The set $\mathbb
+                     {R}$ and the angle alpha is between 0 and 90 degrees.
+?</code></pre>
+    เพิ่ม <code>\usepackage{amssymb}</code> แล้วลองสัญลักษณ์ <code>\leq</code>, <code>\geq</code>, <code>\neq</code>, <code>\in</code>, <code>\subset</code>, <code>\infty</code>, <code>\cdots</code>
+    และเซต <code>$\{ x \in \mathbb{R} \mid x &gt; 0 \}$</code>
+    <p class="q">ทำไมต้องเขียน <code>\{</code> แทน <code>{</code> สำหรับวงเล็บปีกกาของเซต</p></li>
+
+  <li><span class="step-id">A8</span> <strong>ลืมปิด <code>$</code></strong> ลบ <code>$</code> ตัวปิดของสูตรหนึ่งในย่อหน้าแรก แล้วคอมไพล์
+<pre class="term nocopy"><code><span class="err">! Missing $ inserted.</span>
+&lt;inserted text&gt;
+                $
+l.13
+
+?</code></pre>
+    <p class="q">ทำไมหมายเลขบรรทัดจึงชี้ไปที่บรรทัดว่างหลังย่อหน้า แทนที่จะชี้ไปที่ตำแหน่งที่ลืม <code>$</code></p>
+    แก้ไฟล์กลับให้คอมไพล์ผ่านก่อนไปต่อ (หมายเลขบรรทัดของแต่ละคนอาจไม่ตรงกับตัวอย่าง)</li>
+</ol>
+
+<div class="callout ok">
+  <strong class="label">จุดตรวจ</strong>
+  ถึงตรงนี้ควรตอบได้ว่า (1) <code>$...$</code> กับ <code>\[...\]</code> ต่างกันอย่างไร (2) เมื่อใดต้องใช้วงเล็บปีกกาหลัง <code>^</code> หรือ <code>_</code>
+  (3) คำสั่งใดมาจาก <code>mathtools</code> และ <code>amssymb</code> และ (4) ข้อความ <code>Missing $ inserted</code> บอกอะไร
+</div>
+</section>
+
+<section class="card" id="part-b">
+  <div class="eyebrow">Part B</div>
+  <div class="sec-head"><h2>งานหลัก</h2><span class="badge">ประมาณ 55 นาที</span></div>
+<p>เปิด <code>main.tex</code> และคัดลอกเนื้อหาจาก <code>content.txt</code> มาวาง แล้วเปลี่ยนสูตรที่เขียนเป็นข้อความธรรมดาให้เป็นคณิตศาสตร์ เพื่อสร้างแผ่นสูตร 1 หน้าให้<strong>เหมือน <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> มากที่สุด</strong></p>
+<pre class="term"><code><span class="prompt">$ </span>pdflatex main.tex</code></pre>
+
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc.png" alt="ภาพตัวอย่างชิ้นงาน Calculus Formula Sheet" width="910" height="1287"></a>
+  <figcaption>ชิ้นงานต้นแบบ (คลิกเพื่อเปิด PDF)</figcaption>
+</figure>
+
+<h3>คำแนะนำ</h3>
+<p>ใน <code>content.txt</code> สูตรเขียนแบบข้อความธรรมดา เช่น <code>sqrt(pi)</code> หรือ <code>a^(m+n)</code> ให้เปลี่ยนเป็นคำสั่ง LaTeX เอง ตารางนี้บอกเฉพาะ<em>สิ่งที่ต้องใช้</em></p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ส่วนของชิ้นงาน</th><th>สิ่งที่ต้องใช้</th></tr></thead>
+  <tbody>
+    <tr><td>ส่วนนำ</td><td><code>mathtools</code> และ <code>amssymb</code></td></tr>
+    <tr><td>หัวข้อ</td><td><code>\section*</code> (ไม่มีหมายเลข)</td></tr>
+    <tr><td>Numbers, Sets and Powers</td><td><code>\mathbb</code>, <code>\subset</code>, <code>\in</code>, <code>\mid</code>, <code>\leq</code>, <code>\{ \}</code>, <code>\sqrt[n]{...}</code>, <code>\frac</code></td></tr>
+    <tr><td>Limits and Derivatives</td><td><code>\lim_{...}</code>, <code>\to</code>, <code>\infty</code>, <code>\theta</code>, <code>\left( \right)</code>, <code>\neq</code>, ตัว <code>'</code> สำหรับอนุพันธ์</td></tr>
+    <tr><td>Integrals</td><td><code>\int</code> มีและไม่มีขอบเขต, <code>\,</code> ก่อน <code>dx</code>, <code>\pi</code></td></tr>
+    <tr><td>Sums and Series</td><td><code>\sum_{...}^{...}</code>, <code>\cdots</code>, <code>\binom</code>, <code>\displaystyle</code></td></tr>
+    <tr><td>สูตรหลายสูตรในบรรทัดเดียว</td><td><code>\qquad</code> คั่น และ <code>\text{and}</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>คำใบ้เพิ่มเติม (เปิดดูเมื่อติด)</summary>
+  <ul>
+    <li><code>\sin</code> ทำให้ sin เป็นตัวตรงพร้อมระยะที่ถูกต้อง ถ้าเขียน <code>sin</code> เฉย ๆ จะกลายเป็นตัวแปร s, i, n คูณกัน</li>
+    <li>จุดหรือจุลภาคท้ายสูตรแบบแยกบรรทัดให้ใส่ไว้<strong>ใน</strong> <code>\[...\]</code></li>
+    <li>เขียนเป็นสูตรทุกครั้งแม้เป็นตัวแปรตัวเดียว เช่น <code>$n$</code> ไม่ใช่ n</li>
+    <li>ถ้าเกิน 1 หน้า ตรวจว่าไม่มีบรรทัดว่างก่อนหรือหลัง <code>\[...\]</code> โดยไม่จำเป็น เพราะบรรทัดว่างทำให้เกิดย่อหน้าใหม่</li>
+  </ul>
+</details>
+
+<h3>ส่งงาน</h3>
+<p>เปลี่ยนชื่อไฟล์เป็น <code>math_expressions_&lt;รหัสนักศึกษา&gt;.tex</code> แล้วคอมไพล์ใหม่ด้วยชื่อนั้น ส่งทั้งไฟล์ <code>.tex</code> และ <code>.pdf</code></p>
+
+<h3>รายการตรวจสอบก่อนส่ง</h3>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="b1"> คอมไพล์ผ่านโดยไม่มีบรรทัดที่ขึ้นต้นด้วย <code>!</code></label></li>
+  <li><label><input type="checkbox" id="b2"> ตัวแปรทุกตัวในเนื้อความเป็นตัวเอียงแบบคณิตศาสตร์ (อยู่ใน <code>$...$</code>)</label></li>
+  <li><label><input type="checkbox" id="b3"> <code>sin</code>, <code>lim</code> เป็นตัวตรง และวงเล็บรอบเศษส่วนสูงพอ</label></li>
+  <li><label><input type="checkbox" id="b4"> ขอบเขตของ <code>\sum</code>, <code>\int</code>, <code>\lim</code> อยู่ตำแหน่งเดียวกับต้นแบบ</label></li>
+  <li><label><input type="checkbox" id="b5"> ผลรวมในประโยคมีทั้งแบบเล็กและแบบ <code>\displaystyle</code></label></li>
+  <li><label><input type="checkbox" id="b6"> เอกสารมี 1 หน้า และชื่อไฟล์ทั้งสองถูกต้อง</label></li>
+</ul>
+</section>
+
+<section class="card" id="part-c">
+  <div class="eyebrow">Part C</div>
+  <div class="sec-head"><h2>ท้าทาย</h2><span class="badge optional">ไม่บังคับ · ประมาณ 20–30 นาที</span></div>
+<p>ทำเพิ่มในไฟล์ใหม่ ข้อใดก็ได้</p>
+<ol class="steps">
+  <li><span class="step-id">C1</span> เขียนเศษส่วนต่อเนื่อง
+    <code>\[ 1 + \cfrac{1}{1 + \cfrac{1}{1 + \cfrac{1}{1 + \cdots}}} \]</code> แล้วเทียบกับการใช้ <code>\frac</code> แทน <code>\cfrac</code></li>
+  <li><span class="step-id">C2</span> เขียนผลรวมที่มีเงื่อนไขสองบรรทัดใต้เครื่องหมายด้วย <code>\sum_{\substack{0 \le i \le n \\ i \text{ even}}} i</code></li>
+  <li><span class="step-id">C3</span> เขียน <code>$a \bmod n$</code> และ <code>$a \equiv b \pmod{n}$</code> แล้วเปรียบเทียบระยะห่างที่ได้</li>
+  <li><span class="step-id">C4</span> ทำแผ่นสูตร 1 หน้าของวิชาคณิตศาสตร์หรือฟิสิกส์ที่เรียนอยู่ อย่างน้อย 10 สูตร</li>
+</ol>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ข้อผิดพลาดที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! Missing $ inserted.</code></td>
+        <td>ใช้ <code>^</code>, <code>_</code> หรือคำสั่งคณิตศาสตร์ (เช่น <code>\alpha</code>, <code>\frac</code>) นอกโหมดคณิตศาสตร์ หรือลืม <code>$</code> ตัวปิด</td></tr>
+    <tr><td><code>! Undefined control sequence.</code> ที่ <code>\mathbb</code></td>
+        <td>ยังไม่ได้ <code>\usepackage{amssymb}</code></td></tr>
+    <tr><td><code>! Undefined control sequence.</code> ที่ <code>\text</code> หรือ <code>\binom</code></td>
+        <td>ยังไม่ได้ <code>\usepackage{mathtools}</code></td></tr>
+    <tr><td><code>! Display math should end with $$.</code></td>
+        <td>เปิด <code>\[</code> แต่ปิดด้วย <code>$</code> หรือสลับคู่กัน</td></tr>
+    <tr><td><code>! Missing } inserted.</code> หรือ <code>! Extra }, or forgotten $.</code></td>
+        <td>วงเล็บปีกกาไม่ครบคู่ใน <code>\frac{...}{...}</code> หรือ <code>^{...}</code></td></tr>
+    <tr><td><code>! Missing delimiter (. inserted).</code></td>
+        <td>ใช้ <code>\left</code> โดยไม่มีวงเล็บตามหลัง หรือใช้ <code>\left{</code> แทน <code>\left\{</code></td></tr>
+    <tr><td>มีแค่ตัวแรกที่ยกกำลัง เช่น <code>x^10</code> ได้ x¹0</td>
+        <td>ครอบด้วยวงเล็บปีกกา <code>x^{10}</code></td></tr>
+    <tr><td>คำในสูตรติดกันและเป็นตัวเอียง</td>
+        <td>ใช้ <code>\text{...}</code> สำหรับคำ และ <code>\sin</code>, <code>\log</code> สำหรับฟังก์ชัน</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียน <em>Mathematics</em> ส่วน Math Mode, Symbols, Greek Letters, Powers and indices, Fractions, Roots, Sums and Integrals, Brackets</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>) บทที่ 3 (Typesetting Mathematical Formulae) และตารางสัญลักษณ์ท้ายบท</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

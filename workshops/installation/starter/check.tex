@@ -1,0 +1,70 @@
+% Workshop installation - ไฟล์ตรวจสอบระบบ (Part B ข้อ B2-B4)
+% แก้เฉพาะ 3 บรรทัดที่มี <...> ด้านล่าง (ชื่อจะพิมพ์เป็นภาษาไทยหรืออังกฤษก็ได้)
+% แล้วคอมไพล์ด้วยคำสั่ง  xelatex check.tex
+
+\newcommand{\studentname}{<your name>}
+\newcommand{\studentid}{<student ID>}
+\newcommand{\versionline}{<first line of xelatex --version>}
+
+% ---- ไม่ต้องแก้ไขส่วนที่เหลือ ---------------------------------------------
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{fontspec}
+\usepackage{amssymb}
+\usepackage{array}
+
+\newcounter{missing}
+\newcommand{\ok}{$\checkmark$~OK}
+\newcommand{\bad}{\stepcounter{missing}$\times$~\textbf{missing}}
+\newcommand{\pkg}[2]{\texttt{#1} & #2 & \IfFileExists{#1}{\ok}{\bad}\\}
+
+\IfFontExistsTF{Laksaman.otf}
+  {\newfontfamily{\thai}{Laksaman.otf}[Script=Thai]\newcommand{\thaitest}{\ok}}
+  {\newcommand{\thai}{}\newcommand{\thaitest}{\bad}}
+
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+{\LARGE\bfseries LaTeX System Check}\par
+\medskip
+{\large \thai\studentname \quad \texttt{\studentid}}\par
+\bigskip
+
+\section*{Programs}
+\begin{tabular}{@{}>{\bfseries}l l@{}}
+  You typed      & \texttt{\detokenize\expandafter{\versionline}}\\
+  XeTeX revision & \the\XeTeXversion\XeTeXrevision\\
+  LaTeX format   & \fmtversion\\
+\end{tabular}
+
+\section*{Packages and classes used in later workshops}
+\begin{tabular}{@{}l l l@{}}
+  \pkg{amsmath.sty}{Maths}
+  \pkg{amsthm.sty}{Theorems and proofs}
+  \pkg{graphicx.sty}{Images}
+  \pkg{xcolor.sty}{Colours}
+  \pkg{booktabs.sty}{Tables}
+  \pkg{biblatex.sty}{Citations}
+  \pkg{beamer.cls}{Presentations}
+  \pkg{thaispec.sty}{Thai documents}
+  \pkg{exam.cls}{Exam papers}
+  \pkg{moodle.sty}{Moodle quizzes}
+\end{tabular}
+
+\section*{Thai font}
+\begin{tabular}{@{}l l l@{}}
+  \texttt{Laksaman} & {\thai ภาษาไทยพร้อมใช้งาน} & \thaitest\\
+\end{tabular}
+
+\bigskip\bigskip
+\ifnum\value{missing}=0
+  \fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\centering\large\bfseries
+    $\checkmark$ All checks passed. This computer is ready for the course.}}
+\else
+  \fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\centering\large\bfseries
+    $\times$ \arabic{missing} check(s) failed. See the common errors on the workshop page.}}
+\fi
+
+\end{document}
