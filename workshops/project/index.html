@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project · โครงงาน</title>
+<script>try{if(localStorage.getItem("workshop-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&amp;family=Sarabun:ital,wght@0,300;0,600;1,300&amp;display=swap">
+<link rel="stylesheet" href="../assets/workshop.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <div class="band-top"><div class="kicker">09114334 · Project</div></div>
+    <h1>โครงงาน · เอกสาร สไลด์ และการนำเสนอ</h1>
+    <div class="downloads">
+      <a class="primary" href="project.zip" target="_blank" rel="noopener">ดาวน์โหลด project.zip</a>
+      <a href="doc.pdf" target="_blank" rel="noopener">ตัวอย่างโครงงาน (doc.pdf)</a>
+    </div>
+    <dl class="facts">
+      <div data-icon="time"><dt>กำหนดส่ง</dt><dd>ศุกร์ 26 ก.พ. 2570<br>เวลา 23.59 น.</dd></div>
+      <div data-icon="lectures"><dt>บทเรียน</dt><dd>ทุกบทเรียน<br>(25% ของคะแนนรวม)</dd></div>
+      <div data-icon="tools"><dt>เครื่องมือ</dt><dd>Sublime Text<br>เทอร์มินัล + <code>latexmk</code></dd></div>
+      <div data-icon="submit"><dt>ส่งงาน</dt><dd><code>project_<wbr><span class="nowrap">&lt;รหัสนักศึกษา&gt;.zip</span></code></dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="สารบัญ">
+  <div class="toc-title">สารบัญ</div>
+  <ol>
+    <li><a href="#overview"><span>ภาพรวม</span></a></li>
+    <li><a href="#requirements"><span>สิ่งที่เอกสารต้องมี</span></a></li>
+    <li><a href="#files"><span>ไฟล์ที่ได้รับ</span></a></li>
+    <li><a href="#timeline"><span>กำหนดการ</span></a></li>
+    <li><a href="#submit"><span>การส่งงาน</span></a></li>
+    <li><a href="#rubric"><span>เกณฑ์การให้คะแนน</span></a></li>
+    <li><a href="#ai"><span>AI และข้อมูลส่วนตัว</span></a></li>
+    <li><a href="#errors"><span>ปัญหาที่พบบ่อย</span></a></li>
+    <li><a href="#refs"><span>แหล่งอ้างอิง</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="card" id="overview">
+  <div class="sec-head"><h2>ภาพรวม</h2></div>
+<p>โครงงานเป็นงานเดี่ยว คิดเป็น 25 คะแนนของรายวิชา นักศึกษาเลือกหัวข้อเองได้อย่างอิสระ เช่น เรื่องจากวิชาเอกของตนเอง รายงานการทดลอง หรือบันทึกทางคณิตศาสตร์สั้น ๆ แล้วจัดทำงาน 3 ชิ้นจากหัวข้อเดียวกัน</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ชิ้นงาน</th><th>รายละเอียด</th><th>คะแนน</th></tr></thead>
+  <tbody>
+    <tr><td>เอกสาร</td><td>คลาส <code>article</code> หรือ <code>report</code> ยาว 6–10 หน้า มีองค์ประกอบครบตามหัวข้อถัดไป</td><td>15</td></tr>
+    <tr><td>สไลด์</td><td>คลาส <code>beamer</code> สร้างจากเนื้อหาของเอกสาร</td><td>5</td></tr>
+    <tr><td>การนำเสนอ</td><td>นำเสนอ 5 นาที ตอบคำถาม 3 นาที ในชั้นเรียน</td><td>5</td></tr>
+  </tbody>
+</table>
+</div>
+<p>เขียนเป็นภาษาไทยหรือภาษาอังกฤษก็ได้ สไลด์ใช้ภาษาเดียวกับเอกสาร เอกสารภาษาไทยต้องใช้ <code>thaispec</code> และคอมไพล์ด้วย <code>xelatex</code> ตามที่เรียนใน <a href="../thai_macros/" target="_blank" rel="noopener">Workshop เอกสารภาษาไทยและคำสั่งที่สร้างเอง</a></p>
+<p>ดูตัวอย่างโครงงานที่มีองค์ประกอบครบได้ที่ <a href="doc.pdf" target="_blank" rel="noopener">doc.pdf</a> (บทความภาษาอังกฤษเรื่อง The Golden Ratio ยาว 6 หน้า) ตัวอย่างนี้ให้ดูรูปแบบเท่านั้น ไม่มีไฟล์ต้นฉบับให้</p>
+<div class="preview-grid">
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-1.png" alt="ตัวอย่างโครงงานหน้า 1" width="935" height="1210" loading="lazy"></a>
+  <figcaption>หน้า 1</figcaption>
+</figure>
+<figure class="preview">
+  <a href="doc.pdf" target="_blank" rel="noopener"><img src="doc-4.png" alt="ตัวอย่างโครงงานหน้า 4" width="935" height="1210" loading="lazy"></a>
+  <figcaption>หน้า 4</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="card" id="requirements">
+  <div class="sec-head"><h2>สิ่งที่เอกสารต้องมี</h2></div>
+<p>เอกสารต้องมีองค์ประกอบทุกข้อต่อไปนี้ ใช้รายการนี้ตรวจงานของตนเองก่อนส่ง</p>
+<ul class="checklist">
+  <li><label><input type="checkbox" id="r1"> ชื่อเรื่อง ผู้เขียน บทคัดย่อ (<code>abstract</code>) และสารบัญ (<code>\tableofcontents</code>)</label></li>
+  <li><label><input type="checkbox" id="r2"> แบ่งหัวข้อด้วย <code>\section</code> (และ <code>\subsection</code> ถ้าต้องการ) มีบทนำและบทสรุป</label></li>
+  <li><label><input type="checkbox" id="r3"> รูปภาพอย่างน้อย 1 รูป และตารางอย่างน้อย 1 ตาราง ในสภาพแวดล้อม <code>figure</code> และ <code>table</code> ที่มี <code>\caption</code></label></li>
+  <li><label><input type="checkbox" id="r4"> อ้างอิงข้ามด้วย <code>\label</code> และ <code>\ref</code> ถึงรูป ตาราง หัวข้อ และสมการ</label></li>
+  <li><label><input type="checkbox" id="r5"> สมการที่มีหมายเลข และสมการหลายบรรทัด (<code>align</code> หรือ <code>align*</code>)</label></li>
+  <li><label><input type="checkbox" id="r6"> สภาพแวดล้อมจาก <code>amsthm</code> อย่างน้อย 1 ชนิด เช่น <code>definition</code>, <code>theorem</code> หรือ <code>example</code> (หัวข้อที่ไม่ใช่คณิตศาสตร์ใช้ <code>definition</code> หรือ <code>example</code> ได้)</label></li>
+  <li><label><input type="checkbox" id="r7"> บรรณานุกรมด้วย <code>biblatex</code> และ <code>biber</code> อย่างน้อย 5 แหล่ง จากอย่างน้อย 2 ชนิด (เช่น <code>@book</code> และ <code>@article</code>) ทุกแหล่งมีอยู่จริง</label></li>
+  <li><label><input type="checkbox" id="r8"> คำสั่งที่สร้างเองด้วย <code>\newcommand</code> อย่างน้อย 2 คำสั่ง และใช้จริงในเนื้อหา</label></li>
+  <li><label><input type="checkbox" id="r9"> แบ่งเนื้อหาเป็นหลายไฟล์ด้วย <code>\input</code> หรือ <code>\include</code></label></li>
+  <li><label><input type="checkbox" id="r10"> หัวข้อ AI Use Statement ท้ายเอกสาร (ดูหัวข้อ <a href="#ai">AI และข้อมูลส่วนตัว</a>)</label></li>
+</ul>
+</section>
+
+<section class="card" id="files">
+  <div class="sec-head"><h2>ไฟล์ที่ได้รับ</h2></div>
+<p>ดาวน์โหลด <a href="project.zip" target="_blank" rel="noopener"><code>project.zip</code></a> แล้วแตกไฟล์ จะได้โฟลเดอร์ <code>project</code> ที่เป็นโครงของงาน คอมไพล์ได้ทันทีแต่ยังไม่มีเนื้อหา</p>
+<pre class="tex nocopy"><code>project/
+├── doc.pdf              ตัวอย่างโครงงาน (ดูรูปแบบเท่านั้น)
+├── main.tex             ไฟล์หลัก ส่วนนำ คำสั่งที่สร้างเอง และการเรียกไฟล์ย่อย
+├── sections/
+│   ├── introduction.tex บทนำ
+│   ├── body.tex         เนื้อหาหลัก (แบ่งเป็นหลายไฟล์เพิ่มได้)
+│   └── conclusion.tex   บทสรุป
+├── refs.bib             ฐานข้อมูลบรรณานุกรม (มีตัวอย่าง 1 รายการ)
+├── figures/             โฟลเดอร์สำหรับรูปภาพ
+├── slides.tex           โครงสไลด์ beamer สำหรับการนำเสนอ
+└── Laksaman.fontspec    ใช้เมื่อเขียนเอกสารภาษาไทย</code></pre>
+<p>ดูไฟล์แยกได้ที่
+  <a href="starter/main.tex" target="_blank" rel="noopener"><code>main.tex</code></a>,
+  <a href="starter/slides.tex" target="_blank" rel="noopener"><code>slides.tex</code></a>,
+  <a href="starter/refs.bib" target="_blank" rel="noopener"><code>refs.bib</code></a></p>
+<p>คอมไพล์ด้วยคำสั่งต่อไปนี้ (เอกสารภาษาไทยให้ลบ <code>%</code> หน้าบรรทัด <code>thaispec</code> ใน <code>main.tex</code> ก่อน)</p>
+<pre class="term"><code><span class="prompt">$ </span>latexmk -pdf main.tex       <span class="out"># เอกสารภาษาอังกฤษ</span>
+<span class="prompt">$ </span>latexmk -xelatex main.tex   <span class="out"># เอกสารภาษาไทย</span>
+<span class="prompt">$ </span>latexmk -pdf slides.tex     <span class="out"># สไลด์</span></code></pre>
+</section>
+
+<section class="card" id="timeline">
+  <div class="sec-head"><h2>กำหนดการ</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>วันที่</th><th>สิ่งที่ต้องทำ</th></tr></thead>
+  <tbody>
+    <tr><td>จันทร์ 1 ก.พ. 2570</td><td>แจ้งหัวข้อและชื่อเรื่องโครงงานกับผู้สอนในชั้นเรียน (ไม่มีคะแนน แต่ต้องทำ)</td></tr>
+    <tr><td>ศุกร์ 26 ก.พ. 2570 เวลา 23.59 น.</td><td>ส่งไฟล์ <code>project_&lt;รหัสนักศึกษา&gt;.zip</code> ที่มีเอกสาร สไลด์ และไฟล์ต้นฉบับทั้งหมด</td></tr>
+    <tr><td>จันทร์ 1 มี.ค. 2570</td><td>นำเสนอในชั้นเรียน คนละ 5 นาที ตอบคำถาม 3 นาที ใช้สไลด์ฉบับที่ส่งแล้ว</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="submit">
+  <div class="sec-head"><h2>การส่งงาน</h2></div>
+<ol>
+  <li>เปลี่ยนชื่อโฟลเดอร์ <code>project</code> เป็น <code>project_&lt;รหัสนักศึกษา&gt;</code> (ไม่ต้องเปลี่ยนชื่อไฟล์ข้างใน)</li>
+  <li>ลบไฟล์ที่เกิดจากการคอมไพล์ด้วย <code>latexmk -c main.tex</code> และ <code>latexmk -c slides.tex</code> (เก็บ PDF ไว้)</li>
+  <li>ตรวจว่ามี <code>main.pdf</code>, <code>slides.pdf</code>, ไฟล์ <code>.tex</code> ทั้งหมด, <code>refs.bib</code> และรูปภาพทุกรูป</li>
+  <li>บีบอัดโฟลเดอร์เป็น <code>project_&lt;รหัสนักศึกษา&gt;.zip</code> แล้วส่ง</li>
+</ol>
+<div class="callout warn">
+  <strong class="label">ต้องคอมไพล์ใหม่ได้</strong>
+  ผู้สอนจะแตกไฟล์ zip ลงในโฟลเดอร์ว่าง แล้วสั่ง <code>latexmk</code> ใหม่ ถ้าคอมไพล์ไม่ผ่าน เช่น ขาดรูปภาพหรือไฟล์ย่อย จะเสียคะแนนคุณภาพการเรียงพิมพ์ ลองทำแบบเดียวกันกับไฟล์ zip ของตนเองก่อนส่ง
+</div>
+</section>
+
+<section class="card" id="rubric">
+  <div class="sec-head"><h2>เกณฑ์การให้คะแนน</h2></div>
+<h3>เอกสาร 15 คะแนน</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ด้าน</th><th>สิ่งที่ตรวจ</th><th>คะแนน</th></tr></thead>
+  <tbody>
+    <tr><td>องค์ประกอบ</td><td>มีครบตามรายการในหัวข้อ <a href="#requirements">สิ่งที่เอกสารต้องมี</a> (หักตามข้อที่ขาดหรือใช้ไม่ถูกต้อง)</td><td>8</td></tr>
+    <tr><td>คุณภาพการเรียงพิมพ์</td><td>คอมไพล์ใหม่ได้จากไฟล์ที่ส่ง ไม่มีข้อผิดพลาด ไม่มี <code>Overfull \hbox</code> ไม่มี <code>??</code> หรือคีย์อ้างอิงตัวหนา และใช้รูปแบบสม่ำเสมอทั้งเล่ม</td><td>4</td></tr>
+    <tr><td>เนื้อหาและการเรียบเรียง</td><td>ลำดับหัวข้อสมเหตุสมผล เขียนชัดเจน รูปและตารางสื่อความหมาย และอ้างอิงแหล่งข้อมูลตรงจุด</td><td>3</td></tr>
+  </tbody>
+</table>
+</div>
+<h3>สไลด์ 5 คะแนน</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ด้าน</th><th>สิ่งที่ตรวจ</th><th>คะแนน</th></tr></thead>
+  <tbody>
+    <tr><td>สอดคล้องกับเอกสาร</td><td>เนื้อหามาจากเอกสารของตนเอง</td><td>1</td></tr>
+    <tr><td>โครงสร้าง</td><td>มีหน้าชื่อเรื่อง สารบัญ และแบ่ง <code>\section</code></td><td>2</td></tr>
+    <tr><td>ความสามารถของ beamer</td><td>ใช้การแสดงผลทีละส่วน การจัดคอลัมน์ หรือกล่องเน้นเนื้อหาอย่างเหมาะสม</td><td>1</td></tr>
+    <tr><td>อ่านง่าย</td><td>ตัวอักษรไม่แน่นหรือล้นกรอบ และอ่านได้จากหลังห้อง</td><td>1</td></tr>
+  </tbody>
+</table>
+</div>
+<h3>การนำเสนอ 5 คะแนน</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ด้าน</th><th>สิ่งที่ตรวจ</th><th>คะแนน</th></tr></thead>
+  <tbody>
+    <tr><td>เวลา</td><td>นำเสนอจบภายใน 5 นาที</td><td>1</td></tr>
+    <tr><td>ความชัดเจน</td><td>อธิบายหัวข้อและผลหลักให้ผู้ฟังเข้าใจ</td><td>2</td></tr>
+    <tr><td>การตอบคำถาม</td><td>ตอบคำถามเรื่องเนื้อหา และอธิบายโค้ดส่วนใดก็ได้ในไฟล์ <code>.tex</code> ของตนเองที่ผู้สอนเลือก</td><td>2</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="ai">
+  <div class="sec-head"><h2>AI และข้อมูลส่วนตัว</h2></div>
+<p>โครงงานนี้ใช้แชตบอต AI ช่วยได้ ตามหลักในบทเรียน Typesetting with AI Assistance และ <a href="../drafting_with_ai/" target="_blank" rel="noopener">Workshop ร่างเอกสารโดยมี AI ช่วย</a> โดยมีเงื่อนไขดังนี้</p>
+<ul>
+  <li>เขียนหัวข้อ AI Use Statement ท้ายเอกสาร บอกว่าใช้เครื่องมือใด ใช้ทำอะไร และตรวจสอบอะไรด้วยตนเอง ถ้าไม่ได้ใช้ให้เขียนว่า No AI tools were used to write this document</li>
+  <li>นักศึกษาเป็นผู้รับผิดชอบทุกบรรทัด รวมถึงส่วนที่ AI เขียน ในการตอบคำถามระหว่างนำเสนอ ผู้สอนอาจขอให้อธิบายโค้ดส่วนใดก็ได้</li>
+  <li>ตรวจทุกแหล่งในบรรณานุกรมว่ามีอยู่จริง เพราะ AI อาจแต่งหนังสือ บทความ หรือ DOI ขึ้นเอง</li>
+  <li>ห้ามวางรหัสนักศึกษา ชื่อ-นามสกุล หรือข้อมูลส่วนตัวของผู้อื่นลงในแชต</li>
+</ul>
+</section>
+
+<section class="card" id="errors">
+  <div class="sec-head"><h2>ปัญหาที่พบบ่อย</h2></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+  <tbody>
+    <tr><td><code>! LaTeX Error: File `sections/....tex' not found.</code></td>
+        <td>ชื่อไฟล์ใน <code>\input</code> ไม่ตรงกับไฟล์จริง หรือไฟล์ไม่ได้อยู่ในโฟลเดอร์ <code>sections</code></td></tr>
+    <tr><td>รูปภาพหาไม่พบหลังแตกไฟล์ zip</td>
+        <td>รูปอยู่นอกโฟลเดอร์ของโครงงาน ย้ายรูปทุกรูปไว้ใน <code>figures/</code></td></tr>
+    <tr><td>การอ้างอิงเป็นคีย์ตัวหนา หรือมี <code>??</code></td>
+        <td>ใช้ <code>latexmk</code> แทนการสั่ง pdflatex เอง และตรวจว่าชื่อใน <code>\cite</code>, <code>\ref</code> ตรงกับ <code>refs.bib</code> และ <code>\label</code></td></tr>
+    <tr><td>ตัวอักษรไทยหายหรือเป็นสี่เหลี่ยม</td>
+        <td>ยังไม่ได้เปิดบรรทัด <code>thaispec</code> หรือคอมไพล์ด้วย <code>-pdf</code> แทน <code>-xelatex</code> และต้องมี <code>Laksaman.fontspec</code> ในโฟลเดอร์</td></tr>
+    <tr><td><code>Overfull \hbox</code> ในย่อหน้าหรือตาราง</td>
+        <td>ดูหมายเลขบรรทัดในข้อความเตือน แล้วเรียบเรียงประโยคใหม่ ลดความกว้างของรูปหรือคอลัมน์ หรือใช้คอลัมน์ <code>p{...}</code></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="card" id="refs">
+  <div class="sec-head"><h2>แหล่งอ้างอิง</h2></div>
+<ul>
+  <li>สไลด์บทเรียนทุกบท โดยเฉพาะ Document Structure, Citations and Bibliography, Presentations with Beamer และ Thai, Macros and Large Documents</li>
+  <li>Workshop ที่ผ่านมาทั้งหมด ใช้ชิ้นงานและไฟล์ของตนเองเป็นตัวอย่างได้</li>
+  <li><em><a href="https://ctan.org/pkg/lshort-english" target="_blank" rel="noopener">The Not So Short Introduction to LaTeX</a></em> (เปิดด้วย <code>texdoc lshort</code>)</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span><b>RMUTT 09114334</b> · ระบบการจัดเตรียมเอกสารอย่างมืออาชีพ</span>
+  <span><a href="../../" target="_blank" rel="noopener">หน้าแรกรายวิชา</a> · <a href="https://github.com/epsilonxe/RMUTT_09114334" target="_blank" rel="noopener">GitHub</a> · <a href="../../LICENSE" target="_blank" rel="noopener">License</a></span>
+</footer>
+<script src="../assets/workshop.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+% Workshop project - slides for the 5-minute talk (beamer)
+% Build: latexmk -pdf slides.tex   (Thai: add thaispec as in main.tex and use latexmk -xelatex)
+\documentclass{beamer}
+\usetheme{Madrid}
+
+\title{Project Title}
+\author{Author Name}
+\date{1 March 2027}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{Why This Topic?}
+  \begin{itemize}
+    \item<1-> First point
+    \item<2-> Second point, shown on the next click
+  \end{itemize}
+\end{frame}
+
+\section{Main Result}
+\begin{frame}{Main Result}
+  \begin{columns}
+    \column{0.5\textwidth}
+    Text on the left.
+    \column{0.5\textwidth}
+    \begin{block}{Key idea}
+      A formula or a picture from your document.
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+  What should the audience remember?
+\end{frame}
+
+\end{document}

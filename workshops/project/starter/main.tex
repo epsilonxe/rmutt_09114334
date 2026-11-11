@@ -1,0 +1,54 @@
+% Workshop project - ไฟล์หลักของโครงงาน (โครงที่คอมไพล์ได้ แต่ยังไม่มีเนื้อหา)
+% เปลี่ยนชื่อเรื่อง เพิ่มเนื้อหาในโฟลเดอร์ sections/ และเพิ่มรายการใน refs.bib
+% เอกสารภาษาอังกฤษ   latexmk -pdf main.tex
+% เอกสารภาษาไทย      ลบ % หน้าบรรทัด thaispec ด้านล่าง แล้วสั่ง  latexmk -xelatex main.tex
+%                    (ต้องมีไฟล์ Laksaman.fontspec อยู่ในโฟลเดอร์เดียวกัน)
+\documentclass[11pt]{article}
+
+% ---------------------------------------------------------------- packages
+% \usepackage[thaifont=Laksaman]{thaispec}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[backend=biber, style=numeric]{biblatex}
+\addbibresource{refs.bib}
+\DeclareLanguageMapping{thai}{english}   % Thai documents: bibliography words (In, pp.) stay English
+\graphicspath{{figures/}}
+
+% ---------------------------------------------------------------- theorems
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+% ---------------------------------------------------------------- macros
+% สร้างคำสั่งของตนเองอย่างน้อย 2 คำสั่ง แล้วใช้ในเนื้อหา
+\newcommand{\R}{\mathbb{R}}
+
+\title{Project Title}
+\author{Author Name}
+\date{February 2027}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Write a short summary of the whole document here.
+\end{abstract}
+
+\tableofcontents
+
+\input{sections/introduction}
+\input{sections/body}
+\input{sections/conclusion}
+
+\printbibliography
+
+\section*{AI Use Statement}
+State which AI tools you used, for what, and what you checked yourself.
+If you used none, write: No AI tools were used to write this document.
+
+\end{document}

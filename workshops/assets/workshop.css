@@ -280,9 +280,9 @@ details[open] summary { margin-bottom: .3em; }
 /* ---------- checklist ---------- */
 ul.checklist { list-style: none; padding: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
 ul.checklist li + li { border-top: 1px solid var(--border); }
-ul.checklist label { display: flex; gap: .7em; align-items: baseline; cursor: pointer; padding: 8px 14px; }
+ul.checklist label { display: block; position: relative; cursor: pointer; padding: 8px 14px 8px calc(14px + 1.7em); }   /* block, not flex: text and <code> flow as one paragraph */
 ul.checklist label:hover { background: var(--surface); }
-ul.checklist input { transform: translateY(2px) scale(1.15); accent-color: var(--accent); flex: none; }
+ul.checklist input { position: absolute; left: 14px; top: calc(8px + .7em); margin: 0; transform: scale(1.15); accent-color: var(--accent); }
 
 /* ---------- figure ---------- */
 figure.preview { margin: 1.2em 0; text-align: center; }
